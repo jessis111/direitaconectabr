@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <body style="margin:0;background:#f7f5f0;font-family:Arial,sans-serif;color:#0b1a3f">
+    <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px"><tr><td align="center">
+      <table width="100%" cellpadding="0" cellspacing="0" style="max-width:520px;background:#ffffff;border-radius:18px;border:1px solid #e6e1d6">
+        <tr><td style="padding:28px 32px 8px;font-weight:600;font-size:20px;letter-spacing:-0.02em;color:#1247d8">Direita Conecta <span style="font-weight:500;opacity:.85">br</span></td></tr>
+        <tr><td style="padding:8px 32px 0;font-size:22px;font-weight:700">Seu link de acesso</td></tr>
+        <tr><td style="padding:12px 32px 0;font-size:15px;line-height:1.6;color:#4a5775">Toque no botão para entrar. O link vale por 1 hora e só pode ser usado uma vez.</td></tr>
+        <tr><td style="padding:24px 32px 8px"><a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email" style="display:inline-block;background:#ffc532;color:#2b2100;text-decoration:none;font-weight:600;padding:12px 22px;border-radius:999px">Entrar na plataforma</a></td></tr>
+        <tr><td style="padding:16px 32px 32px;font-size:14px;color:#4a5775">Ou digite este código no app: <strong style="font-size:18px;letter-spacing:4px;color:#0b1a3f">{{ .Token }}</strong></td></tr>
+      </table>
+      <p style="font-size:12px;color:#6b7a99;margin-top:16px">Se você não pediu este acesso, ignore este e-mail.</p>
+    </td></tr></table>
+  </body>
+</html>

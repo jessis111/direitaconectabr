@@ -1,0 +1,26 @@
+name: Agendamento
+
+# De hora em hora: avisa mensagens sem leitura e fecha oportunidades com mais de 60 dias.
+# Configure em Settings > Secrets and variables > Actions:
+#   APP_URL      (ex.: https://app.direitaconecta.com.br)
+#   CRON_SECRET  (o mesmo valor da variável na Vercel)
+
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+jobs:
+  rodar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Chamar /api/cron
+        env:
+          APP_URL: ${{ secrets.APP_URL }}
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+        run: |
+          if [ -z "$APP_URL" ] || [ -z "$CRON_SECRET" ]; then
+            echo "APP_URL ou CRON_SECRET não configurados; nada a fazer."
+            exit 0
+          fi
+          curl -fsS -H "Authorization: Bearer $CRON_SECRET" "$APP_URL/api/cron"
