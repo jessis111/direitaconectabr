@@ -32,7 +32,7 @@ export function Filtros({ campos }: { campos: CampoFiltro[] }) {
           return (
             <form
               key={c.nome}
-              className="w-full sm:w-auto sm:flex-1"
+              className="w-full sm:w-auto sm:min-w-[240px] sm:flex-1"
               onSubmit={(e) => {
                 e.preventDefault();
                 definir(c.nome, String(new FormData(e.currentTarget).get(c.nome) ?? "").trim());
