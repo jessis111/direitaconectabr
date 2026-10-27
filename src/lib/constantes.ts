@@ -45,5 +45,8 @@ export const LIMITE_PROPOSTAS = 15;
 export const LIMITE_CATEGORIAS = 5;
 export const LIMITE_PORTFOLIO = 6;
 
+// Landing com o formulário de cadastro (Cloudflare Pages).
+export const LANDING_URL = process.env.NEXT_PUBLIC_LANDING_URL ?? "https://direitaconectabr.pages.dev";
+
 export const GRUPO_WHATSAPP =
   process.env.NEXT_PUBLIC_GRUPO_WHATSAPP ?? "https://chat.whatsapp.com/IoQVYreiI5v8LToOQzilNF";

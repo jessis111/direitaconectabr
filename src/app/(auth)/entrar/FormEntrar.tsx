@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
 import { useActionState, useState } from "react";
 import { Aviso } from "@/components/Aviso";
 import { BotaoEnviar } from "@/components/BotaoEnviar";
+import { LANDING_URL } from "@/lib/constantes";
 import { entrar, type EstadoLink } from "../actions";
 import { ConfirmarCodigo } from "../ConfirmarCodigo";
 
@@ -30,7 +30,7 @@ export function FormEntrar({ volta, erroLink }: { volta: string; erroLink: boole
       {estado.erro && <Aviso>{estado.erro}</Aviso>}
       <BotaoEnviar className="btn btn-primario w-full" pendente="Enviando...">Receber link de acesso</BotaoEnviar>
       <p className="text-center text-sm text-cinza">
-        Ainda não é membro? <Link href="/cadastro" className="font-semibold text-azul">Fazer cadastro</Link>
+        Ainda não é membro? <a href={LANDING_URL} className="font-semibold text-azul">Fazer cadastro</a>
       </p>
     </form>
   );

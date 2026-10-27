@@ -1,6 +1,6 @@
 # Direita Conecta br · Plataforma
 
-A rede de negócios de quem acredita no Brasil que trabalha. Membros aprovados publicam oportunidades (modelo Workana), mostram seus serviços (modelo iFood), conversam no chat interno e fecham negócio por telefone ou WhatsApp. A plataforma conecta e não intermedeia dinheiro.
+A rede de negócios de quem acredita no Brasil que trabalha. A landing e o formulário de cadastro continuam na página atual (Cloudflare Pages); este repositório é só o sistema, que começa no login. Membros aprovados publicam oportunidades (modelo Workana), mostram seus serviços (modelo iFood), conversam no chat interno e fecham negócio por telefone ou WhatsApp. A plataforma conecta e não intermedeia dinheiro.
 
 Stack: Next.js 15 (App Router) + TypeScript + Tailwind 4, Supabase (Postgres, Auth por link mágico, Storage e Realtime), Resend para e-mails, hospedagem na Vercel.
 
@@ -8,7 +8,7 @@ Stack: Next.js 15 (App Router) + TypeScript + Tailwind 4, Supabase (Postgres, Au
 
 | Módulo | Telas e regras |
 | --- | --- |
-| Cadastro e acesso | Cadastro (nome, WhatsApp, e-mail, cidade/UF, perfil, aceite dos princípios e LGPD), login por link mágico ou código de 6 dígitos, tela "aguardando aprovação" para pendentes e bloqueados, importação da planilha |
+| Cadastro e acesso | O formulário da landing grava o membro pendente pela rota `/api/cadastro`; login por link mágico ou código de 6 dígitos, tela "aguardando aprovação" para pendentes e bloqueados, importação da planilha |
 | Perfil | Foto, título, bio (500), categorias (até 5), Instagram, site, WhatsApp e telefone. Perfil sem título e categorias não aparece na busca |
 | Onboarding | 3 passos no primeiro acesso (foto e título, categorias, serviços), com opção de pular |
 | Oportunidades | Publicar (geral ou campanha UGC), lista com filtros (palavra, categoria, UF, data, remoto, minhas), detalhe, propostas (até 15 por oportunidade, uma por membro), fechar indicando com quem fechou, reabrir, excluir, fechamento automático em 60 dias |
@@ -28,8 +28,8 @@ supabase/
   seed.sql                     categorias iniciais
   templates/                   e-mails de link mágico e convite
 src/app/
-  page.tsx                     página de entrada (visitante)
-  (auth)/cadastro, entrar      cadastro e login
+  page.tsx                     redireciona para login ou início
+  (auth)/entrar                login
   aguardando, onboarding
   (app)/inicio, oportunidades, servicos, creators, membros/[id],
         perfil, perfil/servicos, propostas, conversas, admin
@@ -66,7 +66,7 @@ scripts/import-planilha.mjs    importa a planilha de cadastros
 
 1. Importe este repositório na Vercel (plano Hobby).
 2. Variáveis de ambiente (veja `.env.example`):
-   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `EMAIL_FROM`, `CRON_SECRET`, `CADASTRO_ORIGENS`, `NEXT_PUBLIC_GRUPO_WHATSAPP`.
+   `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `EMAIL_FROM`, `CRON_SECRET`, `CADASTRO_ORIGENS`, `NEXT_PUBLIC_LANDING_URL`, `NEXT_PUBLIC_GRUPO_WHATSAPP`.
 3. Domínio: aponte `app.direitaconecta.com.br` (CNAME na Cloudflare) para a Vercel.
 
 ### 3. Agendamento (GitHub Actions)
@@ -98,6 +98,13 @@ cp .env.example .env.local  # use a API URL, anon key e service_role key que o c
 npm run dev
 ```
 
+Como o cadastro fica na landing, crie a conta de teste simulando o envio do formulário:
+
+```bash
+curl -X POST http://localhost:3000/api/cadastro -H "Content-Type: application/json" \
+  -d '{"nome":"Seu Nome","whatsapp":"31999999999","email":"voce@exemplo.com","cidade":"Belo Horizonte","uf":"MG","perfis":["empresario"],"aceite":true}'
+```
+
 E-mails de teste (links mágicos) chegam no Mailpit em http://127.0.0.1:54324. Para virar admin localmente:
 
 ```bash
@@ -107,14 +114,10 @@ psql postgresql://postgres:postgres@127.0.0.1:54322/postgres \
 
 Antes de subir código: `npm run lint && npm run typecheck && npm run build`.
 
-## Foto da página de entrada
-
-Coloque uma foto em `public/img/hero.jpg` (vertical, 4:5, cor natural, pessoa comum bem vestida no ambiente de trabalho, sem repetir as fotos já usadas no Instagram). Sem o arquivo, a página mostra o "DCbr" sobre o degradê.
-
 ## Decisões em aberto do PRD (como ficou no código)
 
 - Limite de propostas por oportunidade: 15 (gatilho `preparar_proposta`).
 - Orçamento: faixas fixas (até 1 mil, 1 a 5 mil, 5 a 20 mil, acima) mais a opção "Outro valor" com campo livre.
-- Princípios do cadastro: texto em `/termos`, reaproveitando os valores da landing. Revisar.
+- Princípios e LGPD: ficam na landing, onde está o formulário de cadastro.
 - Aprovação: só a admin (`is_admin`). Um segundo admin é só marcar `is_admin = true` em outro membro.
 - "Procuro vaga": não há tipo de oportunidade para isso; a narrativa segue networking e negócios.

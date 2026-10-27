@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLICAS = ["/", "/cadastro", "/entrar", "/auth", "/api/cadastro", "/api/cron", "/termos"];
+const PUBLICAS = ["/", "/entrar", "/auth", "/api/cadastro", "/api/cron"];
 
 function ehPublica(pathname: string) {
   return PUBLICAS.some((p) => (p === "/" ? pathname === "/" : pathname === p || pathname.startsWith(`${p}/`)));
