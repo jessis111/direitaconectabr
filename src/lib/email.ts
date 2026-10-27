@@ -46,9 +46,9 @@ export async function avisarProposta(params: {
     ? `${params.deNome} pediu uma proposta`
     : `Nova proposta em "${params.titulo}"`;
   const corpo = params.pedidoServico
-    ? `<strong>${escapar(params.deNome)}</strong> pediu uma proposta para o seu serviço <strong>${escapar(params.titulo)}</strong>. A conversa já está aberta no app.`
+    ? `<strong>${escapar(params.deNome)}</strong> pediu uma proposta para o seu serviço <strong>${escapar(params.titulo)}</strong>. A conversa já está aberta na plataforma.`
     : `<strong>${escapar(params.deNome)}</strong> mandou uma proposta na sua oportunidade <strong>${escapar(params.titulo)}</strong>.`;
-  await enviar(params.para, assunto, layout(escapar(assunto), corpo, { texto: "Ver no app", url: `${SITE}${params.url}` }));
+  await enviar(params.para, assunto, layout(escapar(assunto), corpo, { texto: "Ver na plataforma", url: `${SITE}${params.url}` }));
 }
 
 export async function avisarMensagens(params: { para: string; nome: string; quantidade: number; de: string[] }) {

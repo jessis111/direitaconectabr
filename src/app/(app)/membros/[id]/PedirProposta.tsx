@@ -20,7 +20,7 @@ export function PedirProposta({
     <form action={acao} className="cartao space-y-4 p-5 sm:p-6">
       <div>
         <h2 className="text-xl font-bold tracking-tight">Pedir proposta para {nome}</h2>
-        <p className="mt-1 text-sm text-cinza">O pedido abre uma conversa no app. O WhatsApp fica disponível lá dentro.</p>
+        <p className="mt-1 text-sm text-cinza">O pedido abre uma conversa na plataforma. O WhatsApp fica disponível lá dentro.</p>
       </div>
       {servicos.length > 1 ? (
         <div>
