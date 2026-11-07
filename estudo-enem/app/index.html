@@ -1,0 +1,1452 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Revisão ENEM</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ENEM">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#2f5bd3">
+<style>
+:root{
+  --bg:#f6f7fb; --card:#ffffff; --text:#1d2433; --muted:#5b6478; --line:#e3e6ee;
+  --accent:#2f5bd3; --accent-soft:#e8eefc; --ok:#1a8f4c; --ok-soft:#e3f6ea; --bad:#c43a3a; --bad-soft:#fbe7e7;
+  --mat:#2f5bd3; --nat:#1a8f4c; --hum:#b26a00; --lin:#8a3fc2; --red:#c43a3a;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#11141b; --card:#1a1f2a; --text:#e8ebf2; --muted:#9aa3b5; --line:#2b3242;
+    --accent:#7d9cf5; --accent-soft:#232c44; --ok:#4fcf86; --ok-soft:#183324; --bad:#f07a7a; --bad-soft:#3a1f22;
+    --mat:#7d9cf5; --nat:#4fcf86; --hum:#f0b55a; --lin:#c79af0; --red:#f07a7a;
+  }
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{position:sticky;top:0;padding-top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 16px;max-width:860px;margin:0 auto}
+.top h1{font-size:17px;margin:0}
+.score{font-size:13px;color:var(--muted);white-space:nowrap}
+nav{display:flex;gap:6px;overflow-x:auto;padding:0 16px 10px;max-width:860px;margin:0 auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:999px;padding:7px 13px;font-size:14px;cursor:pointer}
+nav button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+main{max-width:860px;margin:0 auto;padding:16px}
+h2{font-size:22px;margin:6px 0 12px}
+h3{font-size:17px;margin:18px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px;background:var(--bg)}
+.chip.hot{border-color:var(--bad);color:var(--bad)}
+.filter{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}
+.filter button{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;padding:6px 11px;font-size:14px;cursor:pointer}
+.filter button.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+.q .tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent);margin-right:6px}
+.q .tema{font-size:12px;color:var(--muted)}
+.q .enun{margin:10px 0}
+.texto{border-left:3px solid var(--line);padding:4px 0 4px 12px;margin:8px 0;color:var(--muted);font-style:italic}
+.alts{display:flex;flex-direction:column;gap:7px}
+.alts button{text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--text);border-radius:10px;padding:10px 12px;font-size:15px;cursor:pointer;line-height:1.4}
+.alts button b{display:inline-block;width:22px}
+.alts button.certa{background:var(--ok-soft);border-color:var(--ok)}
+.alts button.errada{background:var(--bad-soft);border-color:var(--bad)}
+.alts button:disabled{cursor:default}
+.res{margin-top:12px;display:none}
+.res.show{display:block}
+.veredito{font-weight:700;margin-bottom:6px}
+.veredito.ok{color:var(--ok)} .veredito.no{color:var(--bad)}
+.passos{background:var(--bg);border-radius:10px;padding:12px 14px}
+.passos ol{margin:6px 0 0;padding-left:20px}
+.passos li{margin-bottom:6px}
+.dica{margin-top:10px;padding:10px 12px;border-radius:10px;background:var(--accent-soft);font-size:14px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:10px;padding:9px 14px;font-size:15px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px}
+summary{padding:13px 16px;cursor:pointer;font-weight:600}
+details .in{padding:0 16px 14px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+td,th{border-bottom:1px solid var(--line);padding:7px 6px;text-align:left;vertical-align:top}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.area{border-radius:14px;padding:14px;border:1px solid var(--line);background:var(--card);cursor:pointer;text-align:left;color:var(--text);font-size:15px}
+.area strong{display:block;font-size:16px;margin-bottom:2px}
+.bar{height:6px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--ok)}
+code,.f{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--bg);padding:1px 5px;border-radius:5px;font-size:.92em}
+ul.clean{padding-left:20px;margin:6px 0}
+.warn{border-color:var(--hum)}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>📚 Revisão ENEM</h1>
+    <span class="score" id="score"></span>
+  </div>
+  <nav id="nav"></nav>
+</header>
+<main id="app"></main>
+
+<script>
+/* =========================================================
+   CONTEÚDO
+   As questões são no ESTILO ENEM, montadas sobre os temas que
+   mais caíram nas provas de 2021 a 2025. Cada uma traz a
+   resolução passo a passo.
+   ========================================================= */
+
+const AREAS = {
+  mat:{nome:"Matemática", cor:"var(--mat)", icone:"📐"},
+  nat:{nome:"Ciências da Natureza", cor:"var(--nat)", icone:"🧪"},
+  hum:{nome:"Ciências Humanas", cor:"var(--hum)", icone:"🌎"},
+  lin:{nome:"Linguagens", cor:"var(--lin)", icone:"📖"}
+};
+
+/* Temas mais cobrados 2021–2025 (ranking aproximado, com base nas provas aplicadas) */
+const MAIS_COBRADOS = {
+  mat:{
+    muito:["Porcentagem e variação percentual","Razão, proporção e regra de três","Estatística (média, mediana, moda)","Leitura de gráficos e tabelas","Geometria espacial (volumes)","Geometria plana (áreas e perímetros)"],
+    freq:["Escalas e conversão de unidades","Probabilidade","Análise combinatória","Funções de 1º e 2º grau","Juros simples e compostos","Sequências (PA e PG)","Trigonometria no triângulo retângulo / Pitágoras"]
+  },
+  nat:{
+    muito:["Ecologia (cadeias, ciclos, impactos ambientais)","Eletricidade (potência, consumo em kWh, circuitos)","Estequiometria e soluções","Genética (Mendel e heredogramas)","Química ambiental (chuva ácida, efeito estufa)"],
+    freq:["Mecânica (velocidade, energia, força)","Ondulatória e óptica","Termologia (calor, temperatura)","Química orgânica (funções e combustíveis)","Eletroquímica (pilhas, eletrólise)","Doenças, vacinas e imunologia","Evolução (seleção natural)","Fisiologia humana","Radioatividade e meia-vida"]
+  },
+  hum:{
+    muito:["Brasil República (Era Vargas, Ditadura, Redemocratização)","Cidadania, direitos humanos e movimentos sociais","Questões ambientais e uso do território","Urbanização e problemas urbanos","Filosofia política (Hobbes, Locke, Rousseau)"],
+    freq:["Escravidão e resistência (quilombos)","Colonização e povos indígenas","Sociologia clássica (Durkheim, Weber, Marx)","Globalização e geopolítica","Agropecuária e fronteira agrícola","Clima, relevo e hidrografia","Filosofia antiga e ética (Sócrates, Platão, Aristóteles, Kant)","Indústria cultural (Escola de Frankfurt)"]
+  },
+  lin:{
+    muito:["Interpretação de texto","Gêneros textuais e intenção comunicativa","Variação linguística","Funções da linguagem"],
+    freq:["Figuras de linguagem","Coesão e conectivos","Literatura (Modernismo e contemporânea)","Arte (vanguardas, arte contemporânea)","Educação física (práticas corporais)","Inglês/Espanhol: leitura e ideia principal","Tecnologias da comunicação"]
+  }
+};
+
+/* Resumos rápidos / fórmulas */
+const RESUMOS = {
+  mat:[
+    ["Porcentagem", `<ul class="clean">
+      <li>Aumento de p% → multiplique por <span class="f">(1 + p/100)</span>. Ex.: +25% → ×1,25</li>
+      <li>Desconto de p% → multiplique por <span class="f">(1 − p/100)</span>. Ex.: −20% → ×0,80</li>
+      <li>Aumentos/descontos sucessivos: <b>multiplique os fatores</b> (nunca some as porcentagens).</li>
+      <li>Variação percentual = (novo − antigo) ÷ antigo × 100</li></ul>`],
+    ["Estatística", `<ul class="clean">
+      <li><b>Média</b>: soma ÷ quantidade.</li>
+      <li><b>Mediana</b>: coloque em ordem; é o valor do meio (se a quantidade for par, média dos dois do meio).</li>
+      <li><b>Moda</b>: o valor que mais aparece.</li>
+      <li>Média ponderada: Σ(valor × peso) ÷ Σ(pesos).</li></ul>`],
+    ["Geometria", `<table>
+      <tr><td>Retângulo</td><td>A = b·h</td></tr>
+      <tr><td>Triângulo</td><td>A = b·h/2</td></tr>
+      <tr><td>Círculo</td><td>A = π·r² &nbsp; C = 2·π·r</td></tr>
+      <tr><td>Trapézio</td><td>A = (B + b)·h/2</td></tr>
+      <tr><td>Paralelepípedo</td><td>V = a·b·c</td></tr>
+      <tr><td>Cilindro</td><td>V = π·r²·h</td></tr>
+      <tr><td>Cone / Pirâmide</td><td>V = (Área da base · h)/3</td></tr>
+      <tr><td>Esfera</td><td>V = 4·π·r³/3</td></tr>
+      <tr><td>Pitágoras</td><td>a² = b² + c²</td></tr></table>`],
+    ["Unidades e escala", `<ul class="clean">
+      <li>1 m³ = 1000 L &nbsp;|&nbsp; 1 dm³ = 1 L &nbsp;|&nbsp; 1 cm³ = 1 mL</li>
+      <li>1 km = 1000 m = 100 000 cm &nbsp;|&nbsp; 1 m² = 10 000 cm²</li>
+      <li>1 h = 60 min = 3600 s &nbsp;|&nbsp; km/h ÷ 3,6 = m/s</li>
+      <li>Escala 1:E → real = desenho × E (cuidado com a unidade!).</li></ul>`],
+    ["Probabilidade e combinatória", `<ul class="clean">
+      <li>P = casos favoráveis ÷ casos possíveis.</li>
+      <li>"E" (eventos sucessivos) → multiplica. "OU" (excludentes) → soma.</li>
+      <li>Princípio multiplicativo: multiplique as opções de cada etapa.</li>
+      <li>Ordem importa → arranjo/princípio multiplicativo. Ordem não importa → combinação: C(n,p) = n! / (p!(n−p)!).</li></ul>`],
+    ["Funções, juros e sequências", `<ul class="clean">
+      <li>1º grau: f(x) = ax + b (a = taxa de variação, b = valor fixo).</li>
+      <li>2º grau: vértice x<sub>v</sub> = −b/2a; y<sub>v</sub> = f(x<sub>v</sub>) (máximo se a&lt;0).</li>
+      <li>Juros simples: M = C(1 + i·t). Compostos: M = C(1 + i)<sup>t</sup>.</li>
+      <li>PA: a<sub>n</sub> = a<sub>1</sub> + (n−1)r. PG: a<sub>n</sub> = a<sub>1</sub>·q<sup>n−1</sup>.</li></ul>`]
+  ],
+  nat:[
+    ["Física — fórmulas essenciais", `<table>
+      <tr><td>Velocidade média</td><td>v = Δs/Δt (tempo total, inclusive paradas)</td></tr>
+      <tr><td>2ª Lei de Newton</td><td>F = m·a</td></tr>
+      <tr><td>Energia cinética</td><td>Ec = m·v²/2</td></tr>
+      <tr><td>Energia potencial</td><td>Ep = m·g·h</td></tr>
+      <tr><td>Potência</td><td>P = E/t &nbsp; P = U·i</td></tr>
+      <tr><td>Lei de Ohm</td><td>U = R·i</td></tr>
+      <tr><td>Consumo</td><td>E (kWh) = P (kW) × t (h)</td></tr>
+      <tr><td>Ondas</td><td>v = λ·f</td></tr>
+      <tr><td>Calor sensível</td><td>Q = m·c·ΔT</td></tr>
+      <tr><td>Pressão</td><td>p = F/A; &nbsp; p = d·g·h (líquidos)</td></tr></table>`],
+    ["Química — o que mais cai", `<ul class="clean">
+      <li><b>Mol</b>: massa (g) ÷ massa molar. 1 mol = 6·10²³ partículas.</li>
+      <li><b>Concentração</b>: C = massa do soluto ÷ volume (g/L). Diluição: C₁V₁ = C₂V₂.</li>
+      <li><b>pH</b>: &lt;7 ácido, 7 neutro, &gt;7 básico. Cada 1 unidade de pH = 10× na [H⁺].</li>
+      <li><b>Meia-vida</b>: a cada período, a massa cai pela metade.</li>
+      <li><b>Pilha</b>: ânodo = oxidação (polo −); cátodo = redução (polo +). Elétrons vão do ânodo para o cátodo.</li>
+      <li><b>Chuva ácida</b>: SO₂ e NOₓ. <b>Efeito estufa</b>: CO₂, CH₄. <b>Camada de ozônio</b>: CFCs.</li>
+      <li><b>Separação</b>: decantação (líquidos imiscíveis), filtração (sólido + líquido), destilação simples (sal + água), destilação fracionada (líquidos miscíveis, ex. petróleo).</li></ul>`],
+    ["Biologia — o que mais cai", `<ul class="clean">
+      <li><b>Mendel</b>: Aa × Aa → 1 AA : 2 Aa : 1 aa (3/4 dominante, 1/4 recessivo). Sexo do filho: × 1/2.</li>
+      <li><b>Energia na cadeia</b>: diminui a cada nível trófico (~10% passa). <b>Bioacumulação</b>: poluentes aumentam no topo.</li>
+      <li><b>Relações</b>: mutualismo (+/+), comensalismo (+/0), parasitismo (+/−), predação (+/−), competição (−/−).</li>
+      <li><b>Vacina</b> = imunização ativa (antígeno, gera memória). <b>Soro</b> = passiva (anticorpos prontos, efeito rápido e temporário).</li>
+      <li><b>Seleção natural</b>: as variações já existem; o ambiente seleciona as mais adaptadas (resposta típica correta). Lamarck (uso e desuso) costuma ser a alternativa errada.</li>
+      <li><b>Ciclo do nitrogênio</b>: bactérias fixadoras (Rhizobium) em leguminosas → adubação verde.</li></ul>`]
+  ],
+  hum:[
+    ["Linha do tempo — Brasil", `<table>
+      <tr><td>1500–1822</td><td>Colônia: plantation, escravidão indígena e africana, ciclo do açúcar e do ouro.</td></tr>
+      <tr><td>1822–1889</td><td>Império. 1850: Lei Eusébio de Queirós e Lei de Terras. 1888: Lei Áurea (sem integração dos libertos).</td></tr>
+      <tr><td>1889–1930</td><td>República Velha: café com leite, coronelismo, voto de cabresto. Canudos, Contestado, Revolta da Vacina.</td></tr>
+      <tr><td>1930–1945</td><td>Era Vargas: CLT (1943), voto feminino (1932), Estado Novo (1937), industrialização (CSN).</td></tr>
+      <tr><td>1946–1964</td><td>República Populista: JK (Plano de Metas, Brasília), Jango e reformas de base.</td></tr>
+      <tr><td>1964–1985</td><td>Ditadura militar: AI-5 (1968), censura, "milagre econômico", Diretas Já (1984).</td></tr>
+      <tr><td>1988</td><td>Constituição Cidadã: direitos sociais, SUS, demarcação de terras indígenas e quilombolas, racismo como crime inafiançável.</td></tr></table>`],
+    ["Filosofia e Sociologia", `<table>
+      <tr><td>Sócrates</td><td>"Só sei que nada sei"; maiêutica; ironia.</td></tr>
+      <tr><td>Platão</td><td>Mundo das Ideias × mundo sensível; Mito da Caverna.</td></tr>
+      <tr><td>Aristóteles</td><td>Ética da virtude (justo meio); ser humano como animal político.</td></tr>
+      <tr><td>Maquiavel</td><td>Política separada da moral; virtù e fortuna.</td></tr>
+      <tr><td>Hobbes</td><td>Estado de natureza = guerra de todos contra todos; soberano absoluto (Leviatã).</td></tr>
+      <tr><td>Locke</td><td>Direitos naturais (vida, liberdade, propriedade); direito de resistência; liberalismo.</td></tr>
+      <tr><td>Rousseau</td><td>Homem nasce bom, a sociedade corrompe; vontade geral; propriedade privada origina a desigualdade.</td></tr>
+      <tr><td>Kant</td><td>Imperativo categórico; autonomia; esclarecimento = sair da menoridade.</td></tr>
+      <tr><td>Durkheim</td><td>Fato social (exterior, coercitivo, geral); solidariedade mecânica/orgânica; anomia.</td></tr>
+      <tr><td>Weber</td><td>Ação social; tipos de dominação (tradicional, carismática, racional-legal); ética protestante.</td></tr>
+      <tr><td>Marx</td><td>Luta de classes; mais-valia; alienação; infraestrutura × superestrutura.</td></tr>
+      <tr><td>Adorno/Horkheimer</td><td>Indústria cultural: cultura como mercadoria padronizada.</td></tr>
+      <tr><td>Bauman</td><td>Modernidade líquida: relações frágeis e passageiras.</td></tr></table>`],
+    ["Geografia — conceitos-chave", `<ul class="clean">
+      <li><b>Urbanização brasileira</b>: rápida e desordenada → favelização, segregação socioespacial, periferização, enchentes.</li>
+      <li><b>Ilha de calor</b>: asfalto/concreto, pouca vegetação e poluição deixam o centro urbano mais quente.</li>
+      <li><b>Inversão térmica</b>: ar frio preso embaixo, poluição concentrada (comum no inverno).</li>
+      <li><b>Fronteira agrícola</b>: avanço da soja/gado sobre Cerrado e Amazônia (MATOPIBA) → desmatamento, conflitos fundiários.</li>
+      <li><b>Globalização</b>: fluxos de capital, informação e mercadorias; desigual entre países.</li>
+      <li><b>Biomas</b>: Amazônia, Cerrado ("berço das águas"), Caatinga, Mata Atlântica (mais devastado), Pampa, Pantanal.</li>
+      <li><b>Matriz elétrica brasileira</b>: predominantemente renovável (hidrelétrica), com eólica e solar crescendo.</li></ul>`]
+  ],
+  lin:[
+    ["Funções da linguagem", `<table>
+      <tr><td>Referencial</td><td>Informar (notícias, textos científicos).</td></tr>
+      <tr><td>Emotiva</td><td>Foco no emissor, sentimentos, 1ª pessoa.</td></tr>
+      <tr><td>Conativa/Apelativa</td><td>Convencer o receptor; verbos no imperativo (propaganda).</td></tr>
+      <tr><td>Fática</td><td>Testar/manter o canal ("Alô?", "Tá me ouvindo?").</td></tr>
+      <tr><td>Metalinguística</td><td>A linguagem falando dela mesma (poema sobre poema, dicionário).</td></tr>
+      <tr><td>Poética</td><td>Foco na forma da mensagem (ritmo, rima, sonoridade).</td></tr></table>`],
+    ["Figuras de linguagem", `<table>
+      <tr><td>Metáfora</td><td>Comparação implícita: "Ela é uma flor".</td></tr>
+      <tr><td>Metonímia</td><td>Troca por relação próxima: "Li Machado de Assis" (autor pela obra).</td></tr>
+      <tr><td>Ironia</td><td>Dizer o contrário do que se pensa.</td></tr>
+      <tr><td>Hipérbole</td><td>Exagero: "Já te falei mil vezes".</td></tr>
+      <tr><td>Eufemismo</td><td>Suavizar: "Ele partiu" (morreu).</td></tr>
+      <tr><td>Antítese / Paradoxo</td><td>Ideias opostas / opostas que se fundem ("dor que desatina sem doer").</td></tr>
+      <tr><td>Prosopopeia</td><td>Dar características humanas a seres inanimados.</td></tr></table>`],
+    ["Literatura e variação", `<ul class="clean">
+      <li><b>Variação linguística</b>: regional, social, situacional (formal × informal), histórica. O ENEM <b>valoriza</b> as variedades e combate o preconceito linguístico — a alternativa que diz "forma errada" quase sempre está errada.</li>
+      <li><b>Modernismo 1ª fase (1922)</b>: Semana de Arte Moderna; ruptura, verso livre, humor, linguagem coloquial, nacionalismo crítico (Oswald, Mário de Andrade).</li>
+      <li><b>2ª fase (1930)</b>: romance regionalista social (Graciliano, Rachel de Queiroz, Jorge Amado); poesia de Drummond, Cecília, Vinicius.</li>
+      <li><b>3ª fase (1945)</b>: Clarice Lispector (introspecção), Guimarães Rosa (neologismos, sertão), João Cabral.</li>
+      <li><b>Contemporânea</b>: Conceição Evaristo (escrevivência), Carolina Maria de Jesus, literatura marginal/periférica.</li>
+      <li><b>Conectivos</b>: mas/porém/contudo/no entanto = oposição; portanto/logo = conclusão; pois/porque = causa/explicação; embora = concessão.</li></ul>`]
+  ]
+};
+
+/* ===================== QUESTÕES ===================== */
+const Q = [
+/* ---------- MATEMÁTICA ---------- */
+{a:"mat",m:"Matemática",t:"Porcentagem (aumentos e descontos sucessivos)",
+ e:"Uma loja aumentou em 25% o preço de um tênis que custava R$ 80,00. Semanas depois, anunciou uma promoção com 20% de desconto sobre o novo preço. Qual o preço do tênis na promoção?",
+ o:["R$ 76,00","R$ 80,00","R$ 84,00","R$ 85,00","R$ 88,00"],c:1,
+ p:["Aumento de 25% → multiplicar por 1,25: 80 × 1,25 = 100.","Desconto de 20% → multiplicar por 0,80: 100 × 0,80 = 80.","Atalho: 1,25 × 0,80 = 1,00 → o preço volta ao original."],
+ d:"Pegadinha clássica: +25% e −20% NÃO dá +5%. Sempre multiplique os fatores."},
+{a:"mat",m:"Matemática",t:"Estatística (mediana)",
+ e:"As notas de um aluno em 8 simulados foram: 7, 10, 5, 8, 10, 7, 9, 10. Qual é a mediana dessas notas?",
+ o:["8,0","8,25","8,5","9,0","10,0"],c:2,
+ p:["Coloque em ordem crescente: 5, 7, 7, 8, 9, 10, 10, 10.","São 8 valores (par) → os do meio são o 4º e o 5º: 8 e 9.","Mediana = (8 + 9) ÷ 2 = 8,5.","(Só para comparar: média = 66 ÷ 8 = 8,25 e moda = 10.)"],
+ d:"Esquecer de ordenar os dados é o erro mais comum. As alternativas erradas costumam ser a média e a moda."},
+{a:"mat",m:"Matemática",t:"Escala",
+ e:"Em um mapa na escala 1 : 250 000, a distância entre duas cidades é de 6 cm. Qual a distância real entre elas?",
+ o:["1,5 km","2,5 km","15 km","25 km","150 km"],c:2,
+ p:["Escala 1:250 000 → 1 cm no mapa = 250 000 cm na realidade.","6 cm × 250 000 = 1 500 000 cm.","Converter: 1 km = 100 000 cm → 1 500 000 ÷ 100 000 = 15 km."],
+ d:"Para converter cm em km, divida por 100 000 (corte 5 zeros)."},
+{a:"mat",m:"Matemática",t:"Probabilidade (sem reposição)",
+ e:"Uma urna tem 4 bolas vermelhas e 6 azuis. Retiram-se duas bolas, uma após a outra, sem reposição. Qual a probabilidade de as duas serem azuis?",
+ o:["1/5","3/10","1/3","9/25","2/5"],c:2,
+ p:["1ª retirada: 6 azuis em 10 → 6/10.","Sem reposição: restam 5 azuis em 9 → 5/9.","Eventos sucessivos (\"e\") → multiplica: 6/10 × 5/9 = 30/90 = 1/3."],
+ d:"9/25 seria a resposta COM reposição (6/10 × 6/10). Leia com atenção se há reposição."},
+{a:"mat",m:"Matemática",t:"Análise combinatória (princípio multiplicativo)",
+ e:"Um aplicativo exige senha de 4 dígitos (0 a 9), todos diferentes entre si. Quantas senhas são possíveis?",
+ o:["210","3 024","5 040","6 561","10 000"],c:2,
+ p:["1º dígito: 10 opções.","2º: 9 (não pode repetir).","3º: 8. 4º: 7.","Total = 10 × 9 × 8 × 7 = 5 040."],
+ d:"A ordem importa em senhas (1234 ≠ 4321), então NÃO use combinação (210)."},
+{a:"mat",m:"Matemática",t:"Geometria espacial (volume do cilindro) + unidades",
+ e:"Uma caixa-d'água cilíndrica tem raio interno de 1 m e altura de 1,5 m. Use π = 3. Qual sua capacidade em litros?",
+ o:["450 L","1 500 L","3 000 L","4 500 L","9 000 L"],c:3,
+ p:["V = π · r² · h = 3 · 1² · 1,5 = 4,5 m³.","1 m³ = 1 000 L → 4,5 × 1 000 = 4 500 L."],
+ d:"Decore: 1 m³ = 1 000 L. Cai praticamente todo ano."},
+{a:"mat",m:"Matemática",t:"Função do 1º grau",
+ e:"Um táxi cobra R$ 5,00 de bandeirada mais R$ 2,50 por quilômetro rodado. Uma corrida custou R$ 40,00. Quantos quilômetros foram rodados?",
+ o:["12 km","14 km","16 km","18 km","20 km"],c:1,
+ p:["Monte a função: P(x) = 5 + 2,5x.","40 = 5 + 2,5x → 2,5x = 35.","x = 35 ÷ 2,5 = 14 km."],
+ d:"Valor fixo = termo independente (b). Valor por unidade = coeficiente (a)."},
+{a:"mat",m:"Matemática",t:"Função do 2º grau (máximo)",
+ e:"O lucro mensal de uma pequena fábrica, em milhares de reais, é L(x) = −x² + 40x − 300, em que x é a quantidade de lotes produzidos. Qual o lucro máximo possível?",
+ o:["20 mil","100 mil","300 mil","400 mil","500 mil"],c:1,
+ p:["a = −1 (concavidade para baixo → tem máximo).","x do vértice = −b/2a = −40/(−2) = 20 lotes.","L(20) = −400 + 800 − 300 = 100 → R$ 100 mil."],
+ d:"O ENEM gosta de colocar o x do vértice (20) como alternativa. Ele pergunta o LUCRO, que é o y do vértice."},
+{a:"mat",m:"Matemática",t:"Juros compostos",
+ e:"Uma pessoa aplicou R$ 1 000,00 a juros compostos de 10% ao mês. Qual o montante após 2 meses?",
+ o:["R$ 1 020,00","R$ 1 100,00","R$ 1 200,00","R$ 1 210,00","R$ 1 331,00"],c:3,
+ p:["M = C · (1 + i)ᵗ = 1 000 · (1,1)².","1,1² = 1,21.","M = 1 000 × 1,21 = R$ 1 210,00."],
+ d:"R$ 1 200 seria juros simples. R$ 1 331 seria 3 meses."},
+{a:"mat",m:"Matemática",t:"Sequências (PA)",
+ e:"Com palitos, uma criança forma quadrados lado a lado: 1 quadrado usa 4 palitos, 2 quadrados usam 7, 3 quadrados usam 10. Quantos palitos são necessários para 20 quadrados?",
+ o:["58","60","61","64","80"],c:2,
+ p:["A sequência 4, 7, 10… aumenta 3 a cada quadrado → PA com a₁ = 4 e r = 3.","aₙ = a₁ + (n − 1)·r → a₂₀ = 4 + 19·3.","a₂₀ = 4 + 57 = 61."],
+ d:"80 (20 × 4) ignora os lados compartilhados. Sempre descubra o padrão com os primeiros termos."},
+{a:"mat",m:"Matemática",t:"Regra de três inversa",
+ e:"Seis pedreiros constroem um muro em 10 dias. Mantido o mesmo ritmo, em quantos dias 4 pedreiros construiriam o mesmo muro?",
+ o:["6,7 dias","12 dias","15 dias","16 dias","20 dias"],c:2,
+ p:["Menos pedreiros → mais dias: grandezas INVERSAMENTE proporcionais.","Na inversa, o produto é constante: 6 × 10 = 4 × x.","60 = 4x → x = 15 dias."],
+ d:"Pergunte sempre: 'se um aumenta, o outro aumenta ou diminui?' Diminui → inversa."},
+{a:"mat",m:"Matemática",t:"Geometria plana (área) + conversão",
+ e:"Um salão retangular de 12 m por 20 m será coberto com placas quadradas de 40 cm de lado. Quantas placas serão necessárias (sem perdas)?",
+ o:["150","600","1 500","6 000","15 000"],c:2,
+ p:["Área do salão: 12 × 20 = 240 m².","Placa: 0,40 m × 0,40 m = 0,16 m².","Número de placas: 240 ÷ 0,16 = 1 500."],
+ d:"Converta tudo para a MESMA unidade antes de dividir (40 cm = 0,40 m)."},
+{a:"mat",m:"Matemática",t:"Teorema de Pitágoras",
+ e:"Uma escada de 5 m está apoiada em uma parede, com o pé a 3 m de distância da base da parede. A que altura a escada toca a parede?",
+ o:["2 m","3 m","4 m","5 m","8 m"],c:2,
+ p:["A escada é a hipotenusa (5); a distância ao chão é um cateto (3).","5² = 3² + h² → 25 = 9 + h².","h² = 16 → h = 4 m (triângulo 3-4-5)."],
+ d:"Memorize os trios pitagóricos: 3-4-5, 6-8-10, 5-12-13."},
+{a:"mat",m:"Matemática",t:"Variação percentual (leitura de tabela)",
+ e:"Uma empresa vendeu 200 unidades em março e 250 em abril. Em maio, as vendas caíram para 200 unidades. Quais foram as variações percentuais de março→abril e de abril→maio, respectivamente?",
+ o:["+25% e −25%","+25% e −20%","+20% e −20%","+50% e −50%","+20% e −25%"],c:1,
+ p:["Março→abril: (250 − 200) ÷ 200 = 50/200 = +25%.","Abril→maio: (200 − 250) ÷ 250 = −50/250 = −20%.","A base é sempre o valor ANTIGO de cada período."],
+ d:"A mesma diferença (50) gera porcentagens diferentes porque a base muda."},
+
+/* ---------- CIÊNCIAS DA NATUREZA ---------- */
+{a:"nat",m:"Física",t:"Eletricidade (consumo em kWh)",
+ e:"Um chuveiro de 5 500 W é usado 20 minutos por dia, durante 30 dias. Se o kWh custa R$ 0,80, quanto esse chuveiro custa por mês?",
+ o:["R$ 22,00","R$ 44,00","R$ 55,00","R$ 88,00","R$ 132,00"],c:1,
+ p:["Potência em kW: 5 500 W = 5,5 kW.","Tempo em horas: 20 min/dia × 30 dias = 600 min = 10 h.","Energia: E = P × t = 5,5 × 10 = 55 kWh.","Custo: 55 × 0,80 = R$ 44,00."],
+ d:"Erro comum: usar W em vez de kW ou minutos em vez de horas. 55 é a energia, não o custo."},
+{a:"nat",m:"Física",t:"Velocidade média",
+ e:"Um ônibus percorre 90 km em 1 h, para 30 min em um posto e depois percorre mais 90 km em 1 h 30 min. Qual a velocidade média da viagem completa?",
+ o:["45 km/h","60 km/h","72 km/h","80 km/h","90 km/h"],c:1,
+ p:["Distância total: 90 + 90 = 180 km.","Tempo total (com a parada!): 1 h + 0,5 h + 1,5 h = 3 h.","v = 180 ÷ 3 = 60 km/h."],
+ d:"A parada entra no tempo total. 72 km/h é a resposta de quem esquece a parada (180 ÷ 2,5)."},
+{a:"nat",m:"Física",t:"Conservação de energia",
+ e:"Um objeto é solto, a partir do repouso, de uma altura de 5 m. Desprezando a resistência do ar e usando g = 10 m/s², com que velocidade ele chega ao solo?",
+ o:["5 m/s","10 m/s","25 m/s","50 m/s","100 m/s"],c:1,
+ p:["Energia potencial vira energia cinética: m·g·h = m·v²/2.","A massa cancela: v² = 2·g·h = 2 · 10 · 5 = 100.","v = √100 = 10 m/s."],
+ d:"Repare que a massa não importa — sem atrito, tudo cai igual."},
+{a:"nat",m:"Física",t:"Ondulatória (v = λ·f)",
+ e:"Uma rádio FM transmite na frequência de 100 MHz. Sabendo que as ondas de rádio se propagam a 3 × 10⁸ m/s, qual o comprimento de onda?",
+ o:["0,3 m","3 m","30 m","300 m","3 000 m"],c:1,
+ p:["100 MHz = 100 × 10⁶ Hz = 10⁸ Hz.","λ = v ÷ f = 3 × 10⁸ ÷ 10⁸.","λ = 3 m."],
+ d:"Prefixos: k = 10³, M = 10⁶, G = 10⁹."},
+{a:"nat",m:"Física",t:"Circuitos residenciais",
+ e:"Nas residências, as tomadas e lâmpadas são ligadas em paralelo. Qual a principal vantagem desse tipo de ligação?",
+ o:["A corrente elétrica é a mesma em todos os aparelhos.","Cada aparelho recebe a mesma tensão e funciona de forma independente.","A resistência total aumenta, economizando energia.","Se um aparelho queimar, todos os outros desligam.","A potência de todos os aparelhos se torna igual."],c:1,
+ p:["Em paralelo, todos os aparelhos ficam ligados aos mesmos dois fios → mesma tensão (127 V ou 220 V).","Se um aparelho é desligado ou queima, o caminho dos outros continua fechado → funcionam independentemente.","Em série é o contrário: mesma corrente e, se um queima, todos apagam (pisca-pisca antigo)."],
+ d:"Ligar muitos aparelhos em paralelo aumenta a corrente total → por isso o disjuntor desarma."},
+{a:"nat",m:"Física",t:"Calorimetria (Q = m·c·ΔT)",
+ e:"Quanto calor é necessário para aquecer 1 litro de água (1 000 g) de 20 °C até 100 °C? Dado: calor específico da água = 1 cal/g·°C.",
+ o:["8 kcal","20 kcal","80 kcal","100 kcal","800 kcal"],c:2,
+ p:["Q = m · c · ΔT.","ΔT = 100 − 20 = 80 °C.","Q = 1 000 × 1 × 80 = 80 000 cal = 80 kcal."],
+ d:"'Que macete' para lembrar: Q = m·c·ΔT."},
+{a:"nat",m:"Física",t:"Óptica da visão",
+ e:"Uma pessoa míope enxerga mal objetos distantes, pois a imagem se forma antes da retina. Que tipo de lente corrige esse problema?",
+ o:["Convergente, que aproxima a imagem do cristalino.","Divergente, que desloca a imagem para trás, sobre a retina.","Cilíndrica, que corrige a curvatura da córnea.","Bifocal, que aumenta o tamanho dos objetos.","Convergente, que desloca a imagem para trás."],c:1,
+ p:["Miopia: olho 'alongado' ou convergente demais → imagem antes da retina.","Precisa diminuir a convergência → lente DIVERGENTE.","Hipermetropia é o inverso: imagem depois da retina → lente convergente. Astigmatismo → lente cilíndrica."],
+ d:"Miopia → Menos (lente negativa, divergente)."},
+{a:"nat",m:"Química",t:"Soluções (concentração e diluição)",
+ e:"Um técnico dissolveu 20 g de sal em água até completar 500 mL de solução. Em seguida, adicionou água até o volume chegar a 2 L. Qual a concentração final?",
+ o:["4 g/L","10 g/L","20 g/L","40 g/L","80 g/L"],c:1,
+ p:["Concentração inicial: 20 g ÷ 0,5 L = 40 g/L.","Diluição: C₁V₁ = C₂V₂ → 40 × 0,5 = C₂ × 2.","C₂ = 20 ÷ 2 = 10 g/L. (Ou direto: 20 g ÷ 2 L.)"],
+ d:"Na diluição, a massa de soluto NÃO muda; só o volume aumenta."},
+{a:"nat",m:"Química",t:"Estequiometria",
+ e:"Na combustão do metano: CH₄ + 2 O₂ → CO₂ + 2 H₂O. Queimando-se 32 g de metano, qual a massa de CO₂ produzida? (C = 12, H = 1, O = 16)",
+ o:["22 g","44 g","64 g","88 g","176 g"],c:3,
+ p:["Massa molar do CH₄ = 12 + 4 = 16 g/mol → 32 g = 2 mol.","Proporção da equação: 1 CH₄ : 1 CO₂ → 2 mol de CO₂.","Massa molar do CO₂ = 12 + 32 = 44 g/mol → 2 × 44 = 88 g."],
+ d:"Roteiro: massa → mol → proporção da equação → mol → massa."},
+{a:"nat",m:"Química",t:"Radioatividade (meia-vida)",
+ e:"Um isótopo radioativo tem meia-vida de 5 anos. Partindo de 80 g, quanto restará após 20 anos?",
+ o:["2,5 g","5 g","10 g","20 g","40 g"],c:1,
+ p:["Número de meias-vidas: 20 ÷ 5 = 4.","80 → 40 → 20 → 10 → 5 g.","Ou: 80 ÷ 2⁴ = 80 ÷ 16 = 5 g."],
+ d:"Não é linear! Não faça 80 − 4 × 20."},
+{a:"nat",m:"Química",t:"pH",
+ e:"O suco de limão tem pH ≈ 2 e a água pura tem pH = 7. Quantas vezes a concentração de íons H⁺ do suco é maior que a da água?",
+ o:["5 vezes","3,5 vezes","50 vezes","1 000 vezes","100 000 vezes"],c:4,
+ p:["pH = −log[H⁺] → [H⁺] = 10⁻ᵖᴴ.","Limão: 10⁻²; água: 10⁻⁷.","Razão: 10⁻² ÷ 10⁻⁷ = 10⁵ = 100 000 vezes."],
+ d:"Cada 1 unidade de pH = 10 vezes. A escala é logarítmica."},
+{a:"nat",m:"Química",t:"Química ambiental",
+ e:"Em cidades com muitas indústrias que queimam carvão e combustíveis fósseis, ocorre a chuva ácida, que corrói monumentos e prejudica a vegetação. Quais gases são os principais responsáveis?",
+ o:["CO₂ e O₂","SO₂ e NOₓ (óxidos de enxofre e nitrogênio)","CFCs","O₃ e N₂","CH₄ e H₂"],c:1,
+ p:["Combustíveis fósseis contêm enxofre → liberam SO₂, que forma H₂SO₄ (ácido sulfúrico) com a água.","Altas temperaturas em motores formam NOₓ → HNO₃ (ácido nítrico).","O CO₂ deixa a chuva naturalmente um pouco ácida (pH ≈ 5,6), mas ele é o principal gás do efeito estufa, não o causador da chuva ácida."],
+ d:"Chuva ácida = SO₂ + NOₓ. Efeito estufa = CO₂ + CH₄. Buraco na camada de ozônio = CFC."},
+{a:"nat",m:"Química",t:"Separação de misturas",
+ e:"Para obter água potável a partir da água do mar em um navio, qual processo de separação é adequado?",
+ o:["Filtração","Decantação","Destilação simples","Centrifugação","Peneiração"],c:2,
+ p:["O sal está DISSOLVIDO na água (mistura homogênea) → filtrar ou decantar não separa.","Na destilação simples, a água evapora e é condensada; o sal fica no recipiente.","Outra opção real é a osmose reversa (membranas)."],
+ d:"Mistura homogênea sólido + líquido → destilação simples."},
+{a:"nat",m:"Química",t:"Eletroquímica (pilhas)",
+ e:"Em uma pilha, ocorre a transferência de elétrons entre dois metais. Sobre o ânodo, é correto afirmar:",
+ o:["Sofre redução e é o polo positivo.","Sofre oxidação e é o polo negativo, de onde saem os elétrons.","Recebe os elétrons do cátodo.","Tem sua massa aumentada durante o funcionamento.","É sempre o metal mais nobre."],c:1,
+ p:["Ânodo → Oxidação (as duas palavras começam com vogal).","Na oxidação o metal perde elétrons → eles saem do ânodo e vão pelo fio até o cátodo.","O ânodo se desgasta (perde massa); o cátodo, onde há redução, geralmente ganha massa."],
+ d:"Macete: 'ÂNODO OXIDA, CÁTODO REDUZ' (vogal com vogal, consoante com consoante)."},
+{a:"nat",m:"Biologia",t:"Genética (1ª Lei de Mendel)",
+ e:"Um casal, ambos com pigmentação normal, é heterozigoto para o albinismo (herança autossômica recessiva). Qual a probabilidade de terem uma MENINA albina?",
+ o:["1/2","1/4","1/8","3/4","3/8"],c:2,
+ p:["Cruzamento Aa × Aa → AA, Aa, Aa, aa.","Probabilidade de ser albino (aa) = 1/4.","Probabilidade de ser menina = 1/2.","Menina E albina → multiplica: 1/4 × 1/2 = 1/8."],
+ d:"Se a pergunta citar o sexo, multiplique por 1/2 (exceto em herança ligada ao X, que tem regra própria)."},
+{a:"nat",m:"Biologia",t:"Ecologia (bioacumulação)",
+ e:"Um rio foi contaminado por mercúrio de garimpo. Na cadeia alimentar fitoplâncton → zooplâncton → peixe pequeno → peixe grande → ser humano, onde a concentração de mercúrio por quilo de tecido tende a ser maior?",
+ o:["No fitoplâncton","No zooplâncton","No peixe pequeno","Igual em todos os níveis","No ser humano, no topo da cadeia"],c:4,
+ p:["O mercúrio não é eliminado facilmente → acumula no corpo (bioacumulação).","Cada consumidor come muitos indivíduos do nível anterior, somando o metal deles.","Resultado: a concentração aumenta a cada nível (biomagnificação) → maior no topo."],
+ d:"Energia DIMINUI subindo a cadeia; poluentes não biodegradáveis AUMENTAM."},
+{a:"nat",m:"Biologia",t:"Relações ecológicas",
+ e:"Os líquens são formados pela associação entre fungos e algas: a alga faz fotossíntese e fornece alimento; o fungo protege e retém umidade. Essa relação é:",
+ o:["Parasitismo","Comensalismo","Mutualismo","Competição","Predatismo"],c:2,
+ p:["Os dois lados ganham (+/+).","E a associação é necessária para sobreviverem naquele ambiente.","Relação +/+ obrigatória = mutualismo."],
+ d:"Comensalismo: um ganha e o outro é indiferente (+/0). Ex.: rêmora e tubarão."},
+{a:"nat",m:"Biologia",t:"Imunologia (vacina × soro)",
+ e:"Uma pessoa picada por uma cobra peçonhenta precisa de tratamento imediato. O que deve ser aplicado e por quê?",
+ o:["Vacina, pois estimula a produção de memória imunológica.","Soro, pois contém anticorpos prontos que neutralizam o veneno rapidamente.","Antibiótico, pois o veneno é formado por bactérias.","Vacina, pois contém anticorpos prontos.","Soro, pois estimula o organismo a produzir anticorpos."],c:1,
+ p:["Emergência → não há tempo para o corpo produzir anticorpos.","O soro traz anticorpos prontos (imunização passiva) → ação rápida, mas temporária.","A vacina traz antígenos e gera memória (imunização ativa) → prevenção, não tratamento de urgência."],
+ d:"Soro = cura rápida (passiva). Vacina = prevenção (ativa, com memória)."},
+{a:"nat",m:"Biologia",t:"Evolução (seleção natural)",
+ e:"O uso indiscriminado de antibióticos tem levado ao surgimento de bactérias resistentes. A explicação evolutiva correta é:",
+ o:["As bactérias se adaptaram ao antibiótico porque precisavam sobreviver.","O antibiótico provocou mutações para resistência em todas as bactérias.","Bactérias resistentes já existiam na população e foram selecionadas, pois sobreviveram e se reproduziram.","O uso constante do antibiótico fortaleceu as bactérias, como um músculo.","As bactérias transmitiram aos descendentes as características adquiridas durante a vida."],c:2,
+ p:["Na população, já há variação genética (algumas bactérias resistentes por mutação ao acaso).","O antibiótico mata as sensíveis → as resistentes sobrevivem e se multiplicam.","Isso é seleção natural (Darwin). As alternativas A, D e E são ideias lamarckistas."],
+ d:"O ambiente SELECIONA, não CAUSA a característica. Desconfie de 'para se adaptar' ou 'porque precisava'."},
+{a:"nat",m:"Biologia",t:"Ciclo do nitrogênio",
+ e:"Agricultores plantam feijão ou soja entre safras para melhorar a fertilidade do solo, reduzindo o uso de adubos químicos. Isso funciona porque:",
+ o:["Essas plantas fazem fotossíntese mais intensa.","Suas raízes se associam a bactérias que fixam o nitrogênio do ar no solo.","Elas absorvem o excesso de nitrogênio do solo.","Elas liberam fósforo pelas folhas.","Elas impedem a ação de decompositores."],c:1,
+ p:["Leguminosas (feijão, soja, ervilha) têm nódulos nas raízes com bactérias do gênero Rhizobium.","Essas bactérias transformam N₂ do ar em compostos que as plantas usam (fixação biológica).","Ao serem incorporadas ao solo, enriquecem-no com nitrogênio → adubação verde."],
+ d:"Leguminosa + Rhizobium = fixação de nitrogênio. Cai muito!"},
+
+/* ---------- CIÊNCIAS HUMANAS ---------- */
+{a:"hum",m:"História",t:"Era Vargas",
+ e:"Entre 1930 e 1945, o governo de Getúlio Vargas buscou se aproximar dos trabalhadores urbanos, ao mesmo tempo que controlava os sindicatos. Uma medida típica desse período foi:",
+ o:["A abolição da escravatura","A criação da Consolidação das Leis do Trabalho (CLT)","A construção de Brasília","A edição do AI-5","A criação do Plano Real"],c:1,
+ p:["CLT (1943) reuniu leis trabalhistas: carteira de trabalho, salário mínimo, férias, jornada de 8 h.","Fazia parte do trabalhismo/populismo varguista: conceder direitos e controlar os sindicatos pelo Estado.","Distratores: abolição (1888), Brasília (JK), AI-5 (ditadura, 1968), Plano Real (1994)."],
+ d:"Vargas = CLT, voto feminino (1932), Estado Novo (1937), CSN e Petrobras."},
+{a:"hum",m:"História",t:"Ditadura militar",
+ e:"Decretado em dezembro de 1968, esse ato institucional fechou o Congresso, ampliou a censura e suspendeu o habeas corpus para crimes políticos, marcando o período mais repressivo do regime. Trata-se do:",
+ o:["AI-1","AI-2","AI-5","Ato Adicional de 1834","Decreto da Anistia"],c:2,
+ p:["Contexto: 1968, protestos estudantis (Passeata dos Cem Mil) e oposição crescente.","O AI-5 deu poderes amplos ao presidente: fechar o Congresso, cassar mandatos, censura prévia.","Iniciaram-se os 'anos de chumbo' (governo Médici), com tortura e perseguições."],
+ d:"AI-5 = 1968 = endurecimento máximo. Anistia = 1979. Diretas Já = 1984."},
+{a:"hum",m:"História",t:"Abolição e pós-abolição",
+ e:"\"A Lei Áurea libertou os escravizados, mas não lhes deu terra, educação ou trabalho.\" A afirmação ajuda a compreender:",
+ o:["A rápida integração dos libertos ao mercado formal de trabalho.","A origem de desigualdades raciais que persistem na sociedade brasileira.","A distribuição de terras aos ex-escravizados após 1888.","O fim imediato do racismo no Brasil.","A criação de políticas de indenização para os libertos."],c:1,
+ p:["A abolição (1888) não veio acompanhada de políticas de inclusão.","A Lei de Terras (1850) já dificultava o acesso à terra pelos mais pobres.","Os libertos foram marginalizados → raiz de desigualdades raciais atuais (moradia, renda, educação)."],
+ d:"O ENEM valoriza a leitura crítica: abolição formal ≠ cidadania plena."},
+{a:"hum",m:"Filosofia",t:"Contratualismo (Hobbes)",
+ e:"\"Enquanto os homens vivem sem um poder comum capaz de mantê-los em respeito, eles se encontram naquela condição a que se chama guerra; uma guerra de todos contra todos.\" Para o autor desse trecho, a solução é:",
+ o:["Retornar ao estado de natureza, onde o homem é bom.","Criar um Estado soberano forte, ao qual os indivíduos transferem seus direitos em troca de segurança.","Abolir o Estado e a propriedade privada.","Garantir o direito de rebelião contra qualquer governo.","Dividir o poder em Executivo, Legislativo e Judiciário."],c:1,
+ p:["'Guerra de todos contra todos' → Thomas Hobbes (Leviatã).","Para ele, o medo da morte leva os homens a um contrato social: abrem mão da liberdade em troca de proteção.","O soberano deve ter poder absoluto. Distratores: A = Rousseau (homem bom), C = ideia marxista/anarquista, D = Locke (direito de resistência), E = Montesquieu (três poderes)."],
+ d:"Hobbes = medo e segurança. Locke = propriedade e resistência. Rousseau = vontade geral."},
+{a:"hum",m:"Sociologia",t:"Durkheim (fato social)",
+ e:"Para Émile Durkheim, um fato social apresenta três características. Quais são elas?",
+ o:["Individualidade, liberdade e espontaneidade","Exterioridade, coercitividade e generalidade","Luta de classes, alienação e mais-valia","Ação racional, afetiva e tradicional","Fluidez, consumo e individualismo"],c:1,
+ p:["Exterior: existe fora e antes do indivíduo (ex.: a língua, as leis).","Coercitivo: se impõe, com sanções a quem desobedece.","Geral: atinge o grupo, não apenas uma pessoa.","Distratores: C = Marx; D = Weber; E = Bauman."],
+ d:"Associe autor → conceito. Cai muito no formato 'qual pensador sustenta essa ideia'."},
+{a:"hum",m:"Sociologia",t:"Indústria cultural",
+ e:"Para os filósofos da Escola de Frankfurt, a produção de filmes, músicas e programas em série transforma a cultura em mercadoria padronizada, voltada ao lucro e ao entretenimento passivo. Esse conceito é chamado de:",
+ o:["Modernidade líquida","Indústria cultural","Contrato social","Solidariedade orgânica","Mais-valia"],c:1,
+ p:["Adorno e Horkheimer (Escola de Frankfurt) criaram o termo 'indústria cultural'.","Ideia central: a cultura de massa padroniza gostos e reduz o pensamento crítico.","Aparece muito em questões sobre redes sociais, streaming e publicidade."],
+ d:"Palavras-chave: padronização, mercadoria, consumo, massificação → indústria cultural."},
+{a:"hum",m:"Geografia",t:"Clima urbano (ilha de calor)",
+ e:"Áreas centrais das grandes cidades costumam registrar temperaturas mais altas que as áreas periféricas e rurais vizinhas. Esse fenômeno decorre principalmente:",
+ o:["Da maior altitude dos centros urbanos.","Da impermeabilização do solo, da concentração de edifícios e da escassez de vegetação.","Da presença de massas de ar polar.","Da maior umidade relativa do ar nos centros.","Da inversão térmica, que só ocorre no verão."],c:1,
+ p:["Asfalto e concreto absorvem e retêm calor.","Prédios dificultam a circulação do vento; poucas árvores = menos sombra e evapotranspiração.","Carros e indústrias liberam calor e poluentes → 'ilha de calor'."],
+ d:"Não confunda: ilha de calor (centro mais quente) × inversão térmica (poluição presa, mais comum no inverno)."},
+{a:"hum",m:"Geografia",t:"Fronteira agrícola e meio ambiente",
+ e:"Nas últimas décadas, a expansão do cultivo de soja e da pecuária sobre o Cerrado e a Amazônia, em áreas como o MATOPIBA, tem provocado:",
+ o:["Redução do desmatamento e dos conflitos por terra.","Desmatamento, perda de biodiversidade e conflitos com povos tradicionais.","Aumento da agricultura familiar de subsistência.","Fim da concentração fundiária.","Recuperação das nascentes do Cerrado."],c:1,
+ p:["MATOPIBA = Maranhão, Tocantins, Piauí e Bahia: nova fronteira agrícola.","Monocultura de exportação (commodities) exige grandes áreas → desmatamento.","Consequências: perda de biodiversidade, impacto nas nascentes, conflitos com indígenas, quilombolas e camponeses."],
+ d:"O Cerrado é o 'berço das águas': abastece grandes bacias hidrográficas brasileiras."},
+{a:"hum",m:"Geografia",t:"Urbanização brasileira",
+ e:"O crescimento acelerado das cidades brasileiras a partir de 1950, sem planejamento adequado, resultou em:",
+ o:["Distribuição igualitária da infraestrutura urbana.","Segregação socioespacial, com ocupação de áreas de risco pela população pobre.","Esvaziamento das regiões metropolitanas.","Redução do déficit habitacional.","Diminuição das enchentes urbanas."],c:1,
+ p:["Êxodo rural + industrialização → explosão urbana.","Valorização do solo expulsa os mais pobres para periferias e encostas.","Resultado: favelas, moradias em áreas de risco, longas viagens casa-trabalho, desigualdade no acesso a serviços."],
+ d:"Palavras-chave que costumam ser a resposta: segregação socioespacial, periferização, especulação imobiliária."},
+
+/* ---------- LINGUAGENS ---------- */
+{a:"lin",m:"Português",t:"Funções da linguagem",
+ e:"<div class='texto'>\"Não deixe para depois. Vacine-se! Proteja você e quem você ama.\"</div>A função da linguagem predominante nesse texto de campanha é:",
+ o:["Referencial","Emotiva","Conativa (apelativa)","Metalinguística","Fática"],c:2,
+ p:["O texto se dirige diretamente ao leitor ('você').","Usa verbos no imperativo ('Vacine-se', 'Proteja').","Objetivo: convencer/levar a uma ação → função conativa."],
+ d:"Imperativo + 'você' + objetivo de persuadir = conativa."},
+{a:"lin",m:"Português",t:"Variação linguística",
+ e:"<div class='texto'>\"Ocê vai no forró hoje, sô? Num perde não, que vai sê bão demais!\"</div>Sobre a fala reproduzida, é correto afirmar que:",
+ o:["Apresenta erros que devem ser corrigidos para ter valor comunicativo.","Representa uma variedade regional legítima, adequada a uma situação informal.","É inferior à norma-padrão e deve ser evitada em qualquer situação.","Indica falta de escolaridade do falante.","Não pode ser compreendida por falantes de outras regiões."],c:1,
+ p:["Marcas como 'ocê', 'sô', 'bão' indicam variação regional (mineira).","O contexto é informal (convite para um forró) → a variedade é adequada.","O ENEM trata a língua como diversa; não há 'certo e errado', mas adequado/inadequado ao contexto."],
+ d:"Alternativas com 'erro', 'inferior' ou 'falta de escolaridade' quase sempre estão erradas (preconceito linguístico)."},
+{a:"lin",m:"Português",t:"Figuras de linguagem",
+ e:"Na frase \"Durante as férias, ela leu Machado de Assis inteiro\", ocorre:",
+ o:["Metáfora","Metonímia","Hipérbole","Ironia","Antítese"],c:1,
+ p:["Ela não 'leu a pessoa' Machado de Assis, e sim as OBRAS dele.","Substituir a obra pelo autor = troca de termos com relação de proximidade.","Isso é metonímia."],
+ d:"Metonímia: autor pela obra, marca pelo produto ('tomei um Danone'), parte pelo todo."},
+{a:"lin",m:"Português",t:"Coesão (conectivos)",
+ e:"<div class='texto'>\"O acesso à internet cresceu no país; <u>no entanto</u>, milhões de pessoas ainda estão desconectadas.\"</div>O conectivo destacado estabelece relação de:",
+ o:["Conclusão","Causa","Oposição","Adição","Tempo"],c:2,
+ p:["A 1ª parte diz que o acesso cresceu.","A 2ª parte traz uma ideia contrária (ainda há excluídos).","'No entanto' = mas, porém, contudo → oposição/adversidade."],
+ d:"Teste: troque por 'mas'. Se o sentido se mantém, é oposição."},
+{a:"lin",m:"Literatura",t:"Modernismo (1ª fase)",
+ e:"A Semana de Arte Moderna de 1922 e a primeira fase do Modernismo brasileiro caracterizaram-se por:",
+ o:["Rigor formal, rimas ricas e vocabulário rebuscado.","Ruptura com a tradição, verso livre, linguagem coloquial e nacionalismo crítico.","Idealização do índio como herói medieval.","Sentimentalismo exagerado e temas de morte.","Objetividade científica e determinismo."],c:1,
+ p:["Os modernistas queriam romper com o Parnasianismo (rigor formal).","Usaram verso livre, humor, linguagem do cotidiano.","Valorizaram o Brasil de forma crítica (ex.: Manifesto Antropófago, de Oswald de Andrade)."],
+ d:"A = Parnasianismo; C = Romantismo (1ª geração); D = Ultrarromantismo; E = Realismo/Naturalismo."},
+{a:"lin",m:"Português",t:"Gêneros textuais",
+ e:"<div class='texto'>\"Misture a farinha e o açúcar. Acrescente os ovos aos poucos. Leve ao forno preaquecido por 40 minutos.\"</div>O texto pertence a um gênero com qual finalidade principal?",
+ o:["Narrar um acontecimento","Opinar sobre um tema polêmico","Instruir o leitor a realizar uma tarefa","Descrever um sentimento","Informar uma notícia"],c:2,
+ p:["Verbos no imperativo dando ordens/etapas: 'misture', 'acrescente', 'leve'.","Sequência de passos para alcançar um resultado.","É uma receita → gênero injuntivo/instrucional."],
+ d:"Pergunte: para que serve o texto? A FINALIDADE define o gênero."},
+{a:"lin",m:"Inglês",t:"Interpretação de texto",
+ e:"<div class='texto'>\"Plastic pollution is not only an environmental problem. Microplastics have been found in drinking water, food and even in human blood, raising concerns about long-term health effects.\"</div>The main idea of the text is that plastic pollution:",
+ o:["Is only a problem for marine animals.","Can also affect human health.","Has been completely solved.","Is good for drinking water.","Only exists in big cities."],c:1,
+ p:["'not only an environmental problem' = não é só um problema ambiental.","'found in drinking water, food and even in human blood' = encontrado em água, comida e até no sangue humano.","'health effects' = efeitos na saúde → a ideia principal é que também afeta a saúde humana."],
+ d:"No ENEM, procure as palavras transparentes (pollution, environmental, human) e a ideia central; não traduza palavra por palavra."},
+{a:"lin",m:"Espanhol",t:"Interpretação de texto (falsos cognatos)",
+ e:"<div class='texto'>\"Ayer fui a la oficina muy temprano, pero estaba cerrada. Tuve que esperar en la calle hasta las nueve.\"</div>De acordo com o texto, a pessoa:",
+ o:["Chegou tarde ao escritório.","Encontrou o escritório fechado e esperou na rua.","Foi a uma oficina mecânica consertar o carro.","Esperou dentro do escritório.","Desistiu de esperar."],c:1,
+ p:["'oficina' em espanhol = escritório (falso cognato!).","'temprano' = cedo; 'cerrada' = fechada.","'Tuve que esperar en la calle' = teve que esperar na rua."],
+ d:"Falsos cognatos famosos: oficina (escritório), exquisito (delicioso), embarazada (grávida), largo (comprido), polvo (pó)."},
+
+/* ---------- QUESTÕES EXTRAS (aulas) ---------- */
+{a:"mat",m:"Matemática",t:"Estatística (média ponderada)",
+ e:"Em um concurso, a nota final é a média ponderada de três provas: Português (peso 2), Matemática (peso 3) e Redação (peso 5). Um candidato tirou 6, 8 e 5, respectivamente. Qual a nota final?",
+ o:["5,9","6,1","6,33","6,5","7,0"],c:1,
+ p:["Multiplique cada nota pelo seu peso: 6×2 = 12; 8×3 = 24; 5×5 = 25.","Some os produtos: 12 + 24 + 25 = 61.","Some os pesos: 2 + 3 + 5 = 10.","Média = 61 ÷ 10 = 6,1."],
+ d:"6,33 é a média simples (19 ÷ 3). Se a questão fala em 'peso', é ponderada."},
+{a:"mat",m:"Matemática",t:"Probabilidade (dois dados)",
+ e:"Dois dados comuns são lançados ao mesmo tempo. Qual a probabilidade de a soma dos resultados ser 7?",
+ o:["1/12","5/36","1/6","7/36","1/3"],c:2,
+ p:["Total de resultados possíveis: 6 × 6 = 36.","Pares com soma 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) → 6 casos.","P = 6/36 = 1/6."],
+ d:"(1,6) e (6,1) são casos DIFERENTES — os dados são distintos. Liste os casos com calma."},
+{a:"mat",m:"Matemática",t:"Análise combinatória (combinação)",
+ e:"De um grupo de 6 alunos, serão escolhidos 3 para formar uma comissão, sem cargos definidos. Quantas comissões diferentes podem ser formadas?",
+ o:["18","20","120","216","720"],c:1,
+ p:["Na comissão sem cargos, a ordem NÃO importa ({Ana, Bia, Caio} = {Caio, Ana, Bia}) → combinação.","C(6,3) = 6! ÷ (3! · 3!) = (6 × 5 × 4) ÷ (3 × 2 × 1).","= 120 ÷ 6 = 20."],
+ d:"120 seria se houvesse cargos (presidente, vice, secretário) — aí a ordem importa."},
+{a:"mat",m:"Matemática",t:"Razão e proporção (consumo de combustível)",
+ e:"Um carro faz 12 km por litro de gasolina. Para uma viagem de 540 km, com a gasolina a R$ 6,00 o litro, quanto será gasto com combustível?",
+ o:["R$ 225,00","R$ 250,00","R$ 270,00","R$ 300,00","R$ 324,00"],c:2,
+ p:["Litros necessários: 540 ÷ 12 = 45 L.","Custo: 45 × 6 = R$ 270,00."],
+ d:"Monte as etapas: distância → litros → reais. Uma conta por vez."},
+{a:"mat",m:"Matemática",t:"Geometria espacial (volume do paralelepípedo)",
+ e:"Um aquário tem formato de paralelepípedo com medidas internas de 50 cm × 30 cm × 40 cm. Quantos litros de água cabem nele quando cheio?",
+ o:["0,6 L","6 L","60 L","600 L","6 000 L"],c:2,
+ p:["V = 50 × 30 × 40 = 60 000 cm³.","1 L = 1 000 cm³ (1 dm³).","60 000 ÷ 1 000 = 60 L."],
+ d:"Atalho: converta para dm antes (5 × 3 × 4 = 60 dm³ = 60 L)."},
+{a:"nat",m:"Física",t:"Eletricidade (Lei de Ohm e potência)",
+ e:"Um secador de cabelo tem as especificações 1 100 W – 220 V. Qual a corrente elétrica que passa por ele em funcionamento?",
+ o:["0,2 A","2 A","5 A","10 A","44 A"],c:2,
+ p:["Use P = U · i.","1 100 = 220 · i.","i = 1 100 ÷ 220 = 5 A."],
+ d:"44 é a resistência (R = U/i = 220/5 = 44 Ω), não a corrente. Leia a unidade pedida."},
+{a:"nat",m:"Física",t:"Mecânica (2ª Lei de Newton)",
+ e:"Um carro de 1 000 kg sai do repouso e atinge 20 m/s em 10 s, com aceleração constante. Qual a força resultante sobre ele?",
+ o:["200 N","2 000 N","10 000 N","20 000 N","200 000 N"],c:1,
+ p:["Aceleração: a = Δv ÷ Δt = 20 ÷ 10 = 2 m/s².","F = m · a = 1 000 × 2 = 2 000 N."],
+ d:"Primeiro a aceleração, depois a força. Unidades no SI (kg, m/s, s) → resposta em newtons."},
+{a:"nat",m:"Química",t:"Mol (quantidade de matéria)",
+ e:"Quantas moléculas existem em 36 g de água (H₂O)? Dados: H = 1, O = 16; constante de Avogadro = 6 × 10²³.",
+ o:["2","6 × 10²³","1,2 × 10²⁴","3,6 × 10²⁴","1,8 × 10²⁵"],c:2,
+ p:["Massa molar da água: 2 × 1 + 16 = 18 g/mol.","Número de mols: 36 ÷ 18 = 2 mol.","Moléculas: 2 × 6 × 10²³ = 12 × 10²³ = 1,2 × 10²⁴."],
+ d:"'2' é o número de MOLS, não de moléculas. Cuidado com o que a pergunta pede."},
+{a:"nat",m:"Biologia",t:"Genética (grupos sanguíneos)",
+ e:"Um homem com sangue tipo AB tem filhos com uma mulher de sangue tipo O. Quais tipos sanguíneos os filhos podem ter?",
+ o:["Apenas AB","A, B, AB ou O","Apenas A ou B, com 50% de chance cada","Apenas O","A ou O"],c:2,
+ p:["Pai AB → genótipo IᴬIᴮ (pode passar Iᴬ ou Iᴮ).","Mãe O → genótipo ii (só passa i).","Filhos: Iᴬi (tipo A) ou Iᴮi (tipo B) → 1/2 cada.","Nenhum filho pode ser O ou AB."],
+ d:"Iᴬ e Iᴮ são dominantes sobre i, e codominantes entre si."},
+{a:"nat",m:"Biologia",t:"Ecologia (cadeia alimentar)",
+ e:"Em um campo, existe a cadeia: capim → gafanhoto → sapo → cobra. Se as cobras forem caçadas até quase desaparecer, o efeito imediato esperado é:",
+ o:["Diminuição dos sapos e aumento dos gafanhotos.","Aumento dos sapos e diminuição dos gafanhotos.","Aumento do capim e dos gafanhotos.","Nenhuma alteração nas populações.","Diminuição de todas as populações."],c:1,
+ p:["Sem cobras (predador), os sapos aumentam.","Mais sapos comem mais gafanhotos → gafanhotos diminuem.","Com menos gafanhotos, o capim tende a aumentar (efeito em cascata)."],
+ d:"Faça setinhas ↑ e ↓ nível por nível. Os efeitos se alternam ao longo da cadeia."},
+{a:"hum",m:"História",t:"República Velha (Revolta da Vacina)",
+ e:"Em 1904, a população do Rio de Janeiro se revoltou contra a vacinação obrigatória contra a varíola. Além do medo da vacina, a revolta expressou:",
+ o:["Apoio popular à monarquia e ao imperador.","Insatisfação com reformas urbanas autoritárias que expulsaram os pobres do centro da cidade.","Reivindicação pelo fim da escravidão.","Protesto contra o AI-5.","Defesa da industrialização promovida por Vargas."],c:1,
+ p:["Contexto: governo Rodrigues Alves; reforma urbana de Pereira Passos ('bota-abaixo') e campanha sanitária de Oswaldo Cruz.","Cortiços foram demolidos e a população pobre foi empurrada para morros e subúrbios.","A vacinação obrigatória, feita de forma autoritária, foi o estopim de uma insatisfação maior."],
+ d:"O ENEM gosta de revoltas da República Velha: Canudos, Contestado, Vacina, Chibata."},
+{a:"hum",m:"Filosofia",t:"Contratualismo (Locke)",
+ e:"\"Sempre que os legisladores tentam tirar e destruir a propriedade do povo, colocam-se em estado de guerra com ele, que fica assim desobrigado de qualquer obediência.\" A ideia central desse pensador é:",
+ o:["O poder do soberano deve ser absoluto e indivisível.","O povo tem direito de resistir a um governo que viole seus direitos naturais.","O homem nasce bom e a sociedade o corrompe.","A política deve ser separada da moral.","A luta de classes é o motor da história."],c:1,
+ p:["'Propriedade' + 'desobrigado de obediência' → John Locke.","Para Locke, o governo existe para proteger vida, liberdade e propriedade (direitos naturais).","Se o governo os viola, o povo pode resistir (direito de resistência) — base do liberalismo."],
+ d:"A = Hobbes; C = Rousseau; D = Maquiavel; E = Marx."},
+{a:"hum",m:"Sociologia",t:"Weber (tipos de dominação)",
+ e:"Um líder político conquista seguidores fiéis não por causa de leis ou tradições, mas pela crença em suas qualidades extraordinárias e em seu carisma pessoal. Para Max Weber, esse é um exemplo de dominação:",
+ o:["Tradicional","Racional-legal","Carismática","Mecânica","Orgânica"],c:2,
+ p:["Weber definiu três tipos de dominação legítima.","Tradicional: baseada nos costumes (ex.: monarca). Racional-legal: baseada em leis e cargos (ex.: burocracia).","Carismática: baseada na devoção às qualidades pessoais do líder."],
+ d:"Mecânica e orgânica são tipos de SOLIDARIEDADE (Durkheim), não de dominação."},
+{a:"hum",m:"Geografia",t:"Clima urbano (inversão térmica)",
+ e:"Em dias frios de inverno, é comum São Paulo amanhecer coberta por uma camada de poluição. Isso acontece porque:",
+ o:["O ar quente sobe rapidamente, levando os poluentes.","Uma camada de ar quente fica acima de uma camada de ar frio, impedindo a dispersão dos poluentes.","A ilha de calor elimina os poluentes no inverno.","As chuvas de inverno concentram os gases no solo.","Os ventos alísios trazem poluição do litoral."],c:1,
+ p:["Normalmente, o ar perto do solo é mais quente e sobe, levando os poluentes.","No inverno, o solo esfria muito à noite → ar frio (mais denso) fica embaixo e o ar quente fica em cima.","Essa 'tampa' de ar quente impede a circulação vertical → os poluentes ficam presos."],
+ d:"Inversão térmica: fenômeno natural, mas agravado pela poluição urbana."},
+{a:"lin",m:"Português",t:"Funções da linguagem (metalinguagem)",
+ e:"<div class='texto'>\"Escrevo este verso / sem saber se é verso. / Procuro a palavra / que diga o que é escrever.\"</div>A função da linguagem predominante no fragmento é:",
+ o:["Referencial","Fática","Conativa","Metalinguística","Emotiva"],c:3,
+ p:["O poema fala sobre o próprio ato de escrever poemas.","Quando a linguagem se volta para si mesma (o código explicando o código), temos metalinguagem.","Exemplos: poema sobre poesia, filme sobre fazer filmes, verbete de dicionário."],
+ d:"Há marcas de 1ª pessoa, mas o FOCO é o próprio fazer poético → metalinguística."},
+{a:"lin",m:"Português",t:"Interpretação (ironia)",
+ e:"<div class='texto'>\"Que maravilha! Ficamos três horas presos no trânsito e ainda chegamos atrasados à reunião.\"</div>O efeito de sentido do trecho é construído principalmente por meio de:",
+ o:["Hipérbole, pois exagera o tempo no trânsito.","Ironia, pois 'Que maravilha!' expressa o contrário do que o falante sente.","Metáfora, pois compara o trânsito a uma prisão.","Eufemismo, pois suaviza o atraso.","Antítese, pois opõe trânsito e reunião."],c:1,
+ p:["A situação descrita é ruim (trânsito + atraso).","Mas o falante diz 'Que maravilha!'.","Dizer o contrário do que se pensa, para criticar ou fazer humor = ironia."],
+ d:"Ironia é muito cobrada em charges e tirinhas: compare o que é DITO com a SITUAÇÃO."},
+{a:"lin",m:"Inglês",t:"Interpretação (conectivos em inglês)",
+ e:"<div class='texto'>\"Social media can connect people from different countries. However, excessive use may lead to anxiety and isolation.\"</div>The word \"However\" introduces an idea of:",
+ o:["Addition","Contrast","Conclusion","Example","Time"],c:1,
+ p:["1ª frase: aspecto positivo (conecta pessoas).","2ª frase: aspecto negativo (ansiedade e isolamento).","'However' = 'no entanto' → contraste/oposição."],
+ d:"Conectivos em inglês: however/but/although (contraste), moreover/also (adição), therefore/so (conclusão)."},
+
+/* ---------- REDAÇÃO (exercícios) ---------- */
+{a:"red",m:"Redação",t:"Tese",
+ e:"Tema: <b>\"Desafios para combater a desinformação nas redes sociais no Brasil\"</b>. Qual frase funciona melhor como TESE no final da introdução?",
+ o:["\"A internet é a pior invenção da humanidade.\"","\"Esse problema persiste devido à baixa educação midiática da população e à lógica dos algoritmos, que favorecem conteúdos sensacionalistas.\"","\"Eu acho que as fake news são muito ruins para todos.\"","\"Neste texto, vou falar sobre as fake news.\"","\"As redes sociais deveriam ser proibidas no Brasil.\""],c:1,
+ p:["Uma boa tese mostra o seu ponto de vista E anuncia os dois argumentos que serão desenvolvidos.","B cita duas causas (educação midiática e algoritmos) → já organiza os dois parágrafos de desenvolvimento.","A e E são radicais; C usa 1ª pessoa e é vaga; D é metalinguagem ('vou falar sobre')."],
+ d:"Fórmula da tese: 'Isso ocorre devido a [causa 1] e a [causa 2].'"},
+{a:"red",m:"Redação",t:"Proposta de intervenção",
+ e:"Qual das propostas abaixo apresenta os 5 elementos exigidos (agente, ação, meio, finalidade e detalhamento)?",
+ o:["\"É preciso que alguém faça alguma coisa para resolver o problema.\"","\"O governo deve resolver a situação.\"","\"O Ministério da Educação deve incluir a educação midiática nas escolas, por meio de oficinas semanais — conduzidas por jornalistas e professores capacitados —, a fim de formar leitores críticos.\"","\"As pessoas devem se conscientizar sobre o problema.\"","\"As escolas devem fazer palestras.\""],c:2,
+ p:["Agente: Ministério da Educação.","Ação: incluir a educação midiática nas escolas.","Meio: por meio de oficinas semanais.","Detalhamento: conduzidas por jornalistas e professores capacitados.","Finalidade: a fim de formar leitores críticos."],
+ d:"'O governo' é vago — prefira o órgão específico (Ministério, Secretaria, Congresso, ONGs, mídia)."},
+{a:"red",m:"Redação",t:"Repertório produtivo",
+ e:"Tema: <b>\"Desafios para a valorização da herança africana no Brasil\"</b>. Qual uso de repertório é mais PRODUTIVO (ligado ao tema e explicado)?",
+ o:["\"Como dizia Einstein, a imaginação é mais importante que o conhecimento.\"","\"A Lei 10.639/2003 tornou obrigatório o ensino de cultura afro-brasileira; contudo, muitas escolas ainda a aplicam de forma superficial, o que mantém o apagamento dessas contribuições.\"","\"Segundo Aristóteles, o homem é um animal político.\"","\"O Brasil é um país muito grande.\"","\"De acordo com estudos, isso é um problema.\""],c:1,
+ p:["Repertório produtivo = pertinente ao tema + explicado + usado para defender o argumento.","B cita uma lei específica do tema e mostra como ela se relaciona com o problema.","A e C são 'decorativos' (não se ligam ao tema); D e E são genéricos e sem fonte."],
+ d:"Não basta citar: explique a relação com o tema na frase seguinte."},
+{a:"red",m:"Redação",t:"O que zera a redação",
+ e:"Qual das situações abaixo leva à nota ZERO na redação do ENEM?",
+ o:["Usar apenas um repertório.","Fazer uma proposta de intervenção sem detalhamento.","Escrever um texto com até 7 linhas.","Cometer três erros de acentuação.","Escrever a conclusão com 4 linhas."],c:2,
+ p:["Textos com até 7 linhas são considerados 'insuficientes' → zero.","As demais situações só fazem perder pontos em alguma competência.","Também zeram: fuga total ao tema, tipo textual errado, parte desconectada, nome/assinatura, desenhos."],
+ d:"Mire em 25 a 30 linhas. Nunca menos de 20."},
+{a:"red",m:"Redação",t:"Recorte temático",
+ e:"Tema: <b>\"Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil\"</b>. Um candidato escreveu toda a redação sobre violência doméstica. O que acontece?",
+ o:["Nota máxima, pois o assunto é sobre mulheres.","Tangenciou o tema: abordou só o assunto amplo (mulher), sem o recorte (trabalho de cuidado e sua invisibilidade), e perde muitos pontos.","Nota zero por erro de português.","Nada, pois os corretores não avaliam o tema.","Ganha pontos extras por criatividade."],c:1,
+ p:["Todo tema tem um ASSUNTO amplo (mulher) e um RECORTE (trabalho de cuidado não remunerado e invisível).","Falar só do assunto amplo = tangenciamento → nota baixa em C2, C3 e C5.","Sublinhe as palavras-chave do tema e use-as ao longo do texto."],
+ d:"Repita as palavras-chave do tema na introdução, no início de cada desenvolvimento e na conclusão."},
+{a:"red",m:"Redação",t:"Conectivos",
+ e:"Qual conectivo é mais adequado para iniciar o parágrafo de CONCLUSÃO?",
+ o:["Em primeiro lugar,","Além disso,","Por exemplo,","Portanto,","Entretanto,"],c:3,
+ p:["A conclusão retoma o que foi discutido e apresenta a solução.","Conectivos de conclusão: Portanto, Dessa forma, Logo, Diante do exposto.","'Em primeiro lugar' inicia o D1; 'Além disso' inicia o D2; 'Entretanto' indica oposição."],
+ d:"Use conectivos diferentes no início de cada parágrafo — isso pontua na Competência 4."}
+];
+
+/* ===================== AULAS (estilo cursinho) ===================== */
+const AULAS = [
+/* MATEMÁTICA */
+{id:"porc",a:"mat",titulo:"Porcentagem, aumentos, descontos e juros",
+ teoria:`Porcentagem é uma fração de denominador 100: <span class="f">25% = 25/100 = 0,25</span>. O segredo do ENEM é trabalhar com o <b>fator multiplicativo</b>: aumento de p% → ×(1 + p/100); desconto de p% → ×(1 − p/100). Juros simples crescem sempre sobre o valor inicial; juros compostos crescem "juros sobre juros".`,
+ metodo:["Descubra a BASE: o valor de antes (é sobre ele que se calcula a porcentagem).","Transforme cada aumento/desconto em fator (×1,10, ×0,85…).","Em mudanças sucessivas, MULTIPLIQUE os fatores, nunca some as porcentagens.","Releia a pergunta: ela quer o valor final, o quanto aumentou ou a porcentagem?"],
+ ex:{e:"Um salário de R$ 2 000 teve dois aumentos seguidos de 10%. Qual o salário final?",p:["Fator: 1,10 × 1,10 = 1,21.","2 000 × 1,21 = R$ 2 420 (e não R$ 2 400!).","O aumento total foi de 21%, não de 20%."]},
+ erros:["Somar porcentagens sucessivas.","Calcular a variação sobre o valor novo em vez do antigo.","Confundir pontos percentuais com porcentagem: taxa de 10% para 12% subiu 2 pontos percentuais, mas 20% em relação a ela mesma."]},
+{id:"prop",a:"mat",titulo:"Razão, proporção, regra de três e escala",
+ teoria:`Razão compara duas grandezas (ex.: km por litro, habitantes por km²). Duas grandezas são <b>diretamente proporcionais</b> quando uma aumenta e a outra aumenta na mesma proporção; <b>inversamente</b> quando uma aumenta e a outra diminui (operários × dias, velocidade × tempo). Escala é uma razão: <span class="f">desenho : real</span>.`,
+ metodo:["Organize as grandezas em colunas com as mesmas unidades.","Pergunte: se uma aumenta, a outra aumenta (direta) ou diminui (inversa)?","Direta: multiplique em cruz. Inversa: o produto é constante (a·b = c·d).","Em escala: real = desenho × denominador; depois converta a unidade."],
+ ex:{e:"Uma planta está na escala 1:50. Uma sala mede 8 cm × 6 cm no papel. Qual a área real?",p:["Medidas reais: 8 × 50 = 400 cm = 4 m; 6 × 50 = 300 cm = 3 m.","Área: 4 × 3 = 12 m².","Cuidado: a área NÃO se multiplica por 50, e sim por 50² (calcule sempre pelas medidas)."]},
+ erros:["Usar regra de três direta quando é inversa.","Esquecer de converter cm em m ou km.","Multiplicar a área pela escala linear."]},
+{id:"est",a:"mat",titulo:"Estatística e leitura de gráficos",
+ teoria:`É um dos temas que mais caem. Média = soma ÷ quantidade. Média ponderada = Σ(valor × peso) ÷ Σ(pesos). Mediana = termo do meio com os dados <b>em ordem</b>. Moda = valor mais frequente. Em gráficos, leia o <b>título, os eixos, as unidades e a legenda</b> antes de tudo.`,
+ metodo:["Leia o título e as unidades do gráfico/tabela (mil? milhões? %?).","Para mediana: ORDENE os dados. Quantidade ímpar → o do meio; par → média dos dois do meio.","Para média ponderada: multiplique pelo peso, some, divida pela soma dos pesos.","Confira se a resposta faz sentido (a média sempre fica entre o menor e o maior valor)."],
+ ex:{e:"Gols de um time em 5 jogos: 3, 0, 2, 5, 2. Calcule média, mediana e moda.",p:["Média: (3+0+2+5+2) ÷ 5 = 12 ÷ 5 = 2,4.","Ordenando: 0, 2, 2, 3, 5 → mediana = 2 (o 3º valor).","Moda = 2 (aparece duas vezes)."]},
+ erros:["Calcular a mediana sem ordenar.","Ignorar a unidade do eixo (ex.: 'em milhares').","Usar média simples quando há pesos."]},
+{id:"prob",a:"mat",titulo:"Probabilidade e análise combinatória",
+ teoria:`Probabilidade = casos favoráveis ÷ casos possíveis. "E" → multiplica; "OU" → soma (se não puderem acontecer juntos). Na contagem, use o <b>princípio multiplicativo</b>: multiplique as opções de cada etapa. Se a ordem NÃO importa (grupos, comissões), divida pelas repetições → combinação.`,
+ metodo:["Pergunte: a ordem importa? (senha, fila, cargos = sim; grupo, salada de frutas = não).","Conte etapa por etapa e multiplique.","Se a ordem não importa, use C(n,p) = n!/(p!(n−p)!).","Em probabilidade, verifique se é COM ou SEM reposição."],
+ ex:{e:"Uma lanchonete oferece 3 tipos de pão, 4 recheios e 2 molhos. Quantos lanches diferentes (1 de cada) podem ser montados?",p:["Etapas independentes: pão, recheio, molho.","3 × 4 × 2 = 24 lanches."]},
+ erros:["Usar combinação quando a ordem importa (ou vice-versa).","Esquecer que sem reposição o total diminui.","Contar (1,6) e (6,1) como um só caso nos dados."]},
+{id:"func",a:"mat",titulo:"Funções e sequências",
+ teoria:`Função do 1º grau <span class="f">f(x) = ax + b</span>: <b>b</b> é o valor fixo (bandeirada, taxa) e <b>a</b> é quanto aumenta por unidade. Gráfico: reta. Função do 2º grau <span class="f">f(x) = ax² + bx + c</span>: gráfico é parábola; o ponto de máximo/mínimo é o vértice (x<sub>v</sub> = −b/2a). PA soma uma razão constante; PG multiplica.`,
+ metodo:["Identifique o valor fixo e o valor que varia.","Monte a função com as informações do texto.","Para máximo/mínimo: calcule x do vértice e depois substitua para achar y.","Em sequências, escreva os primeiros termos e descubra o padrão (soma → PA; multiplica → PG)."],
+ ex:{e:"Uma academia cobra R$ 50 de matrícula + R$ 80 por mês. Quanto custa um ano?",p:["f(x) = 50 + 80x.","f(12) = 50 + 960 = R$ 1 010."]},
+ erros:["Responder o x do vértice quando a pergunta quer o valor máximo (y).","Esquecer o valor fixo.","Em PA, usar n em vez de (n − 1)."]},
+{id:"geo",a:"mat",titulo:"Geometria plana e espacial",
+ teoria:`Área mede superfície (m²), volume mede espaço (m³). Prismas e cilindros: <span class="f">V = área da base × altura</span>. Pirâmides e cones: um terço disso. Lembre: <b>1 m³ = 1 000 L</b> e <b>1 dm³ = 1 L</b>. Pitágoras: em triângulo retângulo, hipotenusa² = cateto² + cateto².`,
+ metodo:["Desenhe a figura e anote as medidas.","Coloque TODAS as medidas na mesma unidade.","Escolha a fórmula (área? volume?).","Converta o resultado para a unidade pedida (litros, m², peças…)."],
+ ex:{e:"Uma piscina de 8 m × 4 m × 1,5 m. Quantos litros cabem?",p:["V = 8 × 4 × 1,5 = 48 m³.","48 × 1 000 = 48 000 L."]},
+ erros:["Misturar cm e m na mesma conta.","Confundir raio com diâmetro.","Esquecer de dividir por 3 em cones e pirâmides."]},
+/* NATUREZA */
+{id:"ele",a:"nat",titulo:"Eletricidade no dia a dia",
+ teoria:`Potência (W) indica quanta energia o aparelho gasta por segundo. Consumo na conta de luz: <span class="f">E (kWh) = P (kW) × t (h)</span>. Relações: <span class="f">P = U·i</span> e <span class="f">U = R·i</span>. Em casa, os aparelhos são ligados em <b>paralelo</b> (mesma tensão, funcionam independentes).`,
+ metodo:["Passe a potência para kW (÷ 1 000) e o tempo para horas (÷ 60).","Calcule o consumo E = P × t.","Multiplique pelo preço do kWh se a questão pedir o custo.","Para corrente: i = P/U. Para resistência: R = U/i."],
+ ex:{e:"Uma lâmpada de 10 W fica acesa 6 h por dia durante 30 dias. Qual o consumo?",p:["P = 0,01 kW; t = 6 × 30 = 180 h.","E = 0,01 × 180 = 1,8 kWh."]},
+ erros:["Usar W e minutos direto na fórmula.","Achar que paralelo divide a tensão.","Confundir corrente (A) com resistência (Ω)."]},
+{id:"fis",a:"nat",titulo:"Mecânica, energia, ondas, calor e óptica",
+ teoria:`Velocidade média = distância total ÷ tempo total (com paradas). Força: <span class="f">F = m·a</span>. Energia se conserva: potencial (m·g·h) vira cinética (m·v²/2). Ondas: <span class="f">v = λ·f</span>. Calor: <span class="f">Q = m·c·ΔT</span>. Visão: miopia → lente divergente; hipermetropia → convergente.`,
+ metodo:["Liste os dados com unidades no SI (m, s, kg).","Identifique o fenômeno (movimento? energia? onda? calor?).","Escolha a fórmula e isole o que se pede.","Confira a unidade da resposta."],
+ ex:{e:"Uma moto percorre 60 km em 30 min. Qual a velocidade média em km/h?",p:["30 min = 0,5 h.","v = 60 ÷ 0,5 = 120 km/h."]},
+ erros:["Esquecer o tempo de parada.","Não converter MHz, km/h etc.","Achar que objetos mais pesados caem mais rápido (sem ar, caem igual)."]},
+{id:"qui1",a:"nat",titulo:"Mol, estequiometria e soluções",
+ teoria:`Mol é a "dúzia" da química: <b>1 mol = 6 × 10²³ partículas</b>. Massa molar = soma das massas atômicas (g/mol). Estequiometria usa a proporção dos coeficientes da equação balanceada. Concentração comum: <span class="f">C = m/V</span> (g/L). Diluição: <span class="f">C₁V₁ = C₂V₂</span>.`,
+ metodo:["Confira se a equação está balanceada.","Converta a massa dada em mol (÷ massa molar).","Use a proporção dos coeficientes.","Converta o resultado para o que se pede (massa, volume, moléculas)."],
+ ex:{e:"Quantos gramas de NaOH (40 g/mol) há em 2 L de solução 0,5 mol/L?",p:["n = 0,5 × 2 = 1 mol.","m = 1 × 40 = 40 g."]},
+ erros:["Pular a conversão para mol.","Esquecer de balancear a equação.","Achar que a diluição muda a massa de soluto."]},
+{id:"qui2",a:"nat",titulo:"Química ambiental, pH, misturas, pilhas e radioatividade",
+ teoria:`Química no cotidiano é o forte do ENEM. Chuva ácida (SO₂, NOₓ); efeito estufa (CO₂, CH₄); pH (escala logarítmica: cada 1 unidade = 10×); separação de misturas; pilhas (ânodo oxida, cátodo reduz); meia-vida (cai pela metade a cada período).`,
+ metodo:["Identifique o fenômeno do texto (poluição? ácido/base? pilha? radiação?).","Lembre a regra-chave do assunto (macetes abaixo).","Elimine alternativas que confundem conceitos (ex.: CO₂ como causador da chuva ácida).","Em meia-vida, faça a 'escadinha' dividindo por 2."],
+ ex:{e:"Um solo muito ácido prejudica a plantação. O que o agricultor pode adicionar para corrigi-lo?",p:["Ácido se neutraliza com base.","Usa-se calcário (CaCO₃) — a 'calagem' — que eleva o pH do solo."]},
+ erros:["Achar que pH 2 é 'um pouco' mais ácido que pH 3 (é 10 vezes).","Usar filtração para separar sal da água.","Inverter ânodo e cátodo."]},
+{id:"gen",a:"nat",titulo:"Genética",
+ teoria:`Cada característica é determinada por um par de genes (alelos), um vindo do pai e outro da mãe. Dominante (A) se manifesta mesmo com um alelo; recessivo (a) só em dose dupla (aa). Aa × Aa → 1/4 AA, 1/2 Aa, 1/4 aa. Grupos sanguíneos: Iᴬ e Iᴮ dominam i.`,
+ metodo:["Descubra os genótipos dos pais (pista: pais normais com filho afetado → ambos Aa).","Faça o quadro de Punnett.","Calcule a probabilidade do que se pede.","Se pedir o sexo, multiplique por 1/2. Se o indivíduo já é sabidamente normal, a chance de ser Aa é 2/3."],
+ ex:{e:"Pais normais têm um filho albino. Qual a chance do próximo filho ser normal?",p:["Filho aa → pais obrigatoriamente Aa × Aa.","Normal = AA ou Aa = 3/4."]},
+ erros:["Esquecer de multiplicar por 1/2 quando pede 'menino' ou 'menina'.","Usar 1/2 em vez de 2/3 quando o indivíduo já é normal.","Achar que o resultado de um filho influencia o próximo."]},
+{id:"eco",a:"nat",titulo:"Ecologia, evolução e saúde",
+ teoria:`Cadeia alimentar: a energia diminui a cada nível; poluentes não degradáveis se acumulam no topo. Relações: mutualismo (+/+), parasitismo (+/−), comensalismo (+/0), competição (−/−). Evolução por seleção natural (Darwin): o ambiente seleciona variações que já existem. Vacina previne (ativa); soro trata (passiva).`,
+ metodo:["Identifique os seres e seus papéis (produtor, consumidor, decompositor).","Use setas ↑ ↓ para prever efeitos em cadeia.","Em evolução, desconfie de 'para se adaptar' e 'porque precisava' (lamarckismo).","Em saúde, pergunte: é prevenção (vacina) ou tratamento (soro, remédio)?"],
+ ex:{e:"Por que pernilongos ficaram resistentes a um inseticida usado por anos?",p:["Alguns já eram resistentes por variação genética.","O inseticida matou os sensíveis; os resistentes sobreviveram e se reproduziram.","É seleção natural, não 'adaptação por necessidade'."]},
+ erros:["Achar que a energia aumenta subindo a cadeia.","Explicações lamarckistas em evolução.","Confundir vacina e soro."]},
+/* HUMANAS */
+{id:"hist",a:"hum",titulo:"História: como resolver + Brasil República",
+ teoria:`O ENEM cobra História relacionando passado e presente, com foco em cidadania, trabalho, escravidão e suas heranças, Era Vargas, Ditadura e Redemocratização. Quase sempre há um texto-base: a resposta é <b>a que conecta o texto ao contexto histórico</b>.`,
+ metodo:["Leia o COMANDO primeiro (o que pede: causa? consequência? objetivo?).","No texto, sublinhe data, autor, lugar e palavras-chave.","Situe no tempo: que período é esse? O que acontecia?","Elimine: anacronismos (fatos de outra época), afirmações absolutas ('sempre', 'nunca') e alternativas que contradizem o texto.","Escolha a que RESPONDE ao comando — não apenas a que é 'verdadeira'."],
+ ex:{e:"Um texto de 1943 fala em carteira de trabalho, férias e salário mínimo. Qual o contexto?",p:["1943 → Estado Novo (Era Vargas).","Direitos trabalhistas → CLT.","Contexto: trabalhismo, controle dos sindicatos pelo Estado."]},
+ erros:["Responder pelo que você 'acha' e não pelo texto.","Escolher alternativa verdadeira, mas que não responde à pergunta.","Anacronismo."]},
+{id:"filo",a:"hum",titulo:"Filosofia e Sociologia",
+ teoria:`Aqui o ENEM dá um trecho e pede a ideia do autor. Decore a "palavra-chave" de cada pensador (veja o Resumão): Hobbes = medo/segurança; Locke = propriedade/resistência; Rousseau = bondade natural/vontade geral; Durkheim = fato social; Weber = ação social/dominação; Marx = luta de classes; Frankfurt = indústria cultural.`,
+ metodo:["Encontre a palavra-chave do trecho.","Associe ao autor (mesmo que o nome não apareça).","Elimine alternativas que trazem ideias de OUTROS autores (são os distratores).","Confirme que a alternativa é coerente com o trecho."],
+ ex:{e:"\"O homem nasce livre, e por toda parte encontra-se a ferros.\" Quem é o autor?",p:["Liberdade natural corrompida pela sociedade → Rousseau.","Ideia ligada ao contrato social e à vontade geral."]},
+ erros:["Confundir os contratualistas.","Confundir solidariedade (Durkheim) com dominação (Weber)."]},
+{id:"geo2",a:"hum",titulo:"Geografia",
+ teoria:`Temas campeões: questões ambientais (desmatamento, clima urbano, recursos hídricos), urbanização e segregação, agropecuária e fronteira agrícola, globalização, energia e cartografia. O ENEM valoriza a relação <b>sociedade × natureza</b> e as desigualdades.`,
+ metodo:["Identifique se é tema físico (clima, relevo) ou humano (cidade, economia) — ou os dois.","Procure causa e consequência no texto/gráfico.","Prefira alternativas que mostram relações (ex.: impermeabilização → enchente).","Desconfie de soluções simplistas ou que culpam só a natureza."],
+ ex:{e:"Por que as enchentes são mais graves nas grandes cidades?",p:["Solo impermeabilizado (asfalto) → a água não infiltra.","Rios canalizados e ocupação das várzeas.","Lixo entupindo bueiros → o escoamento falha."]},
+ erros:["Confundir ilha de calor com inversão térmica.","Atribuir problemas urbanos só a 'excesso de chuva'."]},
+/* LINGUAGENS */
+{id:"interp",a:"lin",titulo:"Interpretação de texto, gêneros e figuras",
+ teoria:`Linguagens é a prova de <b>leitura</b>. A resposta está no texto. Pergunte sempre: <b>quem fala, para quem, com que objetivo e em que gênero?</b> Estude funções da linguagem, variação linguística, figuras e conectivos (veja o Resumão).`,
+ metodo:["Leia o comando antes do texto.","Identifique o gênero (charge, notícia, poema, anúncio…) e a finalidade.","Procure no texto a prova da alternativa (sublinhe!).","Elimine alternativas que extrapolam (dizem mais que o texto), reduzem ou contradizem.","Desconfie de alternativas preconceituosas sobre a língua."],
+ ex:{e:"Uma charge mostra um homem dizendo 'Que calor agradável!' no meio de um incêndio florestal. Qual o efeito?",p:["O que é dito ('agradável') contradiz a situação (incêndio).","Isso é ironia, usada para criticar o descaso ambiental."]},
+ erros:["Responder com conhecimento de fora, ignorando o texto.","Escolher alternativas que generalizam ('todos', 'sempre')."]},
+{id:"lingua",a:"lin",titulo:"Inglês e Espanhol",
+ teoria:`São 5 questões de leitura. Não é preciso saber traduzir tudo: busque <b>palavras transparentes</b>, o título, a fonte e a ideia central. Muitas vezes o comando e as alternativas estão em português.`,
+ metodo:["Leia o comando e as alternativas primeiro (sabendo o que procurar).","Leia o título e a fonte do texto.","Marque palavras conhecidas e cognatas.","Atenção aos conectivos (however, but, so) e aos falsos cognatos (no espanhol: oficina, exquisito, embarazada)."],
+ ex:{e:"'Pretend' em inglês significa:",p:["Falso cognato! Não é 'pretender'.","Significa 'fingir'. ('Pretender' = intend.)"]},
+ erros:["Traduzir palavra por palavra.","Cair em falsos cognatos."]}
+];
+
+/* ===================== COMO FAZER (fundamentos passo a passo) ===================== */
+const COMO = [
+{g:"🔢 Matemática básica", t:"Equação do 1º grau", q:"Problemas do tipo 'um número somado ao seu dobro…', preços, tarifas, idades.",
+ p:["Elimine os parênteses (propriedade distributiva: 2(x − 3) = 2x − 6).","Passe os termos com x para um lado e os números para o outro. <b>Trocou de lado, troca o sinal.</b>","Some os termos semelhantes.","Divida pelo número que multiplica o x.","Confira substituindo o valor na equação original."],
+ ex:[{e:"3x + 5 = 20",s:["3x = 20 − 5","3x = 15","x = 15 ÷ 3 = <b>5</b>","Conferindo: 3·5 + 5 = 20 ✓"]},
+     {e:"2(x − 3) = x + 4",s:["Distributiva: 2x − 6 = x + 4","2x − x = 4 + 6","<b>x = 10</b>"]},
+     {e:"Problema: um número somado ao seu dobro dá 45. Qual é o número?",s:["Número = x; dobro = 2x.","x + 2x = 45 → 3x = 45","<b>x = 15</b>"]}],
+ m:"Para equação com frações (x/2 + x/3 = 10), multiplique TUDO pelo MMC dos denominadores e as frações somem.",
+ tr:[{e:"5x − 7 = 18",r:["5x = 25","x = 5"]},{e:"4(x + 1) = 2x + 10",r:["4x + 4 = 2x + 10","2x = 6","x = 3"]},{e:"x/2 + x/3 = 10",r:["MMC(2,3) = 6. Multiplique tudo por 6:","3x + 2x = 60","5x = 60 → x = 12"]}]},
+
+{g:"🔢 Matemática básica", t:"Equação do 2º grau (Bhaskara)", q:"Áreas (x · (x + 3) = 40), lançamentos, lucro, problemas com produto de números.",
+ p:["Deixe na forma <span class='f'>ax² + bx + c = 0</span> e identifique a, b e c (com os sinais!).","Calcule o discriminante: <span class='f'>Δ = b² − 4ac</span>.","Δ &gt; 0: duas raízes; Δ = 0: uma raiz; Δ &lt; 0: nenhuma raiz real.","Aplique: <span class='f'>x = (−b ± √Δ) ÷ 2a</span>.","Em problemas, descarte respostas que não fazem sentido (medida negativa, por exemplo)."],
+ ex:[{e:"x² − 5x + 6 = 0",s:["a = 1, b = −5, c = 6","Δ = (−5)² − 4·1·6 = 25 − 24 = 1","x = (5 ± 1) ÷ 2","x₁ = 6/2 = <b>3</b> e x₂ = 4/2 = <b>2</b>"]},
+     {e:"Um terreno retangular tem um lado 3 m maior que o outro e área de 40 m². Quanto mede o menor lado?",s:["x · (x + 3) = 40 → x² + 3x − 40 = 0","Δ = 9 + 160 = 169 → √Δ = 13","x = (−3 ± 13) ÷ 2 → x = 5 ou x = −8","Medida não pode ser negativa → <b>5 m</b>"]},
+     {e:"Equações incompletas (mais rápido, sem Bhaskara)",s:["x² − 9 = 0 → x² = 9 → x = ±3","x² − 5x = 0 → x(x − 5) = 0 → x = 0 ou x = 5"]}],
+ m:"Atalho: soma das raízes = −b/a e produto = c/a. Em x² − 5x + 6 = 0, procure dois números que somam 5 e multiplicam 6 → 2 e 3.",
+ tr:[{e:"x² − 7x + 10 = 0",r:["Soma 7, produto 10 → 2 e 5","(Ou: Δ = 49 − 40 = 9; x = (7 ± 3)/2)"]},{e:"x² − 16 = 0",r:["x² = 16","x = 4 ou x = −4"]},{e:"x² + 6x + 9 = 0",r:["Δ = 36 − 36 = 0 → uma raiz","x = −6/2 = −3"]}]},
+
+{g:"🔢 Matemática básica", t:"Sistema de equações", q:"Ingressos de inteira e meia, galinhas e coelhos, dois produtos com preços diferentes.",
+ p:["Dê nome às incógnitas (x = …, y = …).","Monte UMA equação para cada informação do texto.","<b>Método da adição:</b> some (ou subtraia) as equações para cancelar uma letra.","<b>Método da substituição:</b> isole uma letra em uma equação e substitua na outra.","Ache uma letra e volte para achar a outra."],
+ ex:[{e:"x + y = 10 e x − y = 4",s:["Somando as duas: 2x = 14 → x = 7","Volta: 7 + y = 10 → y = 3"]},
+     {e:"Um show vendeu 50 ingressos: inteira R$ 20 e meia R$ 10. Arrecadou R$ 700. Quantas inteiras?",s:["x = inteiras, y = meias","x + y = 50 e 20x + 10y = 700","Da 1ª: y = 50 − x. Substitui: 20x + 10(50 − x) = 700","20x + 500 − 10x = 700 → 10x = 200 → <b>x = 20 inteiras</b> (e 30 meias)"]}],
+ m:"Sempre confira a resposta nas DUAS equações.",
+ tr:[{e:"2x + y = 11 e x − y = 1",r:["Somando: 3x = 12 → x = 4","4 − y = 1 → y = 3"]},{e:"Num quintal há galinhas e coelhos: 20 cabeças e 56 patas. Quantos coelhos?",r:["g + c = 20 e 2g + 4c = 56","Multiplique a 1ª por 2: 2g + 2c = 40","Subtraia: 2c = 16 → c = 8 coelhos (e 12 galinhas)"]}]},
+
+{g:"🔢 Matemática básica", t:"Frações", q:"Receitas, divisão de herança/bolo, probabilidade, escalas.",
+ p:["<b>Simplificar:</b> divida em cima e embaixo pelo mesmo número (6/8 = 3/4).","<b>Somar/subtrair:</b> deixe os denominadores iguais (MMC) e opere só os numeradores.","<b>Multiplicar:</b> em cima × em cima, embaixo × embaixo.","<b>Dividir:</b> mantenha a 1ª e multiplique pelo INVERSO da 2ª.","<b>Fração de um valor:</b> 3/4 de 80 → 80 ÷ 4 × 3 = 60."],
+ ex:[{e:"1/2 + 1/3",s:["MMC(2,3) = 6","3/6 + 2/6 = <b>5/6</b>"]},{e:"2/3 ÷ 4/5",s:["2/3 × 5/4 = 10/12","Simplificando: <b>5/6</b>"]}],
+ m:"'De' em matemática quase sempre significa multiplicação: metade DE 30 = 1/2 × 30.",
+ tr:[{e:"3/4 − 1/6",r:["MMC = 12","9/12 − 2/12 = 7/12"]},{e:"2/5 de 150",r:["150 ÷ 5 = 30","30 × 2 = 60"]},{e:"5/6 × 3/10",r:["15/60","= 1/4"]}]},
+
+{g:"🔢 Matemática básica", t:"Porcentagem de cabeça (sem calculadora)", q:"Praticamente toda prova! Descontos, impostos, gráficos.",
+ p:["<b>10%</b> → divida por 10 (ande a vírgula 1 casa).","<b>1%</b> → divida por 100.","<b>5%</b> → metade de 10%. <b>20%</b> → dobro de 10% (ou ÷ 5). <b>25%</b> → ÷ 4. <b>50%</b> → ÷ 2.","Monte as outras somando: 15% = 10% + 5%; 35% = 3 × 10% + 5%.","Truque: x% de y = y% de x (8% de 50 = 50% de 8 = 4)."],
+ ex:[{e:"15% de 240",s:["10% = 24","5% = 12","15% = 24 + 12 = <b>36</b>"]}],
+ m:"Para achar o preço ANTES de um aumento de 20% que resultou em R$ 120: divida 120 por 1,20 = R$ 100 (não tire 20% de 120!).",
+ tr:[{e:"35% de 80",r:["10% = 8 → 30% = 24","5% = 4","35% = 28"]},{e:"4% de 25",r:["= 25% de 4","= 1"]},{e:"Um produto custa R$ 90 após um desconto de 10%. Qual era o preço original?",r:["90 ÷ 0,90","= R$ 100"]}]},
+
+{g:"🔢 Matemática básica", t:"Potências e notação científica", q:"Distâncias astronômicas, tamanho de células e vírus, Química (mol) e Física.",
+ p:["a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup> (multiplicação: soma os expoentes).","a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup> (divisão: subtrai).","(a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup>; a<sup>0</sup> = 1; a<sup>−n</sup> = 1/a<sup>n</sup>.","Notação científica: N × 10<sup>k</sup>, com N entre 1 e 10.","Andou a vírgula para a ESQUERDA → o expoente AUMENTA; para a DIREITA → DIMINUI."],
+ ex:[{e:"0,00045 em notação científica",s:["Ande a vírgula 4 casas para a direita → 4,5","<b>4,5 × 10⁻⁴</b>"]},{e:"(3 × 10⁸) × (2 × 10⁻³)",s:["Números: 3 × 2 = 6","Potências: 10⁸⁺⁽⁻³⁾ = 10⁵","<b>6 × 10⁵</b>"]}],
+ m:"Multiplique os números com os números e as potências de 10 com as potências de 10.",
+ tr:[{e:"52 000 000 em notação científica",r:["5,2 × 10⁷"]},{e:"(4 × 10⁶) ÷ (2 × 10²)",r:["4 ÷ 2 = 2","10⁶⁻² = 10⁴","2 × 10⁴"]},{e:"2³ · 2⁴",r:["2⁷ = 128"]}]},
+
+{g:"🔢 Matemática básica", t:"Raiz quadrada", q:"Pitágoras, Bhaskara, velocidade em queda livre, área de quadrados.",
+ p:["Decore os quadrados perfeitos: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225.","Para simplificar, separe um quadrado perfeito: √50 = √(25 · 2) = 5√2.","Para estimar: √20 está entre √16 = 4 e √25 = 5 → ≈ 4,5.","√(a/b) = √a / √b."],
+ ex:[{e:"√72",s:["72 = 36 · 2","√72 = 6√2 ≈ 6 × 1,41 ≈ 8,5"]}],
+ m:"Valores úteis: √2 ≈ 1,41 e √3 ≈ 1,73.",
+ tr:[{e:"√48",r:["48 = 16 · 3","= 4√3"]},{e:"√0,25",r:["= 0,5 (porque 0,5 × 0,5 = 0,25)"]},{e:"√(16/9)",r:["= 4/3"]}]},
+
+{g:"🔢 Matemática básica", t:"Regra de três composta", q:"Máquinas × dias × peças; operários × horas × dias.",
+ p:["Monte uma tabela com uma coluna para cada grandeza; marque o x.","Compare CADA grandeza com a do x: direta ou inversa?","Diretas: a razão fica como está. Inversas: inverta a razão.","x = valor conhecido × (produto das razões)."],
+ ex:[{e:"4 máquinas fazem 200 peças em 5 dias. Quantas peças 6 máquinas fazem em 8 dias?",s:["Mais máquinas → mais peças (direta). Mais dias → mais peças (direta).","x = 200 × (6/4) × (8/5)","x = 200 × 1,5 × 1,6 = <b>480 peças</b>"]}],
+ m:"Método do 'total de trabalho': 10 operários × 8 h × 6 dias = 480 'operário-horas'. Com 12 operários a 5 h/dia: 480 ÷ (12 × 5) = 8 dias.",
+ tr:[{e:"10 operários, trabalhando 8 h/dia, fazem uma obra em 6 dias. Em quantos dias 12 operários, trabalhando 5 h/dia, fazem a mesma obra?",r:["Total de trabalho: 10 × 8 × 6 = 480","Por dia agora: 12 × 5 = 60","480 ÷ 60 = 8 dias"]}]},
+
+{g:"🔢 Matemática básica", t:"Conversão de unidades", q:"Volume em litros, escalas, velocidade, área de terrenos.",
+ p:["Escadinha: <b>km → hm → dam → m → dm → cm → mm</b>. Cada degrau para a direita: ×10.","Área (m²): cada degrau ×100. Volume (m³): cada degrau ×1000.","<b>1 dm³ = 1 L</b>; <b>1 m³ = 1000 L</b>; <b>1 cm³ = 1 mL</b>.","Velocidade: km/h ÷ 3,6 = m/s; m/s × 3,6 = km/h.","Tempo: 1 h = 60 min = 3600 s. Cuidado: 1,5 h = 1 h 30 min (não 1 h 50 min!)."],
+ ex:[{e:"72 km/h em m/s",s:["72 ÷ 3,6 = <b>20 m/s</b>"]},{e:"2 m² em cm²",s:["m → cm: 2 degraus; área: ×100 em cada","2 × 100 × 100 = <b>20 000 cm²</b>"]}],
+ m:"1 hectare = 10 000 m² (um quadrado de 100 m × 100 m).",
+ tr:[{e:"2,5 m³ em litros",r:["2,5 × 1000 = 2500 L"]},{e:"10 m/s em km/h",r:["10 × 3,6 = 36 km/h"]},{e:"0,45 m em cm",r:["0,45 × 100 = 45 cm"]}]},
+
+{g:"🔢 Matemática básica", t:"Trigonometria (SOH-CAH-TOA)", q:"Rampas, escadas, altura de prédios e árvores, sombra.",
+ p:["Identifique o ângulo e os lados: hipotenusa (oposta ao ângulo reto), cateto oposto e cateto adjacente ao ângulo.","<b>sen = oposto ÷ hipotenusa</b>; <b>cos = adjacente ÷ hipotenusa</b>; <b>tg = oposto ÷ adjacente</b>.","Escolha a razão que liga o que você TEM com o que você QUER.","Use a tabela dos ângulos notáveis."],
+ ex:[{e:"Uma rampa de 10 m forma 30° com o chão. Qual a altura alcançada?",s:["Tenho a hipotenusa (10), quero o oposto (altura) → seno.","sen 30° = h/10 → 1/2 = h/10","<b>h = 5 m</b>"]}],
+ m:"Tabela: sen 30° = 1/2, sen 45° = √2/2, sen 60° = √3/2. Cosseno é a ordem inversa (√3/2, √2/2, 1/2). tg 30° = √3/3, tg 45° = 1, tg 60° = √3.",
+ tr:[{e:"Uma escada de 8 m forma 60° com o chão. A que distância da parede está o pé da escada?",r:["Tenho a hipotenusa, quero o adjacente → cosseno","cos 60° = d/8 → 1/2 = d/8","d = 4 m"]},{e:"De 20 m de distância, uma pessoa vê o topo de um prédio sob um ângulo de 45°. Qual a altura do prédio (desprezando a altura dos olhos)?",r:["Tenho o adjacente, quero o oposto → tangente","tg 45° = h/20 → 1 = h/20","h = 20 m"]}]},
+
+{g:"🔢 Matemática básica", t:"Exponencial e logaritmo", q:"Crescimento de bactérias, juros, meia-vida, escala Richter, pH.",
+ p:["Exponencial: algo que dobra/triplica em períodos fixos → N = N₀ · 2<sup>t</sup>.","Logaritmo é a pergunta: 'a que expoente eu elevo a base para chegar ao número?' → log₂ 8 = 3, porque 2³ = 8.","Propriedades: log(a·b) = log a + log b; log(a/b) = log a − log b; log aⁿ = n · log a.","log 10 = 1; log 1 = 0; log 100 = 2; log 1000 = 3."],
+ ex:[{e:"100 bactérias dobram a cada 20 minutos. Quantas haverá após 2 horas?",s:["2 h = 120 min → 120 ÷ 20 = 6 períodos","N = 100 × 2⁶ = 100 × 64 = <b>6 400</b>"]}],
+ m:"Se a questão dá log 2 ≈ 0,3, use: log 4 = 0,6; log 8 = 0,9; log 5 = log(10/2) = 1 − 0,3 = 0,7.",
+ tr:[{e:"log₃ 81",r:["3⁴ = 81","= 4"]},{e:"Uma população de 500 dobra a cada 3 anos. Em quanto tempo chega a 4 000?",r:["4 000 ÷ 500 = 8 = 2³ → 3 períodos","3 × 3 = 9 anos"]}]},
+
+{g:"⚡ Física", t:"Como isolar uma variável na fórmula", q:"Toda questão de Física com conta.",
+ p:["Escreva a fórmula e marque o que você quer achar.","O que está <b>multiplicando</b> passa para o outro lado <b>dividindo</b> (e vice-versa).","O que está <b>somando</b> passa <b>subtraindo</b>.","Se a letra está ao quadrado, tire a raiz no final.","Substitua os números SÓ no fim, com as unidades no SI."],
+ ex:[{e:"Ec = m · v² / 2. Ache v.",s:["2 · Ec = m · v²","v² = 2Ec / m","<b>v = √(2Ec / m)</b>"]},{e:"Um carro a 72 km/h percorre 360 m. Em quanto tempo?",s:["72 km/h = 20 m/s","v = d/t → t = d/v","t = 360 ÷ 20 = <b>18 s</b>"]}],
+ m:"Triângulo mágico para U = R · i: cubra a letra que você quer; o que sobra mostra a conta (R = U/i; i = U/R).",
+ tr:[{e:"P = U · i. Com P = 2 200 W e U = 220 V, qual a corrente?",r:["i = P/U","i = 2200 ÷ 220 = 10 A"]},{e:"Q = m·c·ΔT. Com Q = 6 000 cal, m = 200 g e c = 1 cal/g°C, qual a variação de temperatura?",r:["ΔT = Q/(m·c)","ΔT = 6000 ÷ 200 = 30 °C"]},{e:"Ec = 200 J e m = 4 kg. Qual a velocidade?",r:["v = √(2 · 200 / 4)","v = √100 = 10 m/s"]}]},
+
+{g:"⚡ Física", t:"Gráficos de movimento (s × t e v × t)", q:"O ENEM adora gráficos de velocidade, de viagens e de frenagem.",
+ p:["<b>Gráfico s × t:</b> reta inclinada = velocidade constante; reta horizontal = parado. Inclinação = velocidade.","<b>Gráfico v × t:</b> reta horizontal = velocidade constante; reta inclinada = aceleração.","Inclinação do v × t = aceleração (a = Δv/Δt).","<b>Área sob o gráfico v × t = distância percorrida.</b>"],
+ ex:[{e:"Um carro vai de 0 a 30 m/s em 10 s (reta). Qual a aceleração e a distância percorrida?",s:["a = 30 ÷ 10 = <b>3 m/s²</b>","Área do triângulo = base × altura ÷ 2 = 10 × 30 ÷ 2 = <b>150 m</b>"]}],
+ m:"Área de retângulo (velocidade constante) = v × t. Área de triângulo = metade disso. Trapézio: (B + b) × h ÷ 2.",
+ tr:[{e:"Um ônibus anda a 20 m/s constantes durante 10 s e depois freia até parar em 4 s. Qual a distância total?",r:["Retângulo: 20 × 10 = 200 m","Triângulo da frenagem: 4 × 20 ÷ 2 = 40 m","Total: 240 m"]}]},
+
+{g:"🧪 Química", t:"Massa molar e número de mols", q:"Base de toda estequiometria e cálculo de concentração.",
+ p:["Olhe a fórmula e conte os átomos de cada elemento (o número pequeno depois do símbolo).","Multiplique pela massa atômica de cada elemento.","Some tudo → massa molar (g/mol).","Número de mols: <span class='f'>n = massa ÷ massa molar</span>."],
+ ex:[{e:"Massa molar do H₂SO₄ (H = 1, S = 32, O = 16)",s:["H: 2 × 1 = 2","S: 1 × 32 = 32","O: 4 × 16 = 64","Total: <b>98 g/mol</b>"]}],
+ m:"Números fora dos parênteses multiplicam tudo dentro: Ca(OH)₂ tem 1 Ca, 2 O e 2 H.",
+ tr:[{e:"Massa molar da glicose C₆H₁₂O₆ (C = 12, H = 1, O = 16)",r:["C: 6 × 12 = 72","H: 12 × 1 = 12","O: 6 × 16 = 96","Total: 180 g/mol"]},{e:"Quantos mols há em 90 g de glicose?",r:["n = 90 ÷ 180","n = 0,5 mol"]},{e:"Massa molar do Ca(OH)₂ (Ca = 40)",r:["40 + 2 × 16 + 2 × 1","= 74 g/mol"]}]},
+
+{g:"🧪 Química", t:"Como balancear uma equação química", q:"Antes de qualquer cálculo estequiométrico; combustão; reações do cotidiano.",
+ p:["Comece pelo elemento que aparece em UMA substância de cada lado (geralmente metais, depois o C).","Depois acerte o H.","Deixe o O (e substâncias simples como O₂) por último.","Ajuste só os COEFICIENTES (números da frente) — nunca mude os índices.","Confira: cada elemento deve ter a mesma quantidade dos dois lados."],
+ ex:[{e:"CH₄ + O₂ → CO₂ + H₂O",s:["C: 1 de cada lado ✓","H: 4 à esquerda → coloque 2 H₂O","O à direita: 2 (do CO₂) + 2 (das 2 H₂O) = 4 → coloque 2 O₂","<b>CH₄ + 2 O₂ → CO₂ + 2 H₂O</b>"]},{e:"Fe + O₂ → Fe₂O₃",s:["O: 2 à esquerda e 3 à direita → MMC = 6 → 3 O₂ e 2 Fe₂O₃","Fe: 4 à direita → 4 Fe","<b>4 Fe + 3 O₂ → 2 Fe₂O₃</b>"]}],
+ m:"Na combustão de hidrocarbonetos: coeficiente do CO₂ = nº de C; da H₂O = nº de H ÷ 2; depois acerte o O₂.",
+ tr:[{e:"H₂ + O₂ → H₂O",r:["2 H₂ + O₂ → 2 H₂O"]},{e:"C₃H₈ + O₂ → CO₂ + H₂O",r:["3 CO₂ (3 C) e 4 H₂O (8 H)","O à direita: 6 + 4 = 10 → 5 O₂","C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O"]},{e:"N₂ + H₂ → NH₃",r:["N: 2 → 2 NH₃","H: 6 → 3 H₂","N₂ + 3 H₂ → 2 NH₃"]}]},
+
+{g:"🧪 Química", t:"Número de oxidação (Nox)", q:"Pilhas, corrosão, ferrugem, oxirredução, agentes oxidante e redutor.",
+ p:["Substância simples (Fe, O₂, H₂): Nox = 0.","H = +1 e O = −2 (na maioria dos casos).","Metais do grupo 1 (Na, K) = +1; grupo 2 (Ca, Mg) = +2.","Em uma molécula, a soma dos Nox = 0; em um íon, a soma = carga do íon.","Nox AUMENTOU → oxidou (é o agente redutor). DIMINUIU → reduziu (é o agente oxidante)."],
+ ex:[{e:"Nox do S no H₂SO₄",s:["2·(+1) + S + 4·(−2) = 0","2 + S − 8 = 0","<b>S = +6</b>"]},{e:"Zn + Cu²⁺ → Zn²⁺ + Cu",s:["Zn: 0 → +2 → oxidou (agente redutor)","Cu: +2 → 0 → reduziu (agente oxidante)"]}],
+ m:"'Perdeu elétrons, oxidou; ganhou elétrons, reduziu' — o Nox sobe quando perde elétrons.",
+ tr:[{e:"Nox do N no HNO₃",r:["+1 + N + 3·(−2) = 0","N = +5"]},{e:"Nox do Mn no KMnO₄",r:["+1 + Mn − 8 = 0","Mn = +7"]}]},
+
+{g:"🧪 Química", t:"Concentração em mol/L e ppm", q:"Soro, flúor na água, poluentes, medicamentos.",
+ p:["<b>g/L</b>: C = massa (g) ÷ volume (L).","<b>mol/L</b>: M = nº de mols ÷ volume (L). (Se tiver massa, transforme em mol antes.)","<b>ppm</b> (partes por milhão): mg por kg ou mg por L (em água).","Converta mL para L: ÷ 1000."],
+ ex:[{e:"0,2 mol de soluto em 500 mL",s:["500 mL = 0,5 L","M = 0,2 ÷ 0,5 = <b>0,4 mol/L</b>"]},{e:"Uma água tem 0,002 g de flúor por litro. Quantos ppm?",s:["0,002 g = 2 mg","2 mg/L = <b>2 ppm</b>"]}],
+ m:"Não esqueça: o volume é da SOLUÇÃO, não só do solvente.",
+ tr:[{e:"5,85 g de NaCl (58,5 g/mol) em 1 L. Concentração em mol/L?",r:["n = 5,85 ÷ 58,5 = 0,1 mol","M = 0,1 ÷ 1 = 0,1 mol/L"]},{e:"Soro fisiológico: 9 g de sal em 1 L. Quantos gramas em 250 mL?",r:["250 mL = 0,25 L","9 × 0,25 = 2,25 g"]}]},
+
+{g:"🧬 Biologia", t:"Quadro de Punnett (cruzamentos)", q:"Genética: probabilidade de filhos com determinada característica.",
+ p:["Escreva o genótipo dos pais (ex.: Aa × aa).","Separe os gametas de cada um: Aa → A e a; aa → a e a.","Monte o quadro 2 × 2 combinando os gametas.","Conte os resultados (cada quadradinho = 1/4).","Para DUAS características (AaBb), calcule cada uma separadamente e multiplique."],
+ ex:[{e:"Aa × aa",s:["Gametas: (A, a) × (a, a)","Filhos: Aa, Aa, aa, aa","<b>1/2 Aa (dominante) e 1/2 aa (recessivo)</b>"]},{e:"AaBb × AaBb: probabilidade de aabb?",s:["aa em Aa × Aa = 1/4","bb em Bb × Bb = 1/4","1/4 × 1/4 = <b>1/16</b>"]}],
+ m:"Proporções que caem sempre: Aa × Aa → 3:1; Aa × aa → 1:1; AA × qualquer → 100% dominante.",
+ tr:[{e:"AA × aa: proporção dos filhos?",r:["Todos Aa → 100% com fenótipo dominante"]},{e:"AaBb × aabb: probabilidade de Aabb?",r:["Aa em Aa × aa = 1/2","bb em Bb × bb = 1/2","1/2 × 1/2 = 1/4"]}]},
+
+{g:"🧬 Biologia", t:"Como ler um heredograma", q:"Doenças genéticas em famílias (albinismo, daltonismo, hemofilia).",
+ p:["Símbolos: □ homem, ○ mulher, pintado = afetado; traço horizontal = casal; traço vertical = filhos.","<b>Pais normais com filho afetado → herança RECESSIVA</b> e os pais são Aa.","<b>Pais afetados com filho normal → herança DOMINANTE</b> e os pais são Aa.","Muito mais homens afetados, passando de mãe para filho → provavelmente ligada ao X (daltonismo, hemofilia).","Comece descobrindo os genótipos dos afetados (aa se recessiva) e depois dos pais."],
+ ex:[{e:"Casal normal tem uma filha afetada. A herança é dominante ou recessiva?",s:["Os pais são normais, mas 'esconderam' o alelo → recessiva","Pais = Aa e Aa; filha = aa"]}],
+ m:"Na herança ligada ao X, o pai passa o X dele para TODAS as filhas e nunca para os filhos homens.",
+ tr:[{e:"Um homem daltônico (XᵈY) e uma mulher normal não portadora (XᴰXᴰ) têm filhos. Qual a chance de um filho homem ser daltônico?",r:["Filhos homens recebem o Y do pai e um X da mãe (Xᴰ).","Chance = 0. Mas todas as filhas serão portadoras (XᴰXᵈ)."]}]}
+];
+
+COMO.splice(7,0,
+{g:"🔢 Matemática básica", t:"Número π (pi) e o círculo", q:"Pizzas, rodas, caixas-d'água, latas, pistas circulares, canos.",
+ p:["<b>π ≈ 3,14159…</b> é quantas vezes o diâmetro cabe no contorno de qualquer círculo: comprimento ÷ diâmetro = π (pouco mais de 3 vezes).","No ENEM, use o valor que a questão der (geralmente <b>π = 3</b> ou <b>3,14</b>).","Comprimento da circunferência (contorno): <span class='f'>C = 2·π·r</span> (ou π·d).","Área do círculo: <span class='f'>A = π·r²</span>.","Cilindro: <span class='f'>V = π·r²·h</span>. Esfera: <span class='f'>V = 4·π·r³/3</span>. Cone: <span class='f'>V = π·r²·h/3</span>.","Atenção: diâmetro = 2 × raio. Se a questão der o diâmetro, divida por 2!"],
+ ex:[{e:"Uma roda de bicicleta tem raio 0,3 m (π = 3). Quantas voltas ela dá em 900 m?",s:["Uma volta = C = 2 · 3 · 0,3 = 1,8 m","900 ÷ 1,8 = <b>500 voltas</b>"]},
+     {e:"O que rende mais: 1 pizza de 40 cm de diâmetro ou 2 pizzas de 20 cm?",s:["Grande: r = 20 → A = π·20² = 400π","Pequenas: r = 10 → A = π·10² = 100π cada → 2 × 100π = 200π","<b>A grande tem o DOBRO de pizza!</b> (dobrar o raio quadruplica a área)"]}],
+ m:"Dobrou o raio → contorno dobra, área ×4, volume ×8.",
+ tr:[{e:"Uma pista circular tem raio 50 m (π = 3,14). Qual o comprimento de uma volta?",r:["C = 2 · 3,14 · 50","C = 314 m"]},{e:"Uma lata cilíndrica tem diâmetro 10 cm e altura 12 cm (π = 3). Qual seu volume em mL?",r:["r = 5 cm","V = 3 · 25 · 12 = 900 cm³","900 cm³ = 900 mL"]},{e:"Um jardim circular tem raio 4 m (π = 3). Qual a área?",r:["A = 3 · 4² = 3 · 16","A = 48 m²"]}]});
+
+COMO.push(
+{g:"🪐 Astronomia e planetas", t:"Sistema Solar e planetas", q:"Questões de Física e Geografia sobre o Sol, a Terra, a Lua e os planetas.",
+ p:["Ordem a partir do Sol: <b>Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano, Netuno</b>. Macete: \"<b>M</b>inha <b>V</b>elha <b>T</b>raga <b>M</b>eu <b>J</b>antar: <b>S</b>opa, <b>U</b>va, <b>N</b>ozes\".","Rochosos (pequenos, sólidos): Mercúrio, Vênus, Terra, Marte. Gasosos/gigantes: Júpiter, Saturno, Urano, Netuno.","Júpiter é o maior. Mercúrio é o mais próximo do Sol. <b>Vênus é o mais quente</b> (efeito estufa intenso, atmosfera de CO₂).","Plutão é planeta-anão desde 2006.","A luz do Sol leva cerca de 8 minutos para chegar à Terra. <b>Ano-luz é DISTÂNCIA</b> (o quanto a luz anda em 1 ano), não tempo."],
+ ex:[{e:"Por que Vênus é mais quente que Mercúrio, se Mercúrio está mais perto do Sol?",s:["Vênus tem atmosfera densa de CO₂ → efeito estufa muito forte, que prende o calor.","Mercúrio quase não tem atmosfera → perde o calor."]}],
+ m:"O ENEM usa astronomia para cobrar conceitos: efeito estufa (Vênus), gravidade (peso em outros planetas), luz (ano-luz).",
+ tr:[{e:"Quais planetas são gasosos?",r:["Júpiter, Saturno, Urano e Netuno"]},{e:"Uma estrela está a 4 anos-luz. O que isso significa?",r:["A luz dela leva 4 anos para chegar aqui.","Vemos a estrela como ela era 4 anos atrás."]}]},
+{g:"🪐 Astronomia e planetas", t:"Gravitação, peso e Leis de Kepler", q:"Peso em outros planetas, satélites, órbitas, marés.",
+ p:["<b>Massa</b> (kg) é a quantidade de matéria e NÃO muda de lugar. <b>Peso</b> (N) é a força da gravidade: <span class='f'>P = m · g</span>.","g na Terra ≈ 10 m/s²; na Lua ≈ 1,6 m/s² (cerca de 1/6).","Gravitação universal: <span class='f'>F = G · M · m / d²</span> → distância dobra, força cai para 1/4.","<b>1ª Lei de Kepler:</b> órbitas são elipses, com o Sol em um dos focos.","<b>2ª Lei:</b> áreas iguais em tempos iguais → o planeta anda <b>mais rápido perto do Sol</b> (periélio) e mais devagar longe (afélio).","<b>3ª Lei:</b> T² / R³ = constante → planetas mais distantes demoram mais para dar a volta.","Marés: causadas principalmente pela atração gravitacional da Lua."],
+ ex:[{e:"Uma pessoa de 60 kg vai à Lua (g = 1,6 m/s²). Qual sua massa e seu peso lá?",s:["Massa: continua <b>60 kg</b>.","Peso: P = 60 × 1,6 = <b>96 N</b> (na Terra: 60 × 10 = 600 N)."]}],
+ m:"Balança de banheiro mede força (peso) e mostra em kg. Na Lua, ela marcaria cerca de 1/6 do valor.",
+ tr:[{e:"Se a distância entre dois corpos dobrar, o que acontece com a força gravitacional?",r:["F é proporcional a 1/d²","d × 2 → F ÷ 4 (fica 4 vezes menor)"]},{e:"Um planeta está 4 vezes mais longe do Sol que outro. Quantas vezes maior é seu período (ano)?",r:["T² ∝ R³ → R × 4 → R³ × 64","T² × 64 → T × 8 (8 vezes maior)"]}]},
+{g:"🪐 Astronomia e planetas", t:"Estações do ano, fases da Lua e eclipses", q:"Muito cobrado em Geografia e Física, junto com movimentos da Terra.",
+ p:["<b>Rotação</b> (24 h) → dia e noite. <b>Translação</b> (365 dias e 6 h) → ano; as 6 h somadas dão o ano bissexto.","<b>Estações do ano são causadas pela INCLINAÇÃO do eixo da Terra (≈ 23,5°)</b>, NÃO pela distância ao Sol.","Por isso, quando é verão no hemisfério Sul (Brasil, dezembro), é inverno no Norte.","Solstício: dia mais longo ou mais curto do ano. Equinócio: dia e noite com a mesma duração.","Fases da Lua (≈ 29,5 dias): nova → crescente → cheia → minguante. A Lua não tem luz própria; reflete a do Sol.","<b>Eclipse solar</b>: a Lua fica entre o Sol e a Terra → só na <b>lua nova</b>. <b>Eclipse lunar</b>: a Terra fica entre o Sol e a Lua → só na <b>lua cheia</b>."],
+ ex:[{e:"A Terra está mais perto do Sol em janeiro. Por que, então, é inverno no hemisfério Norte nessa época?",s:["A distância varia pouco e não define as estações.","Em janeiro, o hemisfério Norte está inclinado para longe do Sol → recebe raios mais inclinados e dias mais curtos → inverno."]}],
+ m:"Eclipse: quem fica no MEIO “apaga” o outro. Lua no meio (Sol-Lua-Terra) → some o Sol → eclipse SOLAR. Terra no meio (Sol-Terra-Lua) → some a Lua → eclipse LUNAR.",
+ tr:[{e:"Em que fase da Lua pode ocorrer um eclipse lunar?",r:["Lua cheia (Terra entre o Sol e a Lua)."]},{e:"Qual movimento da Terra explica o dia e a noite?",r:["Rotação (giro em torno do próprio eixo, ≈ 24 h)."]}]});
+
+const FORMULARIO = [
+ ["📐 Matemática",[
+  ["Porcentagem","aumento: ×(1 + p/100) · desconto: ×(1 − p/100)"],["Juros simples","M = C·(1 + i·t)"],["Juros compostos","M = C·(1 + i)ᵗ"],
+  ["Média ponderada","Σ(valor·peso) ÷ Σ(pesos)"],["Probabilidade","P = favoráveis ÷ possíveis"],["Combinação","C(n,p) = n! ÷ [p!·(n−p)!]"],
+  ["Função 1º grau","f(x) = ax + b"],["Bhaskara","Δ = b² − 4ac · x = (−b ± √Δ) ÷ 2a"],["Vértice","xᵥ = −b/2a · yᵥ = −Δ/4a"],
+  ["PA","aₙ = a₁ + (n−1)·r · Sₙ = (a₁ + aₙ)·n/2"],["PG","aₙ = a₁·qⁿ⁻¹"],["Pitágoras","a² = b² + c²"],
+  ["Trigonometria","sen = op/hip · cos = adj/hip · tg = op/adj"],["π","≈ 3,14 (ENEM costuma dar 3)"],
+  ["Retângulo / Quadrado","A = b·h · A = l²"],["Triângulo","A = b·h/2"],["Trapézio","A = (B + b)·h/2"],["Losango","A = D·d/2"],
+  ["Círculo","A = π·r² · C = 2·π·r"],["Paralelepípedo / Cubo","V = a·b·c · V = a³"],["Cilindro","V = π·r²·h"],
+  ["Cone / Pirâmide","V = Área da base·h/3"],["Esfera","V = 4·π·r³/3"],["Unidades","1 m³ = 1000 L · 1 dm³ = 1 L · 1 km/h ÷ 3,6 = m/s"]]],
+ ["⚡ Física",[
+  ["Velocidade média","v = Δs/Δt"],["Aceleração","a = Δv/Δt"],["MUV","v = v₀ + a·t · s = s₀ + v₀t + at²/2 · v² = v₀² + 2aΔs"],
+  ["2ª Lei de Newton","F = m·a"],["Peso","P = m·g (g ≈ 10 m/s²)"],["Gravitação","F = G·M·m/d²"],
+  ["Trabalho","τ = F·d"],["Energia cinética","Ec = m·v²/2"],["Energia potencial","Ep = m·g·h"],["Potência","P = E/t"],
+  ["Pressão","p = F/A · p = d·g·h"],["Densidade","d = m/V (água: 1 g/cm³)"],
+  ["Calor sensível","Q = m·c·ΔT"],["Calor latente","Q = m·L"],["Escalas","C/5 = (F − 32)/9 = (K − 273)/5"],
+  ["Ondas","v = λ·f · T = 1/f"],["Lei de Ohm","U = R·i"],["Potência elétrica","P = U·i = R·i² = U²/R"],
+  ["Consumo","E (kWh) = P (kW)·t (h)"],["Resistores em série","Req = R₁ + R₂ + …"],["Resistores em paralelo","1/Req = 1/R₁ + 1/R₂ (dois iguais: R/2)"],
+  ["Rendimento","η = útil ÷ total"],["Velocidade da luz","c = 3 × 10⁸ m/s"]]],
+ ["🧪 Química",[
+  ["Mol","n = m/M · 1 mol = 6 × 10²³ partículas"],["Gás nas CNTP","1 mol = 22,4 L"],["Concentração comum","C = m/V (g/L)"],
+  ["Molaridade","M = n/V (mol/L)"],["Diluição","C₁·V₁ = C₂·V₂"],["Título","τ = m soluto ÷ m solução"],["ppm","mg/kg ou mg/L"],
+  ["pH","pH = −log[H⁺] · pH + pOH = 14"],["Meia-vida","m = m₀ ÷ 2ⁿ (n = nº de meias-vidas)"],["Gases","P·V = n·R·T · P₁V₁/T₁ = P₂V₂/T₂ (T em kelvin)"],
+  ["Entalpia","ΔH = H produtos − H reagentes (ΔH < 0: exotérmica)"]]],
+ ["🧬 Biologia",[
+  ["1ª Lei de Mendel","Aa × Aa → 1 AA : 2 Aa : 1 aa (3:1)"],["Cruzamento-teste","Aa × aa → 1 : 1"],["Duas características","multiplique as probabilidades (AaBb × AaBb → 9:3:3:1)"],
+  ["Sexo do filho","× 1/2"],["Fotossíntese","6 CO₂ + 6 H₂O + luz → C₆H₁₂O₆ + 6 O₂"],["Respiração","C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + energia"],
+  ["Energia na cadeia","≈ 10% passa para o nível seguinte"]]]
+];
+
+function formularioPage(){
+  return `<h2>📋 Formulário completo</h2>
+  <div class="card small">Todas as fórmulas em um lugar só. <b>O ENEM NÃO dá formulário</b> (às vezes dá constantes, como π e g), então leia esta página várias vezes. Para aprender a USAR cada fórmula, veja a aba 🧮 Como fazer.</div>
+  ${FORMULARIO.map(([g,l])=>`<details open><summary>${g}</summary><div class="in"><table>${l.map(([n,f])=>`<tr><td><b>${n}</b></td><td class="f" style="background:none">${f}</td></tr>`).join("")}</table></div></details>`).join("")}`;
+}
+
+/* ===================== APOSTILA (conteúdo de cursinho) ===================== */
+const RAIOX = [
+ ["Matemática","Aritmética/matemática básica 26%, Funções 10%, Geometria espacial 7%"],
+ ["Física","Mecânica 26%, Eletricidade 19%, Ondulatória 15%"],
+ ["Química","Química geral 33%, Físico-química 30%, Orgânica 17%"],
+ ["Biologia","Ecologia 37%, Citologia 9%, Fisiologia humana 9%"],
+ ["História","Brasil 50%, Geral 30% (Idade Contemporânea e Brasil Colônia no topo)"],
+ ["Geografia","População 15%, Espaço agrário 13%, Meio ambiente 13%"],
+ ["Filosofia","Política 25%, Ética 25%"],
+ ["Inglês/Espanhol","Interpretação de texto ≈ 80%"]
+];
+
+const APOSTILA = [
+{d:"📐 Matemática (complementos)", tp:[
+ {t:"MMC e MDC em problemas",b:["<b>MMC</b> (mínimo múltiplo comum): quando as coisas vão se <b>encontrar/coincidir de novo</b> (ônibus que saem juntos, remédios, luzes que piscam).","<b>MDC</b> (máximo divisor comum): quando se quer <b>dividir em partes iguais, do maior tamanho possível</b> (cortar tábuas, montar kits).","Cálculo: fatore os números em primos. MMC = todos os fatores com maior expoente; MDC = só os comuns com menor expoente."],
+  f:[["Dois ônibus saem juntos às 8h; um passa a cada 12 min e outro a cada 18 min. Quando saem juntos de novo?","MMC(12,18) = 36 → 36 min depois → 8h36."],["Tenho fitas de 24 m e 36 m e quero cortar pedaços iguais, os maiores possíveis. Qual o tamanho?","MDC(24,36) = 12 m."]]},
+ {t:"Semelhança de triângulos e sombras (Tales)",b:["Triângulos semelhantes têm ângulos iguais e lados proporcionais.","Clássico do ENEM: altura de um prédio/árvore pela sombra. Altura ÷ sombra é igual para tudo no mesmo horário.","Razão de semelhança k: lados ×k, áreas ×k², volumes ×k³."],
+  f:[["Uma pessoa de 1,8 m tem sombra de 0,6 m. No mesmo instante, um prédio tem sombra de 10 m. Qual a altura do prédio?","1,8/0,6 = h/10 → 3 = h/10 → h = 30 m."],["Uma maquete está na escala 1:100. Se a área real de um piso é 200 m², qual a área na maquete?","Área ÷ 100² = 200 ÷ 10 000 = 0,02 m² = 200 cm²."]]},
+ {t:"Desvio padrão e dispersão",b:["Mede o quanto os dados se afastam da média.","<b>Menor desvio padrão = mais regular/constante/homogêneo.</b>","O ENEM costuma perguntar: 'qual candidato/time/máquina é mais regular?' → o de menor desvio (ou menor variância)."],
+  f:[["Dois alunos têm média 7. As notas de A variam de 6 a 8; as de B, de 3 a 10. Quem é mais regular?","A (menor dispersão, menor desvio padrão)."]]},
+ {t:"Ângulos, polígonos e ladrilhamento",b:["Soma dos ângulos internos de um polígono de n lados: (n − 2)·180°.","Triângulo 180°; quadrilátero 360°; hexágono 720° (cada ângulo do regular: 120°).","Ladrilhar (cobrir sem buracos) com um só polígono regular: triângulos, quadrados ou hexágonos (ângulos que somam 360° em volta de um ponto).","Volta completa = 360°; ponteiros do relógio: 30° entre cada número."],
+  f:[["Por que favos de mel são hexágonos?","Hexágonos regulares cobrem o plano sem sobras (3 × 120° = 360°) e usam pouco material para muita área."]]},
+ {t:"Ordem de grandeza e leitura de números grandes",b:["Mil = 10³; milhão = 10⁶; bilhão = 10⁹; trilhão = 10¹².","Gráficos com 'em milhares' ou 'em milhões': multiplique antes de comparar.","Arredondamento: estimar ajuda a eliminar alternativas absurdas."],
+  f:[["Quanto é 2,5 bilhões em notação científica?","2,5 × 10⁹."]]}
+]},
+{d:"⚡ Física", tp:[
+ {t:"Leis de Newton e quantidade de movimento",b:["<b>1ª Lei (inércia)</b>: um corpo tende a manter seu estado → por isso usamos cinto de segurança.","<b>2ª Lei</b>: F = m·a.","<b>3ª Lei (ação e reação)</b>: forças iguais e opostas, em corpos DIFERENTES (por isso não se anulam). Ex.: foguete, remar.","Atrito: se opõe ao deslizamento; pneus e calçados dependem dele.","Quantidade de movimento Q = m·v; impulso I = F·Δt. <b>Airbag e capacete aumentam o tempo do impacto → diminuem a força.</b>"],
+  f:[["Por que o airbag reduz lesões?","Aumenta o tempo de parada da cabeça; com mesmo impulso, mais tempo = força menor."],["Ação e reação se anulam?","Não: atuam em corpos diferentes."]]},
+ {t:"Hidrostática (pressão, empuxo, Pascal)",b:["Pressão = força ÷ área (faca afiada corta melhor: área pequena).","Stevin: a pressão aumenta com a profundidade (≈ +1 atm a cada 10 m de água).","<b>Empuxo</b> (Arquimedes): E = d_líquido · V_submerso · g. Flutua se a densidade média do corpo for menor que a do líquido.","<b>Pascal</b>: pressão se transmite igualmente → prensa e freio hidráulico multiplicam força.","Vasos comunicantes: o líquido fica no mesmo nível (caixa-d'água no alto)."],
+  f:[["Por que um navio de aço flutua?","Seu formato oco desloca muito volume de água → densidade média menor que a da água."],["Por que é mais fácil boiar no mar que na piscina?","A água salgada é mais densa → empuxo maior."]]},
+ {t:"Termologia e termodinâmica",b:["Calor = energia em trânsito; temperatura = agitação das partículas.","<b>Condução</b>: por contato (cabo de panela de metal). <b>Convecção</b>: correntes em fluidos (ar-condicionado no alto; congelador em cima da geladeira). <b>Irradiação</b>: ondas, inclusive no vácuo (Sol; garrafa térmica espelhada evita).","Dilatação: trilhos e pontes têm folgas.","Mudança de estado ocorre a temperatura constante. Mais pressão → água ferve acima de 100 °C (panela de pressão). Em altitude, ferve abaixo de 100 °C.","Máquinas térmicas: rendimento sempre menor que 100% (2ª Lei). Carnot: η = 1 − T_fria/T_quente (em kelvin)."],
+  f:[["Por que o ar-condicionado é instalado no alto?","O ar frio é mais denso e desce, criando convecção que resfria todo o ambiente."],["Por que a panela de pressão cozinha mais rápido?","Pressão maior → a água ferve a uma temperatura mais alta."]]},
+ {t:"Ondas, som e espectro eletromagnético",b:["Ondas <b>mecânicas</b> precisam de meio (som não se propaga no vácuo). Ondas <b>eletromagnéticas</b> não precisam (luz, rádio, micro-ondas, raios X).","Som: <b>altura</b> = frequência (agudo/grave); <b>intensidade</b> = volume (decibéis); <b>timbre</b> = 'assinatura' de cada instrumento/voz.","Eco = reflexão. <b>Efeito Doppler</b>: sirene fica mais aguda chegando e mais grave se afastando.","<b>Ressonância</b>: taça que quebra com a voz, ponte que oscila. <b>Interferência destrutiva</b>: fones com cancelamento de ruído.","Espectro (energia crescente): rádio → micro-ondas → infravermelho → luz visível → ultravioleta → raios X → gama. Quanto maior a frequência, mais energia (UV causa câncer de pele)."],
+  f:[["Por que no espaço não se ouve uma explosão?","O som é onda mecânica e precisa de meio material."],["Qual radiação é usada no controle remoto?","Infravermelho."]]},
+ {t:"Óptica",b:["Reflexão: espelho plano forma imagem virtual, do mesmo tamanho, à mesma distância.","Espelho <b>convexo</b>: amplia o campo visual (retrovisores, saídas de garagem). <b>Côncavo</b>: amplia a imagem (espelho de maquiagem), concentra raios (forno solar).","Refração: mudança de velocidade da luz ao mudar de meio (lápis 'quebrado' no copo, piscina parece mais rasa).","Dispersão: luz branca se separa em cores (arco-íris, prisma).","Cor de um objeto = cor que ele reflete. Preto absorve todas (esquenta mais); branco reflete todas."],
+  f:[["Por que se usa espelho convexo em ônibus e garagens?","Ele aumenta o campo de visão (imagem menor, mas mostra uma área maior)."]]},
+ {t:"Eletromagnetismo, usinas e energia",b:["<b>Indução eletromagnética</b> (Faraday): variar o campo magnético perto de uma bobina gera corrente → princípio dos geradores.","Hidrelétrica, eólica, termelétrica e nuclear giram uma turbina ligada a um gerador. A <b>solar fotovoltaica</b> não (converte luz direto em eletricidade).","Hidrelétrica: energia potencial gravitacional → cinética → elétrica. Renovável, mas alaga áreas e afeta povos e ecossistemas.","Termelétrica: queima combustíveis (CO₂). Nuclear: não emite CO₂, mas gera lixo radioativo.","Transformador: muda a tensão; só funciona com corrente alternada."],
+  f:[["Qual usina não utiliza turbina e gerador?","Solar fotovoltaica."],["Transformações de energia numa usina eólica?","Cinética do vento → cinética de rotação → elétrica."]]}
+]},
+{d:"🧪 Química", tp:[
+ {t:"Modelos atômicos e tabela periódica",b:["Dalton: bola maciça. Thomson: 'pudim de passas' (descobriu o elétron). Rutherford: núcleo pequeno e denso + eletrosfera (experimento da folha de ouro). <b>Bohr</b>: elétrons em níveis de energia; ao voltar de um nível, emitem luz → <b>cores dos fogos de artifício</b>.","Z = nº de prótons; A = prótons + nêutrons. Isótopos: mesmo Z (ex.: C-12 e C-14).","Famílias: 1 alcalinos (Na, K), 2 alcalino-terrosos (Ca, Mg), 17 halogênios (F, Cl), 18 gases nobres (estáveis)."],
+  f:[["Que modelo explica as cores dos fogos de artifício?","Bohr (salto dos elétrons entre níveis emitindo luz)."]]},
+ {t:"Ligações químicas, polaridade e sabões",b:["<b>Iônica</b>: metal + ametal (NaCl); conduz eletricidade dissolvida ou fundida.","<b>Covalente</b>: ametais compartilham elétrons (H₂O, CO₂).","<b>Metálica</b>: 'mar de elétrons'; conduz no estado sólido.","<b>Semelhante dissolve semelhante</b>: polar dissolve polar (água + sal/açúcar); apolar dissolve apolar (gasolina + óleo).","Sabão/detergente: cauda apolar 'agarra' a gordura e cabeça polar 'agarra' a água → micelas.","Ligações de hidrogênio deixam a água com alto ponto de ebulição."],
+  f:[["Como o sabão remove a gordura?","A parte apolar se liga à gordura e a parte polar à água, formando micelas que a água leva embora."]]},
+ {t:"Termoquímica e cinética química",b:["<b>Exotérmica</b>: libera calor, ΔH &lt; 0 (combustão, compressa quente).","<b>Endotérmica</b>: absorve calor, ΔH &gt; 0 (compressa fria, fotossíntese, cozinhar alimentos).","A velocidade de uma reação aumenta com: maior <b>temperatura</b>, maior <b>concentração</b>, maior <b>superfície de contato</b> (comprimido triturado, lenha em gravetos) e <b>catalisador</b> (diminui a energia de ativação; enzimas, catalisador do carro)."],
+  f:[["Por que alimentos duram mais na geladeira?","Temperatura menor → reações de decomposição mais lentas."],["Por que o comprimido efervescente dissolve mais rápido em pó?","Maior superfície de contato."]]},
+ {t:"Equilíbrio químico (Le Chatelier)",b:["Um sistema em equilíbrio, quando perturbado, se desloca para <b>compensar</b> a perturbação.","Adicionar reagente → desloca para os produtos; retirar produto → também.","Aumentar a pressão → desloca para o lado com <b>menos mols de gás</b>.","Aumentar a temperatura → favorece o sentido <b>endotérmico</b>.","Catalisador NÃO desloca equilíbrio, só faz chegar mais rápido."],
+  f:[["Por que o refrigerante 'perde o gás' ao abrir?","A pressão cai e o equilíbrio do CO₂ dissolvido se desloca para a liberação do gás."]]},
+ {t:"Química orgânica: funções, isomeria e polímeros",b:["Hidrocarboneto: só C e H (gasolina, gás de cozinha). <b>Álcool</b>: –OH em carbono saturado (etanol). <b>Fenol</b>: –OH ligado ao anel aromático.","<b>Aldeído</b>: –CHO (formol). <b>Cetona</b>: C=O no meio da cadeia (acetona). <b>Ácido carboxílico</b>: –COOH (vinagre). <b>Éster</b>: aromas e sabores (essências de frutas). <b>Amina</b>: contém N (cheiro de peixe).","<b>Isomeria óptica</b>: carbono quiral (4 ligantes diferentes) → moléculas 'espelhadas' com efeitos diferentes (caso da talidomida).","Polímeros: de adição (polietileno, PVC, isopor) e de condensação (PET, náilon). Plásticos comuns demoram séculos para se degradar.","Biocombustíveis: etanol (fermentação da cana) e biodiesel (transesterificação de óleos) — renováveis."],
+  f:[["Qual a função orgânica do vinagre?","Ácido carboxílico (ácido acético)."],["Que tipo de isomeria explica a tragédia da talidomida?","Isomeria óptica."]]},
+ {t:"Eletrólise e corrosão",b:["Pilha: reação espontânea gera corrente. <b>Eletrólise</b>: corrente força uma reação não espontânea (produção de alumínio, cloro, galvanoplastia/cromagem).","Ferrugem: oxidação do ferro com O₂ e água (mais rápida em maresia).","Proteção: pintura, <b>galvanização</b> (cobrir com zinco) e <b>metal de sacrifício</b> (zinco ou magnésio oxidam no lugar do ferro — cascos de navios)."],
+  f:[["Por que um prego galvanizado não enferruja?","O zinco é mais reativo e oxida antes do ferro (metal de sacrifício)."]]}
+]},
+{d:"🧬 Biologia", tp:[
+ {t:"Citologia",b:["Procariontes (bactérias): sem núcleo organizado. Eucariontes: com núcleo (animais, plantas, fungos, protozoários).","<b>Mitocôndria</b>: respiração celular (energia/ATP). <b>Cloroplasto</b>: fotossíntese (só em plantas e algas). <b>Ribossomo</b>: produz proteínas. <b>Lisossomo</b>: digestão celular. <b>Complexo golgiense</b>: secreção.","Membrana plasmática: permeabilidade seletiva. <b>Osmose</b>: a água vai do meio menos concentrado para o mais concentrado (salada temperada murcha; carne-seca é conservada no sal).","Vírus não são células e não se reproduzem fora delas → antibióticos não funcionam contra vírus."],
+  f:[["Por que a salada com sal murcha?","Osmose: a água sai das células para o meio mais concentrado (salgado)."],["Antibiótico trata gripe?","Não; gripe é causada por vírus."]]},
+ {t:"DNA, divisão celular e biotecnologia",b:["DNA → (transcrição) → RNA → (tradução) → proteína.","<b>Mitose</b>: 1 célula → 2 iguais (crescimento, regeneração). <b>Meiose</b>: 1 → 4 com metade dos cromossomos (gametas; gera variabilidade).","<b>Transgênico</b>: recebe gene de OUTRA espécie (milho Bt resistente a pragas, insulina produzida por bactérias).","<b>Clone</b>: cópia genética idêntica (ovelha Dolly).","<b>PCR</b>: multiplica trechos de DNA/RNA (testes de COVID, investigação criminal). Teste de paternidade compara DNA.","Células-tronco: podem originar diferentes tecidos. Vacinas de RNA mensageiro fazem a célula produzir um antígeno."],
+  f:[["Diferença entre transgênico e clone?","Transgênico recebe gene de outra espécie; clone é uma cópia genética idêntica."]]},
+ {t:"Bioenergética: fotossíntese, respiração e fermentação",b:["<b>Fotossíntese</b> (cloroplasto): 6 CO₂ + 6 H₂O + luz → glicose + 6 O₂.","<b>Respiração aeróbica</b> (mitocôndria): glicose + O₂ → CO₂ + H₂O + muita energia.","<b>Fermentação</b> (sem O₂, pouca energia): <i>alcoólica</i> (leveduras: pão, vinho, cerveja, etanol — libera CO₂) e <i>lática</i> (bactérias do iogurte; músculos em esforço intenso)."],
+  f:[["O que faz a massa do pão crescer?","O CO₂ liberado na fermentação alcoólica das leveduras."]]},
+ {t:"Fisiologia humana",b:["<b>Digestão</b>: boca (amilase salivar), estômago (pepsina, meio ácido), intestino delgado (absorção); fígado produz bile (emulsiona gorduras); pâncreas produz enzimas e insulina.","<b>Circulação</b>: coração com 4 cavidades; artérias saem do coração, veias chegam a ele.","<b>Respiração</b>: trocas gasosas nos alvéolos.","<b>Excreção</b>: rins filtram o sangue (néfrons) e eliminam ureia.","<b>Hormônios</b>: insulina baixa a glicose e glucagon aumenta; adrenalina (luta ou fuga); tireoide (metabolismo). Diabetes tipo 1: pâncreas não produz insulina; tipo 2: resistência à insulina (ligada a hábitos)."],
+  f:[["Qual órgão produz a insulina?","O pâncreas."],["Artérias levam o sangue para onde?","Do coração para o corpo."]]},
+ {t:"Doenças e parasitoses",b:["<b>Vírus</b>: dengue, zika, chikungunya e febre amarela (mosquito <i>Aedes aegypti</i>), HIV, gripe, COVID-19, sarampo, raiva.","<b>Bactérias</b>: tuberculose, hanseníase, <b>leptospirose</b> (urina de rato, enchentes), cólera, tétano, sífilis.","<b>Protozoários</b>: malária (mosquito <i>Anopheles</i>), doença de Chagas (barbeiro), leishmaniose, giardíase, toxoplasmose.","<b>Vermes</b>: esquistossomose (caramujo, água contaminada), teníase/cisticercose (carne de porco/boi malcozida), ascaridíase, amarelão (andar descalço).","Prevenção mais cobrada: <b>saneamento básico</b>, eliminar água parada, vacinação."],
+  f:[["Por que casos de leptospirose aumentam após enchentes?","A água mistura-se com a urina de ratos contaminados."],["Qual a principal forma de prevenir a dengue?","Eliminar recipientes com água parada (criadouros do Aedes)."]]},
+ {t:"Botânica e zoologia",b:["Plantas: <b>briófitas</b> (musgos; sem vasos), <b>pteridófitas</b> (samambaias; com vasos, sem sementes), <b>gimnospermas</b> (pinheiros; sementes 'nuas'), <b>angiospermas</b> (flores e frutos).","Polinização (vento, insetos, aves, morcegos) e dispersão de sementes (animais, vento, água).","Hormônios vegetais: <b>auxina</b> (crescimento em direção à luz) e <b>etileno</b> (amadurecimento — fruta embrulhada amadurece mais rápido).","Vertebrados: peixes, anfíbios (respiração cutânea, sensíveis à poluição — bioindicadores), répteis (ovo com casca), aves e mamíferos (endotérmicos)."],
+  f:[["Por que embrulhar bananas acelera o amadurecimento?","O gás etileno liberado fica concentrado."]]},
+ {t:"Ecologia e impactos ambientais",b:["<b>Efeito estufa</b> (natural, intensificado por CO₂ e CH₄) ≠ <b>camada de ozônio</b> (destruída por CFCs; protege do UV).","<b>Eutrofização</b>: esgoto/fertilizantes → excesso de nutrientes → proliferação de algas → falta de O₂ → morte de peixes.","<b>Sucessão ecológica</b>: espécies pioneiras (liquens) preparam o ambiente até a comunidade clímax.","Espécies invasoras (ex.: mexilhão-dourado, javali) desequilibram ecossistemas.","Mata ciliar protege rios contra erosão e assoreamento."],
+  f:[["O que é eutrofização?","Excesso de nutrientes na água → explosão de algas → falta de oxigênio → morte de peixes."]]}
+]},
+{d:"📜 História", tp:[
+ {t:"Antiguidade (Grécia e Roma)",b:["<b>Atenas</b>: berço da democracia direta, mas só homens livres nascidos em Atenas eram cidadãos (excluía mulheres, escravizados e estrangeiros). <b>Esparta</b>: sociedade militarizada.","<b>Roma</b>: Monarquia → República (patrícios × plebeus; Senado) → Império. 'Pão e circo' para controlar a população. Cristianismo vira religião oficial no séc. IV.","Herança: direito romano, filosofia, conceito de cidadania."],
+  f:[["A democracia ateniense era para todos?","Não: excluía mulheres, escravizados e estrangeiros."]]},
+ {t:"Idade Média",b:["<b>Feudalismo</b>: economia agrária, terra como riqueza, relações de suserania e vassalagem, servos presos à terra.","Igreja Católica com grande poder político e cultural.","Cruzadas, renascimento comercial e urbano (burgos, burguesia), Peste Negra (séc. XIV)."],
+  f:[["Qual a base econômica do feudalismo?","A terra e o trabalho servil no campo."]]},
+ {t:"Idade Moderna e Iluminismo",b:["<b>Renascimento</b>: humanismo e antropocentrismo (o ser humano no centro).","<b>Reforma Protestante</b> (Lutero, 1517): crítica à venda de indulgências.","Grandes Navegações, mercantilismo (acúmulo de metais, balança favorável) e absolutismo (rei com poder total).","<b>Iluminismo</b> (séc. XVIII): razão contra o absolutismo e os privilégios. Montesquieu (três poderes), Voltaire (tolerância, liberdade de expressão), Rousseau (soberania popular). Inspirou a Revolução Francesa e as independências na América."],
+  f:[["Quem propôs a divisão em três poderes?","Montesquieu."]]},
+ {t:"Brasil Colônia",b:["Capitanias hereditárias (1534) e Governo-Geral (1548).","<b>Ciclo do açúcar</b> no Nordeste: <b>plantation</b> = latifúndio + monocultura + trabalho escravizado + exportação.","Jesuítas e catequese dos indígenas; bandeirantes expandiram o território e escravizaram indígenas.","<b>Resistência</b>: quilombos (Palmares, Zumbi — 20 de novembro, Dia da Consciência Negra), fugas, revoltas.","<b>Mineração</b> (séc. XVIII, MG): interiorização, urbanização, capital transferida para o Rio (1763), cobrança de impostos (quinto, derrama).","Revoltas: Inconfidência Mineira (1789, elite, Tiradentes) e Conjuração Baiana (1798, popular, defendia o fim da escravidão).","1808: chegada da família real e abertura dos portos."],
+  f:[["Quais as características da plantation?","Latifúndio, monocultura, mão de obra escravizada e produção para exportação."],["Diferença entre Inconfidência Mineira e Conjuração Baiana?","Mineira: liderada pela elite, não propunha abolição. Baiana: popular, defendia igualdade e o fim da escravidão."]]},
+ {t:"Brasil Império",b:["Independência (1822) feita pela elite, mantendo escravidão e monarquia.","Período Regencial (1831–1840): revoltas — Cabanagem (PA), Balaiada (MA), Sabinada (BA), Farroupilha (RS), <b>Revolta dos Malês</b> (1835, escravizados muçulmanos em Salvador).","Café no Sudeste e imigração europeia (política de 'branqueamento').","Abolição gradual: Lei Eusébio de Queirós (1850, fim do tráfico), Ventre Livre (1871), Sexagenários (1885), Áurea (1888)."],
+  f:[["Qual lei proibiu o tráfico de escravizados para o Brasil?","Lei Eusébio de Queirós (1850)."]]},
+ {t:"Idade Contemporânea (mundo)",b:["<b>Revolução Industrial</b> (Inglaterra, séc. XVIII): máquina a vapor, fábricas, proletariado, jornadas exaustivas, trabalho infantil; reações: ludismo (quebrar máquinas) e cartismo (direitos políticos).","<b>Revolução Francesa</b> (1789): 'Liberdade, Igualdade, Fraternidade'; Declaração dos Direitos do Homem e do Cidadão; fim dos privilégios.","<b>Imperialismo</b> (séc. XIX): partilha da África (Conferência de Berlim, 1884–85), justificada por ideias racistas.","1ª Guerra (1914–1918); Revolução Russa (1917); Crise de 1929; totalitarismos (nazismo, fascismo); 2ª Guerra (1939–1945) e Holocausto.","ONU (1945) e Declaração Universal dos Direitos Humanos (1948).","<b>Guerra Fria</b> (EUA capitalista × URSS socialista): corrida armamentista e espacial, Muro de Berlim (1961–1989), fim da URSS (1991). Descolonização da África e da Ásia."],
+  f:[["O que foi o ludismo?","Movimento de trabalhadores que quebravam máquinas, culpando-as pelo desemprego e pela exploração."],["O que marcou o fim da Guerra Fria?","Queda do Muro de Berlim (1989) e fim da URSS (1991)."]]},
+ {t:"Redemocratização e Brasil recente",b:["Anistia (1979), Diretas Já (1984), eleição indireta de Tancredo (1985).","<b>Constituição de 1988</b>: direitos sociais, SUS, voto facultativo para analfabetos e jovens de 16–17 anos, racismo como crime inafiançável.","Impeachment de Collor (1992), Plano Real (1994, controle da inflação)."],
+  f:[["Por que a Constituição de 1988 é chamada de 'Cidadã'?","Pela ampliação de direitos sociais, civis e políticos após a ditadura."]]}
+]},
+{d:"🌎 Geografia", tp:[
+ {t:"Cartografia e fusos horários",b:["<b>Latitude</b>: distância ao Equador (0° a 90° N ou S), medida pelos paralelos. <b>Longitude</b>: distância a Greenwich (0° a 180° L ou O), pelos meridianos.","<b>Fusos</b>: 360° ÷ 24 h = 15° por hora. Indo para o LESTE, as horas aumentam; para o OESTE, diminuem.","Projeção de <b>Mercator</b>: preserva formas, mas distorce áreas perto dos polos (Groenlândia parece enorme). <b>Peters</b>: preserva áreas, distorce formas.","Curvas de nível: quanto mais próximas, mais íngreme o terreno."],
+  f:[["São 15h em Londres (0°). Que horas são em Brasília (3 fusos a oeste)?","15 − 3 = 12h."],["Por que a Groenlândia parece maior que o Brasil em muitos mapas?","A projeção de Mercator distorce as áreas em altas latitudes."]]},
+ {t:"Geologia, relevo e solos",b:["Placas tectônicas: terremotos e vulcões nas <b>bordas</b> (Chile, Japão). O Brasil fica no centro da placa Sul-Americana → poucos terremotos fortes.","Intemperismo (físico e químico) desgasta as rochas; erosão transporta o material.","Desmatamento → erosão, <b>voçorocas</b>, <b>assoreamento</b> dos rios.","Relevo brasileiro: planaltos, planícies e depressões (classificação de Jurandyr Ross); altitudes modestas e formas antigas e desgastadas."],
+  f:[["Por que o Brasil quase não sofre terremotos fortes?","Está no interior da placa Sul-Americana, longe das bordas."]]},
+ {t:"Clima e fenômenos climáticos",b:["Fatores: latitude, altitude, maritimidade × continentalidade, massas de ar, correntes marítimas, vegetação.","Climas do Brasil: equatorial (Amazônia), tropical, tropical de altitude, semiárido (Sertão), subtropical (Sul).","<b>El Niño</b>: aquecimento do Pacífico → secas no Norte/Nordeste e chuvas fortes no Sul. <b>La Niña</b>: o inverso (resfriamento).","<b>Rios voadores</b>: umidade da Amazônia levada pelos ventos até o Centro-Sul → desmatamento afeta chuvas em outras regiões.","Semiárido: chuvas irregulares; soluções de convivência (cisternas)."],
+  f:[["Qual o efeito do El Niño no Nordeste?","Agrava as secas."]]},
+ {t:"População",b:["<b>Transição demográfica</b>: natalidade e mortalidade caem → população envelhece. Pirâmide brasileira: base estreitando e topo alargando.","Bônus demográfico: muita gente em idade de trabalhar (oportunidade econômica, mas temporária).","Migrações: êxodo rural, nordestinos para o Sudeste (séc. XX), migração de retorno, refugiados (venezuelanos, haitianos), xenofobia.","IDH: renda, educação e longevidade."],
+  f:[["O que acontece com a pirâmide etária do Brasil?","A base estreita (menos nascimentos) e o topo alarga (mais idosos)."]]},
+ {t:"Espaço agrário",b:["Concentração fundiária (latifúndios) desde as sesmarias e a Lei de Terras (1850).","<b>Agronegócio</b>: monocultura mecanizada de commodities para exportação (soja, milho, carne, cana).","<b>Agricultura familiar</b>: pequenas propriedades, produz grande parte dos alimentos consumidos no país.","<b>Revolução Verde</b>: mecanização, agrotóxicos, sementes selecionadas → mais produção, mas impactos ambientais, endividamento e êxodo rural.","Conflitos: reforma agrária, MST, povos indígenas e quilombolas; agroecologia como alternativa."],
+  f:[["O que foi a Revolução Verde?","Modernização agrícola com máquinas, agrotóxicos e sementes melhoradas, aumentando a produção, mas com impactos sociais e ambientais."]]},
+ {t:"Indústria, trabalho, energia e globalização",b:["<b>Fordismo</b>: linha de montagem, produção em massa, grandes estoques. <b>Toyotismo</b>: produção flexível, <i>just in time</i> (estoque mínimo), trabalhador multifuncional.","Hoje: Indústria 4.0 (automação, robôs), terceirização e <b>uberização</b> (trabalho por aplicativo, sem direitos trabalhistas).","Desconcentração industrial no Brasil (guerra fiscal entre estados).","Energia: renováveis (hidráulica, eólica — forte no Nordeste, solar, biomassa) × não renováveis (petróleo, pré-sal, carvão, gás). Matriz elétrica brasileira majoritariamente renovável.","Globalização: multinacionais, blocos econômicos (Mercosul, UE), desigualdades entre países; conflitos geopolíticos (Rússia–Ucrânia, Israel–Palestina)."],
+  f:[["Diferença entre fordismo e toyotismo?","Fordismo: produção em massa e estoques. Toyotismo: produção flexível sob demanda (just in time)."]]}
+]},
+{d:"🤔 Filosofia (complementos)", tp:[
+ {t:"Dos pré-socráticos à Idade Média",b:["<b>Pré-socráticos</b>: buscavam a <i>arché</i> (origem de tudo). Tales: água. <b>Heráclito</b>: tudo muda ('ninguém se banha duas vezes no mesmo rio'). <b>Parmênides</b>: o ser é imutável.","<b>Sofistas</b>: retórica e relativismo ('o homem é a medida de todas as coisas' — Protágoras).","<b>Santo Agostinho</b>: fé acima da razão (influência de Platão). <b>Tomás de Aquino</b>: conciliação entre fé e razão (influência de Aristóteles)."],
+  f:[["'Ninguém se banha duas vezes no mesmo rio' é de quem?","Heráclito (tudo está em constante mudança)."]]},
+ {t:"Filosofia moderna",b:["<b>Descartes</b>: 'Penso, logo existo'; dúvida metódica; racionalismo (conhecimento pela razão).","<b>Empirismo</b> (Locke, Hume): conhecimento vem da experiência; mente como 'tábula rasa'.","<b>Kant</b>: síntese entre razão e experiência; ética do dever (imperativo categórico: aja como se sua ação devesse virar lei universal).","<b>Maquiavel</b>: 'os fins justificam os meios' (frase atribuída); a política tem lógica própria."],
+  f:[["Qual a diferença entre racionalismo e empirismo?","Racionalismo: conhecimento vem da razão. Empirismo: vem da experiência sensível."]]},
+ {t:"Filosofia contemporânea e ética",b:["<b>Utilitarismo</b> (Bentham, Mill): ação correta é a que gera a maior felicidade para o maior número.","<b>Nietzsche</b>: 'Deus está morto'; crítica à moral tradicional; super-homem.","<b>Sartre</b>: 'a existência precede a essência'; o ser humano está 'condenado a ser livre' e é responsável por suas escolhas.","<b>Foucault</b>: poder disciplinar, vigilância (panóptico), instituições como prisões, escolas e hospitais.","<b>Hannah Arendt</b>: banalidade do mal. <b>Simone de Beauvoir</b>: 'Ninguém nasce mulher, torna-se mulher'."],
+  f:[["Quem disse que 'a existência precede a essência'?","Jean-Paul Sartre."],["O panóptico é associado a qual filósofo?","Michel Foucault (sociedade disciplinar e vigilância)."]]}
+]},
+{d:"👥 Sociologia (complementos)", tp:[
+ {t:"Cultura, etnocentrismo e identidade",b:["<b>Etnocentrismo</b>: julgar outras culturas a partir da sua, considerando-a superior.","<b>Relativismo cultural</b>: compreender cada cultura em seu próprio contexto.","Aculturação, hibridismo cultural, cultura popular × erudita × de massa.","'<b>Democracia racial</b>' (ideia associada a Gilberto Freyre) foi criticada como mito por Florestan Fernandes: o racismo persiste."],
+  f:[["O que é etnocentrismo?","Avaliar outras culturas tendo a própria como padrão superior."]]},
+ {t:"Trabalho, cidadania e movimentos sociais",b:["Taylorismo (tempo e movimento), fordismo e toyotismo; precarização e uberização.","Cidadania (T. H. Marshall): direitos civis, políticos e sociais — conquistados historicamente.","Movimentos sociais: negro, feminista, indígena, LGBTQIA+, MST, ambientalista. O ENEM costuma valorizá-los como ampliação da cidadania.","Desigualdade, estratificação, mobilidade social; racismo estrutural (Silvio Almeida)."],
+  f:[["Quais são os três tipos de direitos segundo Marshall?","Civis, políticos e sociais."]]}
+]},
+{d:"📖 Linguagens (complementos)", tp:[
+ {t:"Escolas literárias (linha do tempo)",b:["<b>Quinhentismo</b>: textos de informação (Carta de Caminha) e catequese (Anchieta).","<b>Barroco</b> (séc. XVII): conflito fé × prazer, antíteses; Gregório de Matos ('Boca do Inferno'), Padre Vieira.","<b>Arcadismo</b> (séc. XVIII): bucolismo, simplicidade, <i>carpe diem</i>; Tomás Antônio Gonzaga.","<b>Romantismo</b>: 1ª geração indianista/nacionalista (Gonçalves Dias, José de Alencar); 2ª ultrarromântica (Álvares de Azevedo); 3ª condoreira/social (Castro Alves, 'O Navio Negreiro').","<b>Realismo</b>: crítica social, ironia, análise psicológica — <b>Machado de Assis</b> (Dom Casmurro, Memórias Póstumas de Brás Cubas). <b>Naturalismo</b>: determinismo, meio influencia o indivíduo (Aluísio Azevedo, O Cortiço).","<b>Parnasianismo</b>: 'arte pela arte', forma perfeita (Olavo Bilac). <b>Simbolismo</b>: musicalidade, espiritualidade (Cruz e Sousa).","<b>Pré-Modernismo</b>: Euclides da Cunha (Os Sertões), Lima Barreto, Monteiro Lobato.","<b>Modernismo</b> e <b>contemporâneos</b>: veja o Resumão de Linguagens."],
+  f:[["Qual escola usa o determinismo e o meio como explicação do comportamento?","Naturalismo (ex.: O Cortiço)."],["Castro Alves pertence a qual geração romântica?","3ª geração (condoreira), poesia social e abolicionista."]]},
+ {t:"Gramática no texto (como o ENEM cobra)",b:["O ENEM não pede regras soltas: pergunta o <b>efeito de sentido</b> do recurso.","<b>Coesão referencial</b>: pronomes e sinônimos retomam termos (evite ambiguidade).","Adjetivos e advérbios revelam <b>opinião/avaliação</b> do autor; verbos no imperativo, <b>apelo</b>.","Pontuação expressiva (reticências: hesitação; exclamação: emoção); aspas: ironia ou citação.","Neologismos (palavras novas), estrangeirismos, marcas de oralidade."],
+  f:[["Que efeito têm as aspas em 'o 'especialista' errou de novo'?","Ironia: o autor questiona que a pessoa seja realmente especialista."]]},
+ {t:"Artes",b:["<b>Vanguardas europeias</b>: Cubismo (Picasso, formas geométricas e vários pontos de vista), Expressionismo (Munch, 'O Grito', emoção e angústia), Surrealismo (Dalí, sonhos e inconsciente), Dadaísmo (Duchamp, 'A Fonte', ready-made, anti-arte), Futurismo (velocidade, máquinas).","Brasil: Anita Malfatti, <b>Tarsila do Amaral</b> ('Abaporu' — antropofagia), Portinari ('Retirantes'), Hélio Oiticica (parangolés), arte indígena e afro-brasileira.","Arte contemporânea: instalação, performance, arte conceitual, intervenção urbana, grafite — a <b>ideia</b> e a participação do público importam mais que a técnica.","Música: Bossa Nova, Tropicália (Caetano, Gil — mistura e contracultura), rap e funk como expressão das periferias."],
+  f:[["O que é um ready-made?","Objeto comum deslocado para o espaço artístico (ex.: 'A Fonte', de Duchamp, um urinol)."],["Qual obra é símbolo do movimento antropofágico?","'Abaporu', de Tarsila do Amaral."]]},
+ {t:"Educação Física e práticas corporais",b:["Práticas corporais: esportes, danças, lutas, ginásticas, jogos e brincadeiras — como <b>cultura</b>, não só exercício.","Críticas aos padrões de beleza impostos pela mídia e aos riscos de anabolizantes e dietas extremas.","Sedentarismo e saúde; atividade física regular como prevenção.","Inclusão (esporte paralímpico), esportes de aventura, capoeira (patrimônio cultural), esporte como espetáculo e mercadoria."],
+  f:[["Como o ENEM costuma abordar o corpo e a mídia?","Criticando a imposição de padrões de beleza e a mercantilização do corpo."]]}
+]}
+];
+
+function apostilaPage(){
+  return `<h2>📚 Apostila — conteúdo de cursinho</h2>
+  <div class="card small">Esta aba completa o material com os tópicos que os cursinhos preparatórios mais revisam e que não estavam nas outras abas. Cada tópico traz um <b>resumo</b> e <b>perguntas de revisão relâmpago</b> (tente responder antes de abrir).</div>
+  <div class="card"><b>📊 Raio-X: o que mais cai por disciplina</b>
+    <p class="small muted" style="margin:4px 0 8px">Valores aproximados, segundo levantamentos de cursinhos com provas de vários anos.</p>
+    <table>${RAIOX.map(([d,v])=>`<tr><td><b>${d}</b></td><td class="small">${v}</td></tr>`).join("")}</table></div>
+  ${APOSTILA.map(sec=>`<h3>${sec.d}</h3>${sec.tp.map(x=>`<details><summary>${x.t}</summary><div class="in">
+    <ul class="clean">${x.b.map(s=>`<li style="margin-bottom:6px">${s}</li>`).join("")}</ul>
+    <p style="margin:12px 0 6px"><b>⚡ Revisão relâmpago</b></p>
+    ${x.f.map(([q,r])=>`<details style="margin-bottom:6px;border-radius:10px"><summary style="padding:9px 12px;font-weight:500;font-size:15px">❓ ${q}</summary><div class="in" style="color:var(--ok)"><b>✔</b> ${r}</div></details>`).join("")}
+  </div></details>`).join("")}`).join("")}`;
+}
+
+
+function comoPage(){
+  let html = `<h2>🧮 Como fazer — passo a passo</h2>
+  <div class="card small">As técnicas que você precisa saber para resolver as questões: como resolver equação, Bhaskara, sistema, frações, conversões, balancear equação química, Nox, Punnett… Cada uma tem <b>passo a passo</b>, <b>exemplos resolvidos</b> e <b>exercícios para treinar</b> (toque em "Ver resolução" depois de tentar).</div>`;
+  let grupo = "";
+  COMO.forEach(c=>{
+    if(c.g!==grupo){ grupo=c.g; html += `<h3>${grupo}</h3>`; }
+    html += `<details><summary>${c.t}</summary><div class="in">
+      <p class="small muted" style="margin-top:0">📌 <b>Onde cai no ENEM:</b> ${c.q}</p>
+      <div class="passos"><b>🛠️ Passo a passo</b><ol>${c.p.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <h3 style="font-size:15px">✅ Exemplos resolvidos</h3>
+      ${c.ex.map(x=>`<div class="card" style="margin-bottom:10px"><b>${x.e}</b><ol style="margin:6px 0 0;padding-left:20px">${x.s.map(s=>`<li>${s}</li>`).join("")}</ol></div>`).join("")}
+      <div class="dica">💡 <b>Macete:</b> ${c.m}</div>
+      <h3 style="font-size:15px">✏️ Agora é sua vez</h3>
+      ${c.tr.map((x,i)=>`<div class="card" style="margin-bottom:8px;padding:12px"><b>${i+1})</b> ${x.e}
+        <details style="margin:8px 0 0;border-radius:10px"><summary style="padding:8px 12px;font-size:14px">Ver resolução</summary>
+        <div class="in"><ol style="margin:0;padding-left:20px">${x.r.map(s=>`<li>${s}</li>`).join("")}</ol></div></details></div>`).join("")}
+    </div></details>`;
+  });
+  return html;
+}
+
+function aulaDe(q){
+  if(q.a==="red") return "red";
+  if(q.a==="hum") return q.m==="História"?"hist":(q.m==="Geografia"?"geo2":"filo");
+  if(q.a==="lin") return (q.m==="Inglês"||q.m==="Espanhol")?"lingua":"interp";
+  const R=[["Porcentagem","porc"],["Variação percentual","porc"],["Juros","porc"],["Geometria","geo"],["Pitágoras","geo"],
+    ["Escala","prop"],["Regra de três","prop"],["Razão","prop"],["Estatística","est"],["Probabilidade","prob"],["ombinat","prob"],
+    ["Função","func"],["Sequências","func"],["Eletricidade","ele"],["Circuitos","ele"],["Velocidade","fis"],["Mecânica","fis"],
+    ["energia","fis"],["Ondulatória","fis"],["Calorimetria","fis"],["Óptica","fis"],["Soluções","qui1"],["Estequiometria","qui1"],
+    ["Mol","qui1"],["ambiental","qui2"],["pH","qui2"],["Separação","qui2"],["Eletroquímica","qui2"],["Radioatividade","qui2"],
+    ["Genética","gen"]];
+  for(const [s,id] of R) if(q.t.includes(s)) return id;
+  return "eco";
+}
+
+/* ===================== CURSO DE REDAÇÃO ===================== */
+const RED_AULA = `
+<div class="card">
+<h3 style="margin-top:0">🎓 Aula 1 — Passo a passo na hora da prova</h3>
+<table>
+<tr><th>1</th><td><b>Leia o tema e sublinhe as palavras-chave.</b> Separe o ASSUNTO (ex.: envelhecimento) do RECORTE (ex.: "perspectivas", "na sociedade brasileira"). <i>~3 min</i></td></tr>
+<tr><th>2</th><td><b>Leia os textos motivadores</b> para entender o recorte. Não copie trechos deles. <i>~5 min</i></td></tr>
+<tr><th>3</th><td><b>Defina o problema e 2 causas</b> (ou 1 causa + 1 consequência). Elas serão o D1 e o D2. <i>~5 min</i></td></tr>
+<tr><th>4</th><td><b>Escolha os repertórios</b>: um para a introdução e um para cada desenvolvimento (lei, pensador, dado, fato histórico, obra). <i>~5 min</i></td></tr>
+<tr><th>5</th><td><b>Planeje a proposta</b>: uma solução para cada causa, com os 5 elementos. <i>~5 min</i></td></tr>
+<tr><th>6</th><td><b>Escreva o rascunho</b> seguindo a estrutura de 4 parágrafos. <i>~35 min</i></td></tr>
+<tr><th>7</th><td><b>Revise</b>: acentos, concordância, vírgulas, repetição de palavras, conectivos. <i>~7 min</i></td></tr>
+<tr><th>8</th><td><b>Passe a limpo</b> com letra legível, entre 25 e 30 linhas. <i>~15 min</i></td></tr>
+</table>
+<div class="dica">Total: cerca de 1h20. Comece o 1º dia pela redação, enquanto a cabeça está descansada.</div>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">🧩 Aula 2 — Estrutura "coringa" (preencha os colchetes)</h3>
+<p><b>Introdução</b><br>"[Repertório: lei, autor ou fato] [explique-o em uma frase]. No Brasil, contudo, [reescreva o tema com suas palavras]. Esse cenário ocorre, sobretudo, devido a [causa 1] e a [causa 2]."</p>
+<p><b>Desenvolvimento 1</b><br>"Em primeiro lugar, cabe destacar [causa 1]. Isso porque [explicação: por que isso acontece?]. Segundo [repertório 2], [ideia do repertório]. Dessa forma, [consequência ligada ao tema]."</p>
+<p><b>Desenvolvimento 2</b><br>"Além disso, [causa 2] também agrava o problema. [Explicação]. A exemplo disso, [repertório 3 ou dado]. Assim, [consequência ligada ao tema]."</p>
+<p><b>Conclusão</b><br>"Portanto, é necessário [retomar o problema]. Para isso, [agente 1] deve [ação 1], por meio de [meio], a fim de [finalidade]. Além disso, [agente 2] deve [ação 2] — [detalhamento] —, com o objetivo de [finalidade 2]. Dessa maneira, [retome o repertório da introdução]."</p>
+<div class="dica">Cada desenvolvimento segue o <b>TEA</b>: <b>T</b>ópico (a causa), <b>E</b>xplicação (por quê?) e <b>A</b>rgumento de autoridade (repertório) + fechamento ligado ao tema.</div>
+</div>`;
+
+const MODELOS = [
+{tema:"ENEM 2024 — Desafios para a valorização da herança africana no Brasil",
+ par:[
+ ["Introdução","A Constituição Federal de 1988, em seu artigo 215, determina que o Estado proteja as manifestações das culturas populares, indígenas e afro-brasileiras. Entretanto, na prática, essa garantia não se concretiza plenamente, visto que a herança africana — presente na língua, na culinária, na música e na religiosidade do país — ainda é marginalizada. Esse cenário decorre, sobretudo, da abordagem insuficiente do tema nas escolas e do racismo estrutural que persiste na sociedade.",
+  "Repertório legal (Constituição) ligado ao tema → contraste com a realidade (\"Entretanto\") → tese com as DUAS causas que serão desenvolvidas."],
+ ["Desenvolvimento 1","Em primeiro lugar, a falha do sistema educacional contribui para o apagamento das contribuições africanas. Embora a Lei 10.639/2003 torne obrigatório o ensino de história e cultura afro-brasileira, muitas escolas ainda restringem a presença do negro nos currículos ao período da escravidão, sem destacar sua produção intelectual, artística e tecnológica. Dessa forma, os estudantes crescem sem reconhecer que o samba, a capoeira e palavras como \"caçula\" e \"moleque\" têm origem africana, o que enfraquece o sentimento de pertencimento de mais da metade da população, que se declara preta ou parda.",
+  "Tópico (causa 1) → repertório específico (Lei 10.639) explicado → exemplos concretos → fechamento ligado à valorização da herança africana."],
+ ["Desenvolvimento 2","Além disso, o racismo estrutural, conceito discutido pelo jurista Silvio Almeida, faz com que práticas de matriz africana sejam vistas com preconceito. Prova disso são os frequentes ataques a terreiros de candomblé e umbanda, caracterizados como racismo religioso. Nesse sentido, enquanto elementos de origem europeia são tratados como \"cultura\", heranças africanas ainda são associadas ao atraso ou ao perigo, o que perpetua a desigualdade simbólica herdada de mais de três séculos de escravidão e de uma abolição sem políticas de inclusão.",
+  "Conectivo novo (\"Além disso\") → causa 2 com repertório de autor → exemplo real → aprofundamento histórico (escravidão e abolição)."],
+ ["Conclusão","Portanto, é necessário superar esses desafios. Para isso, o Ministério da Educação, em parceria com as secretarias estaduais, deve garantir a aplicação efetiva da Lei 10.639/2003, por meio da formação continuada de professores e da inclusão de autores e cientistas negros nos materiais didáticos, a fim de que os alunos valorizem a herança africana desde cedo. Ademais, a mídia deve promover campanhas — veiculadas na TV aberta e nas redes sociais — que combatam o racismo religioso e divulguem a riqueza cultural afro-brasileira. Assim, o que prevê a Constituição deixará de ser apenas uma promessa.",
+  "Duas propostas (uma para cada causa). Proposta 1: agente (MEC), ação (garantir aplicação da lei), meio (formação de professores…), finalidade (a fim de…). Proposta 2 com detalhamento entre travessões. Fecha retomando a Constituição da introdução."]
+ ]},
+{tema:"ENEM 2025 — Perspectivas acerca do envelhecimento na sociedade brasileira",
+ par:[
+ ["Introdução","Na obra \"A Velhice\", a filósofa Simone de Beauvoir denuncia que a sociedade costuma tratar os idosos como se deixassem de ser plenamente humanos ao perderem sua função produtiva. No Brasil contemporâneo, essa visão se mostra atual: apesar do envelhecimento acelerado da população, revelado pelo Censo 2022 do IBGE, as perspectivas sobre a velhice ainda são marcadas pela exclusão. Esse quadro é causado pela insuficiência de políticas públicas de cuidado e pelo etarismo presente na cultura do país.",
+  "Repertório filosófico pertinente → dado da realidade brasileira → tese com duas causas (Estado + cultura)."],
+ ["Desenvolvimento 1","Em primeiro lugar, o Estado não tem acompanhado a nova realidade demográfica. Embora o Estatuto da Pessoa Idosa assegure direitos como saúde, transporte e convivência comunitária, faltam geriatras no SUS, instituições públicas de longa permanência e programas de cuidado domiciliar. Como consequência, o cuidado recai sobre as famílias — especialmente sobre as mulheres —, que muitas vezes não têm tempo nem recursos para garanti-lo, o que deixa muitos idosos em situação de abandono.",
+  "Causa 1 (falha do Estado) → repertório legal (Estatuto) em contraste com a realidade → consequência concreta."],
+ ["Desenvolvimento 2","Além disso, o preconceito etário, conhecido como etarismo, reforça a exclusão. Em uma sociedade que valoriza a juventude e a produtividade, como analisa Zygmunt Bauman ao descrever a \"modernidade líquida\", o idoso é visto como ultrapassado — seja no mercado de trabalho, que dificulta sua contratação, seja no ambiente digital, que não é pensado para ele. Isso o torna mais vulnerável a golpes virtuais e ao isolamento, comprometendo sua saúde mental e sua participação social.",
+  "Causa 2 (cultura) → conceito definido (etarismo) → repertório sociológico → exemplos atuais (trabalho, internet, golpes)."],
+ ["Conclusão","Logo, é preciso construir novas perspectivas para o envelhecimento. Para isso, o Ministério da Saúde deve ampliar a rede de cuidado à pessoa idosa, por meio da contratação de geriatras e da criação de centros-dia públicos, a fim de garantir assistência digna e aliviar as famílias. Paralelamente, as escolas e a mídia devem promover ações intergeracionais — como oficinas em que jovens ensinem idosos a usar a internet com segurança —, com o objetivo de combater o etarismo. Dessa forma, a velhice deixará de ser sinônimo de invisibilidade, como criticou Beauvoir.",
+  "Cada proposta resolve uma causa. Todos os 5 elementos presentes; detalhamento entre travessões; retomada de Beauvoir fecha o texto em círculo."]
+ ]}
+];
+
+const TREINOS = [
+{tema:"Desafios para combater a desinformação nas redes sociais no Brasil",
+ c1:"Baixa educação midiática: muitos não sabem checar fontes. Repertório: em 2016, o Dicionário Oxford elegeu \"pós-verdade\" como palavra do ano — emoções pesam mais que fatos.",
+ c2:"Algoritmos que priorizam conteúdo sensacionalista e criam bolhas. Repertório: Bauman (relações e informações líquidas) ou o documentário \"O Dilema das Redes\".",
+ prop:"MEC incluir educação midiática no currículo, por meio de oficinas de checagem de notícias, a fim de formar leitores críticos; plataformas digitais sinalizarem conteúdos falsos, com apoio de agências de checagem."},
+{tema:"Desafios para a promoção da saúde mental dos jovens no Brasil",
+ c1:"Estigma e falta de acesso: poucos serviços públicos especializados. Repertório: a Lei 13.935/2019 prevê psicólogos e assistentes sociais nas escolas públicas, mas é pouco aplicada.",
+ c2:"Pressão por desempenho e uso excessivo de redes sociais. Repertório: Byung-Chul Han, \"Sociedade do Cansaço\" — o excesso de cobrança gera esgotamento.",
+ prop:"Secretarias de Educação contratarem psicólogos para as escolas, conforme a lei, a fim de acolher os estudantes; mídia promover campanhas contra o estigma, com depoimentos de jovens."},
+{tema:"Desafios para o combate à insegurança alimentar no Brasil",
+ c1:"Desigualdade de renda e desemprego. Repertório: Josué de Castro, \"Geografia da Fome\" — a fome é um problema social e político, não natural.",
+ c2:"Desperdício de alimentos ao longo da cadeia. Repertório: o artigo 6º da Constituição inclui a alimentação entre os direitos sociais.",
+ prop:"Governo Federal ampliar programas de transferência de renda e restaurantes populares; prefeituras criarem bancos de alimentos em parceria com supermercados, para reduzir o desperdício."},
+{tema:"Desafios para a permanência dos jovens na escola no Brasil",
+ c1:"Necessidade de trabalhar para ajudar a família. Repertório: o programa Pé-de-Meia (incentivo financeiro à permanência no ensino médio) mostra que a renda influencia a evasão.",
+ c2:"Ensino desconectado da realidade do aluno. Repertório: Paulo Freire — educação que dialoga com a vida do estudante é transformadora.",
+ prop:"MEC ampliar bolsas de permanência; escolas oferecerem projetos ligados ao mundo do trabalho e à comunidade, com participação dos estudantes."},
+{tema:"Impactos das mudanças climáticas sobre as populações vulneráveis no Brasil",
+ c1:"Ocupação de áreas de risco pela população pobre. Repertório: enchentes no Rio Grande do Sul (2024) — os mais pobres foram os mais atingidos (racismo ambiental).",
+ c2:"Falta de prevenção e planejamento urbano. Repertório: Acordo de Paris (2015) e o compromisso de adaptação climática.",
+ prop:"Ministério das Cidades financiar habitação segura e obras de drenagem; Defesa Civil criar sistemas de alerta por SMS e planos de evacuação nas comunidades."},
+{tema:"Desafios para a inclusão das pessoas com deficiência no Brasil",
+ c1:"Barreiras de acessibilidade em espaços e serviços. Repertório: a Lei Brasileira de Inclusão (Lei 13.146/2015) garante acessibilidade, mas é descumprida.",
+ c2:"Capacitismo: preconceito que vê a pessoa com deficiência como incapaz. Repertório: Constituição, art. 5º (igualdade).",
+ prop:"Prefeituras fiscalizarem e adaptarem calçadas, transportes e prédios; empresas e mídia promoverem campanhas e contratações inclusivas, com metas de diversidade."}
+];
+
+const CHECK = ["Minha tese apresenta duas causas/argumentos?","Usei as palavras-chave do tema em todos os parágrafos?","Tenho pelo menos 2 repertórios explicados e ligados ao tema?","Cada parágrafo começa com um conectivo diferente?","A conclusão tem agente, ação, meio, finalidade e detalhamento?","A proposta respeita os direitos humanos?","Não usei 1ª pessoa, gírias nem perguntas?","Tenho entre 25 e 30 linhas?"];
+
+function redacaoPage(){
+  const qs = Q.map((q,i)=>[q,i]).filter(([q])=>q.a==="red");
+  let rascunho=""; try{ rascunho = localStorage.getItem("enemRedacao")||""; }catch(e){}
+  return `<h2>✍️ Curso de Redação</h2>
+  ${RED_AULA}
+  <h3>🏆 Redações-modelo comentadas</h3>
+  ${MODELOS.map(m=>`<details><summary>${m.tema}</summary><div class="in">
+    ${m.par.map(([n,t,c])=>`<p style="margin-bottom:4px"><b>${n}</b></p><p style="margin-top:0">${t}</p><div class="dica" style="margin-bottom:14px">🔍 <b>Por que funciona:</b> ${c}</div>`).join("")}
+  </div></details>`).join("")}
+  <h3>🎯 Treine com outros temas</h3>
+  <p class="small muted">Temas sociais que costumam aparecer em simulados e vestibulares. Tente montar a redação antes de abrir o roteiro.</p>
+  ${TREINOS.map(t=>`<details><summary>${t.tema}</summary><div class="in">
+    <p><b>Causa 1:</b> ${t.c1}</p><p><b>Causa 2:</b> ${t.c2}</p><p><b>Proposta:</b> ${t.prop}</p></div></details>`).join("")}
+  <h3>✏️ Exercícios de redação (${qs.length})</h3>
+  ${qs.map(([q])=>qCard(q)).join("")}
+  <h3>📝 Escreva a sua redação</h3>
+  <div class="card">
+    <p class="small muted" style="margin-top:0">Escolha um tema acima e escreva aqui. O texto fica salvo neste aparelho.</p>
+    <textarea id="txt" oninput="salvaTxt()" style="width:100%;min-height:320px;border:1px solid var(--line);border-radius:10px;padding:12px;font:16px/1.6 inherit;background:var(--bg);color:var(--text)">${rascunho.replace(/</g,"&lt;")}</textarea>
+    <p class="small muted" id="cont"></p>
+    <b>Checklist antes de entregar</b>
+    ${CHECK.map((c,i)=>`<label style="display:flex;gap:8px;margin:6px 0;align-items:flex-start"><input type="checkbox" ${state["ck"+i]?"checked":""} onchange="state['ck${i}']=this.checked;save()"> <span class="small">${c}</span></label>`).join("")}
+  </div>
+  <h3>📚 Material de referência</h3>
+  ${REDACAO}`;
+}
+function salvaTxt(){
+  const v=document.getElementById("txt").value;
+  try{ localStorage.setItem("enemRedacao",v); }catch(e){}
+  contar();
+}
+function contar(){
+  const el=document.getElementById("txt"); if(!el) return;
+  const v=el.value, pal=(v.trim().match(/\S+/g)||[]).length;
+  const linhas=v.split("\n").reduce((s,l)=>s+Math.max(1,Math.ceil(l.length/75)),0);
+  document.getElementById("cont").textContent=`${pal} palavras · cerca de ${v.trim()?linhas:0} linhas na folha oficial (ideal: 25 a 30; a média é de 10 palavras por linha)`;
+}
+
+/* ===================== REDAÇÃO (referência) ===================== */
+const REDACAO = `
+<div class="card">
+  <h3 style="margin-top:0">Temas dos últimos 5 anos</h3>
+  <table>
+    <tr><th>Ano</th><th>Tema</th></tr>
+    <tr><td>2021</td><td>Invisibilidade e registro civil: garantia de acesso à cidadania no Brasil</td></tr>
+    <tr><td>2022</td><td>Desafios para a valorização de comunidades e povos tradicionais no Brasil</td></tr>
+    <tr><td>2023</td><td>Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil</td></tr>
+    <tr><td>2024</td><td>Desafios para a valorização da herança africana no Brasil</td></tr>
+    <tr><td>2025</td><td>Perspectivas acerca do envelhecimento na sociedade brasileira</td></tr>
+  </table>
+  <p class="small muted">Padrão: temas sociais brasileiros, quase sempre com "Desafios para…", sobre grupos invisibilizados, cidadania e direitos.</p>
+</div>
+
+<details open><summary>As 5 competências (200 pontos cada)</summary><div class="in">
+<table>
+<tr><td><b>C1</b></td><td>Domínio da norma-padrão (ortografia, acentuação, concordância, pontuação).</td></tr>
+<tr><td><b>C2</b></td><td>Compreender o tema e usar repertório sociocultural; texto dissertativo-argumentativo. <b>Fugir do tema = nota zero.</b></td></tr>
+<tr><td><b>C3</b></td><td>Selecionar e organizar argumentos (projeto de texto).</td></tr>
+<tr><td><b>C4</b></td><td>Coesão: conectivos entre parágrafos e dentro deles.</td></tr>
+<tr><td><b>C5</b></td><td>Proposta de intervenção completa, respeitando os direitos humanos.</td></tr>
+</table></div></details>
+
+<details open><summary>Estrutura pronta (4 parágrafos)</summary><div class="in">
+<p><b>1. Introdução</b> (3–4 linhas):</p>
+<ul class="clean"><li>Repertório (lei, filósofo, fato histórico, dado) ligado ao tema.</li>
+<li>Apresente o problema (reescreva o tema com suas palavras).</li>
+<li>Tese + anuncie os 2 argumentos. Ex.: "…isso ocorre devido à <i>negligência estatal</i> e à <i>falta de informação</i> da população."</li></ul>
+<p><b>2. Desenvolvimento 1</b>: "Em primeiro lugar, …" → argumento 1 + repertório + explicação + fechamento ligando ao tema.</p>
+<p><b>3. Desenvolvimento 2</b>: "Além disso, …" → argumento 2 + repertório + explicação + fechamento.</p>
+<p><b>4. Conclusão</b>: "Portanto, …" → proposta de intervenção com os <b>5 elementos</b>:</p>
+<table>
+<tr><td><b>Agente</b></td><td>Quem fará? (Ministério da Educação, Governo Federal, mídia, ONGs, escolas)</td></tr>
+<tr><td><b>Ação</b></td><td>O que fará? (criar campanhas, ampliar programas…)</td></tr>
+<tr><td><b>Modo/meio</b></td><td>Como? ("por meio de…", "mediante…")</td></tr>
+<tr><td><b>Finalidade</b></td><td>Para quê? ("a fim de…", "com o objetivo de…")</td></tr>
+<tr><td><b>Detalhamento</b></td><td>Explique melhor um dos elementos (ex.: "campanhas — veiculadas em redes sociais e TV aberta —")</td></tr>
+</table>
+<div class="dica">Faça <b>duas</b> propostas (uma para cada argumento) para garantir os 5 elementos com folga.</div>
+</div></details>
+
+<details><summary>Repertórios coringa (servem para quase todo tema)</summary><div class="in">
+<ul class="clean">
+<li><b>Constituição Federal de 1988</b> — Art. 5º (igualdade), Art. 6º (direitos sociais: educação, saúde, trabalho, moradia, lazer, previdência), Art. 205 (educação), Art. 230 (dever de amparar as pessoas idosas).</li>
+<li><b>Estatuto da Pessoa Idosa</b> (Lei 10.741/2003) — útil para temas sobre envelhecimento.</li>
+<li><b>Estatuto da Criança e do Adolescente (ECA, 1990)</b>.</li>
+<li><b>Lei 10.639/2003</b> — obriga o ensino de história e cultura afro-brasileira nas escolas.</li>
+<li><b>Zygmunt Bauman</b> — "modernidade líquida": relações frágeis, individualismo.</li>
+<li><b>Émile Durkheim</b> — anomia; fato social.</li>
+<li><b>Hannah Arendt</b> — "banalidade do mal": naturalização de problemas.</li>
+<li><b>Paulo Freire</b> — educação libertadora/transformadora.</li>
+<li><b>Djamila Ribeiro</b> — racismo estrutural; lugar de fala. <b>Silvio Almeida</b> — racismo estrutural.</li>
+<li><b>Sérgio Buarque de Holanda</b> — "homem cordial": confusão entre público e privado.</li>
+<li><b>Simone de Beauvoir</b> — "Ninguém nasce mulher, torna-se mulher" (temas de gênero).</li>
+<li><b>Aristóteles</b> — política como busca do bem comum. <b>Rousseau</b> — contrato social.</li>
+</ul></div></details>
+
+<details><summary>Conectivos para variar (C4)</summary><div class="in">
+<table>
+<tr><td>Iniciar</td><td>Em primeiro lugar · Inicialmente · Primordialmente</td></tr>
+<tr><td>Adicionar</td><td>Além disso · Ademais · Outrossim · Somado a isso</td></tr>
+<tr><td>Opor</td><td>Entretanto · No entanto · Contudo · Todavia</td></tr>
+<tr><td>Explicar</td><td>Isso ocorre porque · Uma vez que · Visto que</td></tr>
+<tr><td>Exemplificar</td><td>Nesse sentido · A exemplo disso · Sob essa ótica</td></tr>
+<tr><td>Concluir</td><td>Portanto · Dessa forma · Logo · Diante do exposto</td></tr>
+</table></div></details>
+
+<details><summary>Coisas que zeram ou derrubam a nota</summary><div class="in">
+<ul class="clean">
+<li>Fuga total ao tema, tipo textual diferente (narração, poema), texto com até 7 linhas → <b>zero</b>.</li>
+<li>Parte desconectada do tema, desenhos, recados, nome/assinatura no texto → <b>zero</b>.</li>
+<li>Proposta que fere direitos humanos (pena de morte, violência) → perde pontos na C5.</li>
+<li>Copiar trechos dos textos motivadores (as linhas copiadas são desconsideradas).</li>
+<li>Usar "você", gírias, abreviações, perguntas retóricas em excesso.</li>
+</ul></div></details>
+`;
+
+const DICAS = `
+<div class="card">
+<h3 style="margin-top:0">Na véspera</h3>
+<ul class="clean">
+<li>Revise só o essencial (fórmulas, redação, macetes) — nada de conteúdo novo pesado.</li>
+<li>Durma bem: o sono ajuda a fixar o que você estudou.</li>
+<li>Separe: documento oficial com foto (original), caneta esferográfica <b>preta de tubo transparente</b>, cartão de confirmação, lanche, água.</li>
+<li>Confira o local de prova e saia cedo. <b>Portões fecham às 13h (horário de Brasília)</b> e a prova começa às 13h30.</li>
+<li>Celular desligado e guardado no envelope porta-objetos.</li>
+</ul></div>
+
+<div class="card">
+<h3 style="margin-top:0">Como funciona a TRI (e como usar a seu favor)</h3>
+<ul class="clean">
+<li>Na TRI, acertar questões fáceis vale mais "coerência" do que acertar as difíceis. <b>Garanta as fáceis primeiro.</b></li>
+<li>Errar fáceis e acertar difíceis parece "chute" e reduz o peso do acerto.</li>
+<li><b>Nunca deixe em branco</b>: não há desconto por erro. Chute nas que sobrarem.</li>
+<li>Estratégia de 2 voltas: 1ª volta faz só as que você sabe; marque as difíceis; 2ª volta tenta as marcadas.</li>
+</ul></div>
+
+<div class="card">
+<h3 style="margin-top:0">Gestão de tempo</h3>
+<table>
+<tr><th>1º dia (5h30)</th><td>Linguagens + Humanas + Redação. Sugestão: <b>comece pela redação</b> (≈ 1h20, com rascunho), depois ≈ 2 min por questão.</td></tr>
+<tr><th>2º dia (5h)</th><td>Natureza + Matemática. Sugestão: comece pela área em que você é mais forte. ≈ 3 min por questão.</td></tr>
+</table>
+<ul class="clean">
+<li>Reserve <b>pelo menos 30 min</b> para passar o gabarito para o cartão-resposta.</li>
+<li>Questão travou por mais de 4 min? Pule e volte depois.</li>
+<li>Em Humanas e Linguagens, a resposta quase sempre está <b>no texto</b>. Leia o comando primeiro, depois o texto.</li>
+<li>Desconfie de alternativas com palavras absolutas: "sempre", "nunca", "apenas", "exclusivamente".</li>
+</ul></div>
+
+<div class="card warn">
+<h3 style="margin-top:0">📥 Provas e gabaritos oficiais (baixe antes de viajar)</h3>
+<p class="small">O INEP disponibiliza todas as provas e gabaritos oficiais em PDF. Se tiver internet antes de sair, baixe os PDFs de 2021 a 2025 no celular — eles também funcionam offline:</p>
+<p class="small"><b>gov.br/inep → Enem → Provas e gabaritos</b><br><span class="f">https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos</span></p>
+</div>
+`;
+
+/* ===================== APP ===================== */
+let state = {};
+try { state = JSON.parse(localStorage.getItem("enemRev") || "{}"); } catch(e) { state = {}; }
+function save(){ try { localStorage.setItem("enemRev", JSON.stringify(state)); } catch(e){} }
+
+const TABS = [
+  ["inicio","🏠 Início"],["como","🧮 Como fazer"],["form","📋 Fórmulas"],["apost","📚 Apostila"],["mat","📐 Matemática"],["nat","🧪 Natureza"],["hum","🌎 Humanas"],
+  ["lin","📖 Linguagens"],["red","✍️ Redação"],["sim","🎯 Simulado"],["dicas","💡 Dicas"]
+];
+let current = "inicio", filtro = "Todas", simList = null;
+
+function nav(){
+  document.getElementById("nav").innerHTML = TABS.map(([k,v]) =>
+    `<button class="${k===current?'on':''}" onclick="go('${k}')">${v}</button>`).join("");
+  const ks = Object.keys(state).filter(k=>/^\d+$/.test(k)); const feitas = ks.length, certas = ks.filter(k=>state[k]===true).length;
+  document.getElementById("score").textContent = `${certas}/${feitas} acertos · ${Q.length} questões`;
+}
+function go(k){ current = k; filtro = "Todas"; if(k==="sim") simList = null; render(); window.scrollTo(0,0); }
+
+function qCard(q){
+  const i = Q.indexOf(q), resp = state["r"+i];
+  const answered = resp !== undefined;
+  const alts = q.o.map((txt,j) => {
+    let cls = "";
+    if(answered){ if(j===q.c) cls="certa"; else if(j===resp) cls="errada"; }
+    return `<button class="${cls}" ${answered?"disabled":""} onclick="answer(${i},${j})"><b>${"ABCDE"[j]})</b> ${txt}</button>`;
+  }).join("");
+  const ok = answered && resp===q.c;
+  return `<div class="card q" id="q${i}">
+    <span class="tag">${q.m}</span><span class="tema">${q.t}</span>
+    <div class="enun">${q.e}</div>
+    <div class="alts">${alts}</div>
+    <div class="res ${answered?"show":""}">
+      <div class="veredito ${ok?"ok":"no"}">${ok?"✅ Acertou!":"❌ Resposta correta: "+"ABCDE"[q.c]}</div>
+      <div class="passos"><b>Passo a passo</b><ol>${q.p.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <div class="dica">💡 ${q.d}</div>
+      <div class="btnrow"><button class="btn ghost" onclick="reset(${i})">Tentar de novo</button></div>
+    </div>
+  </div>`;
+}
+function answer(i,j){ state["r"+i]=j; state[i]=(j===Q[i].c); save(); rerenderQ(i); nav(); }
+function reset(i){ delete state["r"+i]; delete state[i]; save(); rerenderQ(i); nav(); }
+function rerenderQ(i){ const el=document.getElementById("q"+i); if(el) el.outerHTML = qCard(Q[i]); }
+
+function areaPage(a){
+  const info = AREAS[a], mc = MAIS_COBRADOS[a];
+  const aulas = AULAS.filter(x=>x.a===a);
+  const total = Q.filter(q=>q.a===a).length;
+  return `<h2>${info.icone} ${info.nome}</h2>
+  <div class="card">
+    <b>🔥 O que mais caiu (2021–2025)</b>
+    <p class="small muted" style="margin:4px 0 8px">Em vermelho: cai em praticamente toda prova.</p>
+    <div class="chips">${mc.muito.map(t=>`<span class="chip hot">${t}</span>`).join("")}${mc.freq.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
+  </div>
+  <h3>🎓 Aulas (${aulas.length}) · ${total} questões</h3>
+  <p class="small muted" style="margin-top:0">Cada aula tem: teoria → como resolver → exemplo resolvido → erros comuns → exercícios com passo a passo.</p>
+  ${aulas.map((x,n)=>{
+    const qs = Q.filter(q=>q.a===a && aulaDe(q)===x.id);
+    const feitas = qs.filter(q=>state[Q.indexOf(q)]!==undefined).length;
+    return `<details><summary>Aula ${n+1} — ${x.titulo} <span class="small muted">(${feitas}/${qs.length})</span></summary><div class="in">
+      <p><b>📘 Teoria</b><br>${x.teoria}</p>
+      <div class="passos"><b>🛠️ Como resolver (método)</b><ol>${x.metodo.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <div class="card" style="margin:12px 0"><b>✅ Exemplo resolvido</b><p style="margin:6px 0">${x.ex.e}</p><ol style="margin:0;padding-left:20px">${x.ex.p.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <div class="dica" style="background:var(--bad-soft)"><b>⚠️ Erros comuns</b><ul class="clean">${x.erros.map(s=>`<li>${s}</li>`).join("")}</ul></div>
+      <h3>✏️ Exercícios</h3>
+      ${qs.map(qCard).join("")}
+    </div></details>`;}).join("")}
+  <h3>📝 Resumão (fórmulas e conceitos)</h3>
+  ${RESUMOS[a].map(([t,h])=>`<details><summary>${t}</summary><div class="in">${h}</div></details>`).join("")}`;
+}
+function setF(m){ filtro=m; render(); }
+
+function inicio(){
+  const cards = Object.entries(AREAS).map(([k,v])=>{
+    const qs = Q.map((q,i)=>[q,i]).filter(([q])=>q.a===k);
+    const feitas = qs.filter(([,i])=>state[i]!==undefined).length;
+    const pct = Math.round(feitas/qs.length*100);
+    return `<button class="area" onclick="go('${k}')"><strong>${v.icone} ${v.nome}</strong>
+      <span class="small muted">${feitas}/${qs.length} feitas</span><div class="bar"><i style="width:${pct}%"></i></div></button>`;
+  }).join("");
+  return `<h2>Bora pra prova! 💪</h2>
+  <div class="card">
+    <p style="margin-top:0">Este material funciona <b>100% offline</b>. Ele junta os <b>temas que mais caíram no ENEM de 2021 a 2025</b>, como um cursinho: <b>${AULAS.length} aulas</b> (teoria, método, exemplo e erros comuns), <b>${Q.length} questões no estilo ENEM</b> resolvidas passo a passo e um <b>curso de redação</b> com redações-modelo comentadas.</p>
+    <p class="small muted" style="margin-bottom:0">Seu progresso fica salvo neste aparelho. Sugestão de roteiro na viagem: 1) Dicas → 2) Curso de Redação → 3) Formulário + Como fazer → 4) Aulas de cada área → 5) Apostila → 6) Simulado.</p>
+  </div>
+  <div class="grid">${cards}
+    <button class="area" onclick="go('como')"><strong>🧮 Como fazer</strong><span class="small muted">Equações, Bhaskara, π, planetas, balanceamento… passo a passo</span></button>
+    <button class="area" onclick="go('form')"><strong>📋 Formulário</strong><span class="small muted">Todas as fórmulas numa tela</span></button>
+    <button class="area" onclick="go('apost')"><strong>📚 Apostila</strong><span class="small muted">Conteúdo de cursinho de todas as matérias</span></button>
+    <button class="area" onclick="go('red')"><strong>✍️ Curso de Redação</strong><span class="small muted">Passo a passo, modelos nota alta, treinos</span></button>
+    <button class="area" onclick="go('sim')"><strong>🎯 Simulado</strong><span class="small muted">10 questões aleatórias</span></button>
+  </div>
+  <div class="btnrow" style="margin-top:16px"><button class="btn ghost" onclick="zerar()">Zerar meu progresso</button></div>`;
+}
+function zerar(){ if(confirm("Apagar todas as respostas?")){ state={}; save(); render(); } }
+
+function simulado(){
+  if(!simList){
+    const idx = Q.map((_,i)=>i).sort(()=>Math.random()-0.5).slice(0,10);
+    idx.forEach(i=>{ delete state[i]; delete state["r"+i]; }); save();
+    simList = idx;
+  }
+  const feitas = simList.filter(i=>state[i]!==undefined).length;
+  const certas = simList.filter(i=>state[i]===true).length;
+  return `<h2>🎯 Simulado rápido</h2>
+  <div class="card"><b>${feitas}/10 respondidas · ${certas} acertos</b>
+    <div class="btnrow"><button class="btn" onclick="simList=null;render()">Novo simulado</button></div></div>
+  ${simList.map(i=>qCard(Q[i])).join("")}`;
+}
+
+function render(){
+  nav();
+  const app = document.getElementById("app");
+  if(current==="inicio") app.innerHTML = inicio();
+  else if(AREAS[current]) app.innerHTML = areaPage(current);
+  else if(current==="red"){ app.innerHTML = redacaoPage(); contar(); }
+  else if(current==="sim") app.innerHTML = simulado();
+  else if(current==="como") app.innerHTML = comoPage();
+  else if(current==="form") app.innerHTML = formularioPage();
+  else if(current==="apost") app.innerHTML = apostilaPage();
+  else if(current==="dicas") app.innerHTML = `<h2>💡 Dicas para o dia da prova</h2>` + DICAS;
+}
+render();
+if("serviceWorker" in navigator){ navigator.serviceWorker.register("sw.js").catch(()=>{}); }
+</script>
+</body>
+</html>
