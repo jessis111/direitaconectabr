@@ -723,6 +723,210 @@ const AULAS = [
  erros:["Traduzir palavra por palavra.","Cair em falsos cognatos."]}
 ];
 
+/* ===================== COMO FAZER (fundamentos passo a passo) ===================== */
+const COMO = [
+{g:"🔢 Matemática básica", t:"Equação do 1º grau", q:"Problemas do tipo 'um número somado ao seu dobro…', preços, tarifas, idades.",
+ p:["Elimine os parênteses (propriedade distributiva: 2(x − 3) = 2x − 6).","Passe os termos com x para um lado e os números para o outro. <b>Trocou de lado, troca o sinal.</b>","Some os termos semelhantes.","Divida pelo número que multiplica o x.","Confira substituindo o valor na equação original."],
+ ex:[{e:"3x + 5 = 20",s:["3x = 20 − 5","3x = 15","x = 15 ÷ 3 = <b>5</b>","Conferindo: 3·5 + 5 = 20 ✓"]},
+     {e:"2(x − 3) = x + 4",s:["Distributiva: 2x − 6 = x + 4","2x − x = 4 + 6","<b>x = 10</b>"]},
+     {e:"Problema: um número somado ao seu dobro dá 45. Qual é o número?",s:["Número = x; dobro = 2x.","x + 2x = 45 → 3x = 45","<b>x = 15</b>"]}],
+ m:"Para equação com frações (x/2 + x/3 = 10), multiplique TUDO pelo MMC dos denominadores e as frações somem.",
+ tr:[{e:"5x − 7 = 18",r:["5x = 25","x = 5"]},{e:"4(x + 1) = 2x + 10",r:["4x + 4 = 2x + 10","2x = 6","x = 3"]},{e:"x/2 + x/3 = 10",r:["MMC(2,3) = 6. Multiplique tudo por 6:","3x + 2x = 60","5x = 60 → x = 12"]}]},
+
+{g:"🔢 Matemática básica", t:"Equação do 2º grau (Bhaskara)", q:"Áreas (x · (x + 3) = 40), lançamentos, lucro, problemas com produto de números.",
+ p:["Deixe na forma <span class='f'>ax² + bx + c = 0</span> e identifique a, b e c (com os sinais!).","Calcule o discriminante: <span class='f'>Δ = b² − 4ac</span>.","Δ &gt; 0: duas raízes; Δ = 0: uma raiz; Δ &lt; 0: nenhuma raiz real.","Aplique: <span class='f'>x = (−b ± √Δ) ÷ 2a</span>.","Em problemas, descarte respostas que não fazem sentido (medida negativa, por exemplo)."],
+ ex:[{e:"x² − 5x + 6 = 0",s:["a = 1, b = −5, c = 6","Δ = (−5)² − 4·1·6 = 25 − 24 = 1","x = (5 ± 1) ÷ 2","x₁ = 6/2 = <b>3</b> e x₂ = 4/2 = <b>2</b>"]},
+     {e:"Um terreno retangular tem um lado 3 m maior que o outro e área de 40 m². Quanto mede o menor lado?",s:["x · (x + 3) = 40 → x² + 3x − 40 = 0","Δ = 9 + 160 = 169 → √Δ = 13","x = (−3 ± 13) ÷ 2 → x = 5 ou x = −8","Medida não pode ser negativa → <b>5 m</b>"]},
+     {e:"Equações incompletas (mais rápido, sem Bhaskara)",s:["x² − 9 = 0 → x² = 9 → x = ±3","x² − 5x = 0 → x(x − 5) = 0 → x = 0 ou x = 5"]}],
+ m:"Atalho: soma das raízes = −b/a e produto = c/a. Em x² − 5x + 6 = 0, procure dois números que somam 5 e multiplicam 6 → 2 e 3.",
+ tr:[{e:"x² − 7x + 10 = 0",r:["Soma 7, produto 10 → 2 e 5","(Ou: Δ = 49 − 40 = 9; x = (7 ± 3)/2)"]},{e:"x² − 16 = 0",r:["x² = 16","x = 4 ou x = −4"]},{e:"x² + 6x + 9 = 0",r:["Δ = 36 − 36 = 0 → uma raiz","x = −6/2 = −3"]}]},
+
+{g:"🔢 Matemática básica", t:"Sistema de equações", q:"Ingressos de inteira e meia, galinhas e coelhos, dois produtos com preços diferentes.",
+ p:["Dê nome às incógnitas (x = …, y = …).","Monte UMA equação para cada informação do texto.","<b>Método da adição:</b> some (ou subtraia) as equações para cancelar uma letra.","<b>Método da substituição:</b> isole uma letra em uma equação e substitua na outra.","Ache uma letra e volte para achar a outra."],
+ ex:[{e:"x + y = 10 e x − y = 4",s:["Somando as duas: 2x = 14 → x = 7","Volta: 7 + y = 10 → y = 3"]},
+     {e:"Um show vendeu 50 ingressos: inteira R$ 20 e meia R$ 10. Arrecadou R$ 700. Quantas inteiras?",s:["x = inteiras, y = meias","x + y = 50 e 20x + 10y = 700","Da 1ª: y = 50 − x. Substitui: 20x + 10(50 − x) = 700","20x + 500 − 10x = 700 → 10x = 200 → <b>x = 20 inteiras</b> (e 30 meias)"]}],
+ m:"Sempre confira a resposta nas DUAS equações.",
+ tr:[{e:"2x + y = 11 e x − y = 1",r:["Somando: 3x = 12 → x = 4","4 − y = 1 → y = 3"]},{e:"Num quintal há galinhas e coelhos: 20 cabeças e 56 patas. Quantos coelhos?",r:["g + c = 20 e 2g + 4c = 56","Multiplique a 1ª por 2: 2g + 2c = 40","Subtraia: 2c = 16 → c = 8 coelhos (e 12 galinhas)"]}]},
+
+{g:"🔢 Matemática básica", t:"Frações", q:"Receitas, divisão de herança/bolo, probabilidade, escalas.",
+ p:["<b>Simplificar:</b> divida em cima e embaixo pelo mesmo número (6/8 = 3/4).","<b>Somar/subtrair:</b> deixe os denominadores iguais (MMC) e opere só os numeradores.","<b>Multiplicar:</b> em cima × em cima, embaixo × embaixo.","<b>Dividir:</b> mantenha a 1ª e multiplique pelo INVERSO da 2ª.","<b>Fração de um valor:</b> 3/4 de 80 → 80 ÷ 4 × 3 = 60."],
+ ex:[{e:"1/2 + 1/3",s:["MMC(2,3) = 6","3/6 + 2/6 = <b>5/6</b>"]},{e:"2/3 ÷ 4/5",s:["2/3 × 5/4 = 10/12","Simplificando: <b>5/6</b>"]}],
+ m:"'De' em matemática quase sempre significa multiplicação: metade DE 30 = 1/2 × 30.",
+ tr:[{e:"3/4 − 1/6",r:["MMC = 12","9/12 − 2/12 = 7/12"]},{e:"2/5 de 150",r:["150 ÷ 5 = 30","30 × 2 = 60"]},{e:"5/6 × 3/10",r:["15/60","= 1/4"]}]},
+
+{g:"🔢 Matemática básica", t:"Porcentagem de cabeça (sem calculadora)", q:"Praticamente toda prova! Descontos, impostos, gráficos.",
+ p:["<b>10%</b> → divida por 10 (ande a vírgula 1 casa).","<b>1%</b> → divida por 100.","<b>5%</b> → metade de 10%. <b>20%</b> → dobro de 10% (ou ÷ 5). <b>25%</b> → ÷ 4. <b>50%</b> → ÷ 2.","Monte as outras somando: 15% = 10% + 5%; 35% = 3 × 10% + 5%.","Truque: x% de y = y% de x (8% de 50 = 50% de 8 = 4)."],
+ ex:[{e:"15% de 240",s:["10% = 24","5% = 12","15% = 24 + 12 = <b>36</b>"]}],
+ m:"Para achar o preço ANTES de um aumento de 20% que resultou em R$ 120: divida 120 por 1,20 = R$ 100 (não tire 20% de 120!).",
+ tr:[{e:"35% de 80",r:["10% = 8 → 30% = 24","5% = 4","35% = 28"]},{e:"4% de 25",r:["= 25% de 4","= 1"]},{e:"Um produto custa R$ 90 após um desconto de 10%. Qual era o preço original?",r:["90 ÷ 0,90","= R$ 100"]}]},
+
+{g:"🔢 Matemática básica", t:"Potências e notação científica", q:"Distâncias astronômicas, tamanho de células e vírus, Química (mol) e Física.",
+ p:["a<sup>m</sup> · a<sup>n</sup> = a<sup>m+n</sup> (multiplicação: soma os expoentes).","a<sup>m</sup> ÷ a<sup>n</sup> = a<sup>m−n</sup> (divisão: subtrai).","(a<sup>m</sup>)<sup>n</sup> = a<sup>m·n</sup>; a<sup>0</sup> = 1; a<sup>−n</sup> = 1/a<sup>n</sup>.","Notação científica: N × 10<sup>k</sup>, com N entre 1 e 10.","Andou a vírgula para a ESQUERDA → o expoente AUMENTA; para a DIREITA → DIMINUI."],
+ ex:[{e:"0,00045 em notação científica",s:["Ande a vírgula 4 casas para a direita → 4,5","<b>4,5 × 10⁻⁴</b>"]},{e:"(3 × 10⁸) × (2 × 10⁻³)",s:["Números: 3 × 2 = 6","Potências: 10⁸⁺⁽⁻³⁾ = 10⁵","<b>6 × 10⁵</b>"]}],
+ m:"Multiplique os números com os números e as potências de 10 com as potências de 10.",
+ tr:[{e:"52 000 000 em notação científica",r:["5,2 × 10⁷"]},{e:"(4 × 10⁶) ÷ (2 × 10²)",r:["4 ÷ 2 = 2","10⁶⁻² = 10⁴","2 × 10⁴"]},{e:"2³ · 2⁴",r:["2⁷ = 128"]}]},
+
+{g:"🔢 Matemática básica", t:"Raiz quadrada", q:"Pitágoras, Bhaskara, velocidade em queda livre, área de quadrados.",
+ p:["Decore os quadrados perfeitos: 1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225.","Para simplificar, separe um quadrado perfeito: √50 = √(25 · 2) = 5√2.","Para estimar: √20 está entre √16 = 4 e √25 = 5 → ≈ 4,5.","√(a/b) = √a / √b."],
+ ex:[{e:"√72",s:["72 = 36 · 2","√72 = 6√2 ≈ 6 × 1,41 ≈ 8,5"]}],
+ m:"Valores úteis: √2 ≈ 1,41 e √3 ≈ 1,73.",
+ tr:[{e:"√48",r:["48 = 16 · 3","= 4√3"]},{e:"√0,25",r:["= 0,5 (porque 0,5 × 0,5 = 0,25)"]},{e:"√(16/9)",r:["= 4/3"]}]},
+
+{g:"🔢 Matemática básica", t:"Regra de três composta", q:"Máquinas × dias × peças; operários × horas × dias.",
+ p:["Monte uma tabela com uma coluna para cada grandeza; marque o x.","Compare CADA grandeza com a do x: direta ou inversa?","Diretas: a razão fica como está. Inversas: inverta a razão.","x = valor conhecido × (produto das razões)."],
+ ex:[{e:"4 máquinas fazem 200 peças em 5 dias. Quantas peças 6 máquinas fazem em 8 dias?",s:["Mais máquinas → mais peças (direta). Mais dias → mais peças (direta).","x = 200 × (6/4) × (8/5)","x = 200 × 1,5 × 1,6 = <b>480 peças</b>"]}],
+ m:"Método do 'total de trabalho': 10 operários × 8 h × 6 dias = 480 'operário-horas'. Com 12 operários a 5 h/dia: 480 ÷ (12 × 5) = 8 dias.",
+ tr:[{e:"10 operários, trabalhando 8 h/dia, fazem uma obra em 6 dias. Em quantos dias 12 operários, trabalhando 5 h/dia, fazem a mesma obra?",r:["Total de trabalho: 10 × 8 × 6 = 480","Por dia agora: 12 × 5 = 60","480 ÷ 60 = 8 dias"]}]},
+
+{g:"🔢 Matemática básica", t:"Conversão de unidades", q:"Volume em litros, escalas, velocidade, área de terrenos.",
+ p:["Escadinha: <b>km → hm → dam → m → dm → cm → mm</b>. Cada degrau para a direita: ×10.","Área (m²): cada degrau ×100. Volume (m³): cada degrau ×1000.","<b>1 dm³ = 1 L</b>; <b>1 m³ = 1000 L</b>; <b>1 cm³ = 1 mL</b>.","Velocidade: km/h ÷ 3,6 = m/s; m/s × 3,6 = km/h.","Tempo: 1 h = 60 min = 3600 s. Cuidado: 1,5 h = 1 h 30 min (não 1 h 50 min!)."],
+ ex:[{e:"72 km/h em m/s",s:["72 ÷ 3,6 = <b>20 m/s</b>"]},{e:"2 m² em cm²",s:["m → cm: 2 degraus; área: ×100 em cada","2 × 100 × 100 = <b>20 000 cm²</b>"]}],
+ m:"1 hectare = 10 000 m² (um quadrado de 100 m × 100 m).",
+ tr:[{e:"2,5 m³ em litros",r:["2,5 × 1000 = 2500 L"]},{e:"10 m/s em km/h",r:["10 × 3,6 = 36 km/h"]},{e:"0,45 m em cm",r:["0,45 × 100 = 45 cm"]}]},
+
+{g:"🔢 Matemática básica", t:"Trigonometria (SOH-CAH-TOA)", q:"Rampas, escadas, altura de prédios e árvores, sombra.",
+ p:["Identifique o ângulo e os lados: hipotenusa (oposta ao ângulo reto), cateto oposto e cateto adjacente ao ângulo.","<b>sen = oposto ÷ hipotenusa</b>; <b>cos = adjacente ÷ hipotenusa</b>; <b>tg = oposto ÷ adjacente</b>.","Escolha a razão que liga o que você TEM com o que você QUER.","Use a tabela dos ângulos notáveis."],
+ ex:[{e:"Uma rampa de 10 m forma 30° com o chão. Qual a altura alcançada?",s:["Tenho a hipotenusa (10), quero o oposto (altura) → seno.","sen 30° = h/10 → 1/2 = h/10","<b>h = 5 m</b>"]}],
+ m:"Tabela: sen 30° = 1/2, sen 45° = √2/2, sen 60° = √3/2. Cosseno é a ordem inversa (√3/2, √2/2, 1/2). tg 30° = √3/3, tg 45° = 1, tg 60° = √3.",
+ tr:[{e:"Uma escada de 8 m forma 60° com o chão. A que distância da parede está o pé da escada?",r:["Tenho a hipotenusa, quero o adjacente → cosseno","cos 60° = d/8 → 1/2 = d/8","d = 4 m"]},{e:"De 20 m de distância, uma pessoa vê o topo de um prédio sob um ângulo de 45°. Qual a altura do prédio (desprezando a altura dos olhos)?",r:["Tenho o adjacente, quero o oposto → tangente","tg 45° = h/20 → 1 = h/20","h = 20 m"]}]},
+
+{g:"🔢 Matemática básica", t:"Exponencial e logaritmo", q:"Crescimento de bactérias, juros, meia-vida, escala Richter, pH.",
+ p:["Exponencial: algo que dobra/triplica em períodos fixos → N = N₀ · 2<sup>t</sup>.","Logaritmo é a pergunta: 'a que expoente eu elevo a base para chegar ao número?' → log₂ 8 = 3, porque 2³ = 8.","Propriedades: log(a·b) = log a + log b; log(a/b) = log a − log b; log aⁿ = n · log a.","log 10 = 1; log 1 = 0; log 100 = 2; log 1000 = 3."],
+ ex:[{e:"100 bactérias dobram a cada 20 minutos. Quantas haverá após 2 horas?",s:["2 h = 120 min → 120 ÷ 20 = 6 períodos","N = 100 × 2⁶ = 100 × 64 = <b>6 400</b>"]}],
+ m:"Se a questão dá log 2 ≈ 0,3, use: log 4 = 0,6; log 8 = 0,9; log 5 = log(10/2) = 1 − 0,3 = 0,7.",
+ tr:[{e:"log₃ 81",r:["3⁴ = 81","= 4"]},{e:"Uma população de 500 dobra a cada 3 anos. Em quanto tempo chega a 4 000?",r:["4 000 ÷ 500 = 8 = 2³ → 3 períodos","3 × 3 = 9 anos"]}]},
+
+{g:"⚡ Física", t:"Como isolar uma variável na fórmula", q:"Toda questão de Física com conta.",
+ p:["Escreva a fórmula e marque o que você quer achar.","O que está <b>multiplicando</b> passa para o outro lado <b>dividindo</b> (e vice-versa).","O que está <b>somando</b> passa <b>subtraindo</b>.","Se a letra está ao quadrado, tire a raiz no final.","Substitua os números SÓ no fim, com as unidades no SI."],
+ ex:[{e:"Ec = m · v² / 2. Ache v.",s:["2 · Ec = m · v²","v² = 2Ec / m","<b>v = √(2Ec / m)</b>"]},{e:"Um carro a 72 km/h percorre 360 m. Em quanto tempo?",s:["72 km/h = 20 m/s","v = d/t → t = d/v","t = 360 ÷ 20 = <b>18 s</b>"]}],
+ m:"Triângulo mágico para U = R · i: cubra a letra que você quer; o que sobra mostra a conta (R = U/i; i = U/R).",
+ tr:[{e:"P = U · i. Com P = 2 200 W e U = 220 V, qual a corrente?",r:["i = P/U","i = 2200 ÷ 220 = 10 A"]},{e:"Q = m·c·ΔT. Com Q = 6 000 cal, m = 200 g e c = 1 cal/g°C, qual a variação de temperatura?",r:["ΔT = Q/(m·c)","ΔT = 6000 ÷ 200 = 30 °C"]},{e:"Ec = 200 J e m = 4 kg. Qual a velocidade?",r:["v = √(2 · 200 / 4)","v = √100 = 10 m/s"]}]},
+
+{g:"⚡ Física", t:"Gráficos de movimento (s × t e v × t)", q:"O ENEM adora gráficos de velocidade, de viagens e de frenagem.",
+ p:["<b>Gráfico s × t:</b> reta inclinada = velocidade constante; reta horizontal = parado. Inclinação = velocidade.","<b>Gráfico v × t:</b> reta horizontal = velocidade constante; reta inclinada = aceleração.","Inclinação do v × t = aceleração (a = Δv/Δt).","<b>Área sob o gráfico v × t = distância percorrida.</b>"],
+ ex:[{e:"Um carro vai de 0 a 30 m/s em 10 s (reta). Qual a aceleração e a distância percorrida?",s:["a = 30 ÷ 10 = <b>3 m/s²</b>","Área do triângulo = base × altura ÷ 2 = 10 × 30 ÷ 2 = <b>150 m</b>"]}],
+ m:"Área de retângulo (velocidade constante) = v × t. Área de triângulo = metade disso. Trapézio: (B + b) × h ÷ 2.",
+ tr:[{e:"Um ônibus anda a 20 m/s constantes durante 10 s e depois freia até parar em 4 s. Qual a distância total?",r:["Retângulo: 20 × 10 = 200 m","Triângulo da frenagem: 4 × 20 ÷ 2 = 40 m","Total: 240 m"]}]},
+
+{g:"🧪 Química", t:"Massa molar e número de mols", q:"Base de toda estequiometria e cálculo de concentração.",
+ p:["Olhe a fórmula e conte os átomos de cada elemento (o número pequeno depois do símbolo).","Multiplique pela massa atômica de cada elemento.","Some tudo → massa molar (g/mol).","Número de mols: <span class='f'>n = massa ÷ massa molar</span>."],
+ ex:[{e:"Massa molar do H₂SO₄ (H = 1, S = 32, O = 16)",s:["H: 2 × 1 = 2","S: 1 × 32 = 32","O: 4 × 16 = 64","Total: <b>98 g/mol</b>"]}],
+ m:"Números fora dos parênteses multiplicam tudo dentro: Ca(OH)₂ tem 1 Ca, 2 O e 2 H.",
+ tr:[{e:"Massa molar da glicose C₆H₁₂O₆ (C = 12, H = 1, O = 16)",r:["C: 6 × 12 = 72","H: 12 × 1 = 12","O: 6 × 16 = 96","Total: 180 g/mol"]},{e:"Quantos mols há em 90 g de glicose?",r:["n = 90 ÷ 180","n = 0,5 mol"]},{e:"Massa molar do Ca(OH)₂ (Ca = 40)",r:["40 + 2 × 16 + 2 × 1","= 74 g/mol"]}]},
+
+{g:"🧪 Química", t:"Como balancear uma equação química", q:"Antes de qualquer cálculo estequiométrico; combustão; reações do cotidiano.",
+ p:["Comece pelo elemento que aparece em UMA substância de cada lado (geralmente metais, depois o C).","Depois acerte o H.","Deixe o O (e substâncias simples como O₂) por último.","Ajuste só os COEFICIENTES (números da frente) — nunca mude os índices.","Confira: cada elemento deve ter a mesma quantidade dos dois lados."],
+ ex:[{e:"CH₄ + O₂ → CO₂ + H₂O",s:["C: 1 de cada lado ✓","H: 4 à esquerda → coloque 2 H₂O","O à direita: 2 (do CO₂) + 2 (das 2 H₂O) = 4 → coloque 2 O₂","<b>CH₄ + 2 O₂ → CO₂ + 2 H₂O</b>"]},{e:"Fe + O₂ → Fe₂O₃",s:["O: 2 à esquerda e 3 à direita → MMC = 6 → 3 O₂ e 2 Fe₂O₃","Fe: 4 à direita → 4 Fe","<b>4 Fe + 3 O₂ → 2 Fe₂O₃</b>"]}],
+ m:"Na combustão de hidrocarbonetos: coeficiente do CO₂ = nº de C; da H₂O = nº de H ÷ 2; depois acerte o O₂.",
+ tr:[{e:"H₂ + O₂ → H₂O",r:["2 H₂ + O₂ → 2 H₂O"]},{e:"C₃H₈ + O₂ → CO₂ + H₂O",r:["3 CO₂ (3 C) e 4 H₂O (8 H)","O à direita: 6 + 4 = 10 → 5 O₂","C₃H₈ + 5 O₂ → 3 CO₂ + 4 H₂O"]},{e:"N₂ + H₂ → NH₃",r:["N: 2 → 2 NH₃","H: 6 → 3 H₂","N₂ + 3 H₂ → 2 NH₃"]}]},
+
+{g:"🧪 Química", t:"Número de oxidação (Nox)", q:"Pilhas, corrosão, ferrugem, oxirredução, agentes oxidante e redutor.",
+ p:["Substância simples (Fe, O₂, H₂): Nox = 0.","H = +1 e O = −2 (na maioria dos casos).","Metais do grupo 1 (Na, K) = +1; grupo 2 (Ca, Mg) = +2.","Em uma molécula, a soma dos Nox = 0; em um íon, a soma = carga do íon.","Nox AUMENTOU → oxidou (é o agente redutor). DIMINUIU → reduziu (é o agente oxidante)."],
+ ex:[{e:"Nox do S no H₂SO₄",s:["2·(+1) + S + 4·(−2) = 0","2 + S − 8 = 0","<b>S = +6</b>"]},{e:"Zn + Cu²⁺ → Zn²⁺ + Cu",s:["Zn: 0 → +2 → oxidou (agente redutor)","Cu: +2 → 0 → reduziu (agente oxidante)"]}],
+ m:"'Perdeu elétrons, oxidou; ganhou elétrons, reduziu' — o Nox sobe quando perde elétrons.",
+ tr:[{e:"Nox do N no HNO₃",r:["+1 + N + 3·(−2) = 0","N = +5"]},{e:"Nox do Mn no KMnO₄",r:["+1 + Mn − 8 = 0","Mn = +7"]}]},
+
+{g:"🧪 Química", t:"Concentração em mol/L e ppm", q:"Soro, flúor na água, poluentes, medicamentos.",
+ p:["<b>g/L</b>: C = massa (g) ÷ volume (L).","<b>mol/L</b>: M = nº de mols ÷ volume (L). (Se tiver massa, transforme em mol antes.)","<b>ppm</b> (partes por milhão): mg por kg ou mg por L (em água).","Converta mL para L: ÷ 1000."],
+ ex:[{e:"0,2 mol de soluto em 500 mL",s:["500 mL = 0,5 L","M = 0,2 ÷ 0,5 = <b>0,4 mol/L</b>"]},{e:"Uma água tem 0,002 g de flúor por litro. Quantos ppm?",s:["0,002 g = 2 mg","2 mg/L = <b>2 ppm</b>"]}],
+ m:"Não esqueça: o volume é da SOLUÇÃO, não só do solvente.",
+ tr:[{e:"5,85 g de NaCl (58,5 g/mol) em 1 L. Concentração em mol/L?",r:["n = 5,85 ÷ 58,5 = 0,1 mol","M = 0,1 ÷ 1 = 0,1 mol/L"]},{e:"Soro fisiológico: 9 g de sal em 1 L. Quantos gramas em 250 mL?",r:["250 mL = 0,25 L","9 × 0,25 = 2,25 g"]}]},
+
+{g:"🧬 Biologia", t:"Quadro de Punnett (cruzamentos)", q:"Genética: probabilidade de filhos com determinada característica.",
+ p:["Escreva o genótipo dos pais (ex.: Aa × aa).","Separe os gametas de cada um: Aa → A e a; aa → a e a.","Monte o quadro 2 × 2 combinando os gametas.","Conte os resultados (cada quadradinho = 1/4).","Para DUAS características (AaBb), calcule cada uma separadamente e multiplique."],
+ ex:[{e:"Aa × aa",s:["Gametas: (A, a) × (a, a)","Filhos: Aa, Aa, aa, aa","<b>1/2 Aa (dominante) e 1/2 aa (recessivo)</b>"]},{e:"AaBb × AaBb: probabilidade de aabb?",s:["aa em Aa × Aa = 1/4","bb em Bb × Bb = 1/4","1/4 × 1/4 = <b>1/16</b>"]}],
+ m:"Proporções que caem sempre: Aa × Aa → 3:1; Aa × aa → 1:1; AA × qualquer → 100% dominante.",
+ tr:[{e:"AA × aa: proporção dos filhos?",r:["Todos Aa → 100% com fenótipo dominante"]},{e:"AaBb × aabb: probabilidade de Aabb?",r:["Aa em Aa × aa = 1/2","bb em Bb × bb = 1/2","1/2 × 1/2 = 1/4"]}]},
+
+{g:"🧬 Biologia", t:"Como ler um heredograma", q:"Doenças genéticas em famílias (albinismo, daltonismo, hemofilia).",
+ p:["Símbolos: □ homem, ○ mulher, pintado = afetado; traço horizontal = casal; traço vertical = filhos.","<b>Pais normais com filho afetado → herança RECESSIVA</b> e os pais são Aa.","<b>Pais afetados com filho normal → herança DOMINANTE</b> e os pais são Aa.","Muito mais homens afetados, passando de mãe para filho → provavelmente ligada ao X (daltonismo, hemofilia).","Comece descobrindo os genótipos dos afetados (aa se recessiva) e depois dos pais."],
+ ex:[{e:"Casal normal tem uma filha afetada. A herança é dominante ou recessiva?",s:["Os pais são normais, mas 'esconderam' o alelo → recessiva","Pais = Aa e Aa; filha = aa"]}],
+ m:"Na herança ligada ao X, o pai passa o X dele para TODAS as filhas e nunca para os filhos homens.",
+ tr:[{e:"Um homem daltônico (XᵈY) e uma mulher normal não portadora (XᴰXᴰ) têm filhos. Qual a chance de um filho homem ser daltônico?",r:["Filhos homens recebem o Y do pai e um X da mãe (Xᴰ).","Chance = 0. Mas todas as filhas serão portadoras (XᴰXᵈ)."]}]}
+];
+
+COMO.splice(7,0,
+{g:"🔢 Matemática básica", t:"Número π (pi) e o círculo", q:"Pizzas, rodas, caixas-d'água, latas, pistas circulares, canos.",
+ p:["<b>π ≈ 3,14159…</b> é quantas vezes o diâmetro cabe no contorno de qualquer círculo: comprimento ÷ diâmetro = π (pouco mais de 3 vezes).","No ENEM, use o valor que a questão der (geralmente <b>π = 3</b> ou <b>3,14</b>).","Comprimento da circunferência (contorno): <span class='f'>C = 2·π·r</span> (ou π·d).","Área do círculo: <span class='f'>A = π·r²</span>.","Cilindro: <span class='f'>V = π·r²·h</span>. Esfera: <span class='f'>V = 4·π·r³/3</span>. Cone: <span class='f'>V = π·r²·h/3</span>.","Atenção: diâmetro = 2 × raio. Se a questão der o diâmetro, divida por 2!"],
+ ex:[{e:"Uma roda de bicicleta tem raio 0,3 m (π = 3). Quantas voltas ela dá em 900 m?",s:["Uma volta = C = 2 · 3 · 0,3 = 1,8 m","900 ÷ 1,8 = <b>500 voltas</b>"]},
+     {e:"O que rende mais: 1 pizza de 40 cm de diâmetro ou 2 pizzas de 20 cm?",s:["Grande: r = 20 → A = π·20² = 400π","Pequenas: r = 10 → A = π·10² = 100π cada → 2 × 100π = 200π","<b>A grande tem o DOBRO de pizza!</b> (dobrar o raio quadruplica a área)"]}],
+ m:"Dobrou o raio → contorno dobra, área ×4, volume ×8.",
+ tr:[{e:"Uma pista circular tem raio 50 m (π = 3,14). Qual o comprimento de uma volta?",r:["C = 2 · 3,14 · 50","C = 314 m"]},{e:"Uma lata cilíndrica tem diâmetro 10 cm e altura 12 cm (π = 3). Qual seu volume em mL?",r:["r = 5 cm","V = 3 · 25 · 12 = 900 cm³","900 cm³ = 900 mL"]},{e:"Um jardim circular tem raio 4 m (π = 3). Qual a área?",r:["A = 3 · 4² = 3 · 16","A = 48 m²"]}]});
+
+COMO.push(
+{g:"🪐 Astronomia e planetas", t:"Sistema Solar e planetas", q:"Questões de Física e Geografia sobre o Sol, a Terra, a Lua e os planetas.",
+ p:["Ordem a partir do Sol: <b>Mercúrio, Vênus, Terra, Marte, Júpiter, Saturno, Urano, Netuno</b>. Macete: \"<b>M</b>inha <b>V</b>elha <b>T</b>raga <b>M</b>eu <b>J</b>antar: <b>S</b>opa, <b>U</b>va, <b>N</b>ozes\".","Rochosos (pequenos, sólidos): Mercúrio, Vênus, Terra, Marte. Gasosos/gigantes: Júpiter, Saturno, Urano, Netuno.","Júpiter é o maior. Mercúrio é o mais próximo do Sol. <b>Vênus é o mais quente</b> (efeito estufa intenso, atmosfera de CO₂).","Plutão é planeta-anão desde 2006.","A luz do Sol leva cerca de 8 minutos para chegar à Terra. <b>Ano-luz é DISTÂNCIA</b> (o quanto a luz anda em 1 ano), não tempo."],
+ ex:[{e:"Por que Vênus é mais quente que Mercúrio, se Mercúrio está mais perto do Sol?",s:["Vênus tem atmosfera densa de CO₂ → efeito estufa muito forte, que prende o calor.","Mercúrio quase não tem atmosfera → perde o calor."]}],
+ m:"O ENEM usa astronomia para cobrar conceitos: efeito estufa (Vênus), gravidade (peso em outros planetas), luz (ano-luz).",
+ tr:[{e:"Quais planetas são gasosos?",r:["Júpiter, Saturno, Urano e Netuno"]},{e:"Uma estrela está a 4 anos-luz. O que isso significa?",r:["A luz dela leva 4 anos para chegar aqui.","Vemos a estrela como ela era 4 anos atrás."]}]},
+{g:"🪐 Astronomia e planetas", t:"Gravitação, peso e Leis de Kepler", q:"Peso em outros planetas, satélites, órbitas, marés.",
+ p:["<b>Massa</b> (kg) é a quantidade de matéria e NÃO muda de lugar. <b>Peso</b> (N) é a força da gravidade: <span class='f'>P = m · g</span>.","g na Terra ≈ 10 m/s²; na Lua ≈ 1,6 m/s² (cerca de 1/6).","Gravitação universal: <span class='f'>F = G · M · m / d²</span> → distância dobra, força cai para 1/4.","<b>1ª Lei de Kepler:</b> órbitas são elipses, com o Sol em um dos focos.","<b>2ª Lei:</b> áreas iguais em tempos iguais → o planeta anda <b>mais rápido perto do Sol</b> (periélio) e mais devagar longe (afélio).","<b>3ª Lei:</b> T² / R³ = constante → planetas mais distantes demoram mais para dar a volta.","Marés: causadas principalmente pela atração gravitacional da Lua."],
+ ex:[{e:"Uma pessoa de 60 kg vai à Lua (g = 1,6 m/s²). Qual sua massa e seu peso lá?",s:["Massa: continua <b>60 kg</b>.","Peso: P = 60 × 1,6 = <b>96 N</b> (na Terra: 60 × 10 = 600 N)."]}],
+ m:"Balança de banheiro mede força (peso) e mostra em kg. Na Lua, ela marcaria cerca de 1/6 do valor.",
+ tr:[{e:"Se a distância entre dois corpos dobrar, o que acontece com a força gravitacional?",r:["F é proporcional a 1/d²","d × 2 → F ÷ 4 (fica 4 vezes menor)"]},{e:"Um planeta está 4 vezes mais longe do Sol que outro. Quantas vezes maior é seu período (ano)?",r:["T² ∝ R³ → R × 4 → R³ × 64","T² × 64 → T × 8 (8 vezes maior)"]}]},
+{g:"🪐 Astronomia e planetas", t:"Estações do ano, fases da Lua e eclipses", q:"Muito cobrado em Geografia e Física, junto com movimentos da Terra.",
+ p:["<b>Rotação</b> (24 h) → dia e noite. <b>Translação</b> (365 dias e 6 h) → ano; as 6 h somadas dão o ano bissexto.","<b>Estações do ano são causadas pela INCLINAÇÃO do eixo da Terra (≈ 23,5°)</b>, NÃO pela distância ao Sol.","Por isso, quando é verão no hemisfério Sul (Brasil, dezembro), é inverno no Norte.","Solstício: dia mais longo ou mais curto do ano. Equinócio: dia e noite com a mesma duração.","Fases da Lua (≈ 29,5 dias): nova → crescente → cheia → minguante. A Lua não tem luz própria; reflete a do Sol.","<b>Eclipse solar</b>: a Lua fica entre o Sol e a Terra → só na <b>lua nova</b>. <b>Eclipse lunar</b>: a Terra fica entre o Sol e a Lua → só na <b>lua cheia</b>."],
+ ex:[{e:"A Terra está mais perto do Sol em janeiro. Por que, então, é inverno no hemisfério Norte nessa época?",s:["A distância varia pouco e não define as estações.","Em janeiro, o hemisfério Norte está inclinado para longe do Sol → recebe raios mais inclinados e dias mais curtos → inverno."]}],
+ m:"Eclipse: quem fica no MEIO "apaga" o outro. Lua no meio (Sol-Lua-Terra) → some o Sol → eclipse SOLAR. Terra no meio (Sol-Terra-Lua) → some a Lua → eclipse LUNAR.",
+ tr:[{e:"Em que fase da Lua pode ocorrer um eclipse lunar?",r:["Lua cheia (Terra entre o Sol e a Lua)."]},{e:"Qual movimento da Terra explica o dia e a noite?",r:["Rotação (giro em torno do próprio eixo, ≈ 24 h)."]}]});
+
+const FORMULARIO = [
+ ["📐 Matemática",[
+  ["Porcentagem","aumento: ×(1 + p/100) · desconto: ×(1 − p/100)"],["Juros simples","M = C·(1 + i·t)"],["Juros compostos","M = C·(1 + i)ᵗ"],
+  ["Média ponderada","Σ(valor·peso) ÷ Σ(pesos)"],["Probabilidade","P = favoráveis ÷ possíveis"],["Combinação","C(n,p) = n! ÷ [p!·(n−p)!]"],
+  ["Função 1º grau","f(x) = ax + b"],["Bhaskara","Δ = b² − 4ac · x = (−b ± √Δ) ÷ 2a"],["Vértice","xᵥ = −b/2a · yᵥ = −Δ/4a"],
+  ["PA","aₙ = a₁ + (n−1)·r · Sₙ = (a₁ + aₙ)·n/2"],["PG","aₙ = a₁·qⁿ⁻¹"],["Pitágoras","a² = b² + c²"],
+  ["Trigonometria","sen = op/hip · cos = adj/hip · tg = op/adj"],["π","≈ 3,14 (ENEM costuma dar 3)"],
+  ["Retângulo / Quadrado","A = b·h · A = l²"],["Triângulo","A = b·h/2"],["Trapézio","A = (B + b)·h/2"],["Losango","A = D·d/2"],
+  ["Círculo","A = π·r² · C = 2·π·r"],["Paralelepípedo / Cubo","V = a·b·c · V = a³"],["Cilindro","V = π·r²·h"],
+  ["Cone / Pirâmide","V = Área da base·h/3"],["Esfera","V = 4·π·r³/3"],["Unidades","1 m³ = 1000 L · 1 dm³ = 1 L · 1 km/h ÷ 3,6 = m/s"]]],
+ ["⚡ Física",[
+  ["Velocidade média","v = Δs/Δt"],["Aceleração","a = Δv/Δt"],["MUV","v = v₀ + a·t · s = s₀ + v₀t + at²/2 · v² = v₀² + 2aΔs"],
+  ["2ª Lei de Newton","F = m·a"],["Peso","P = m·g (g ≈ 10 m/s²)"],["Gravitação","F = G·M·m/d²"],
+  ["Trabalho","τ = F·d"],["Energia cinética","Ec = m·v²/2"],["Energia potencial","Ep = m·g·h"],["Potência","P = E/t"],
+  ["Pressão","p = F/A · p = d·g·h"],["Densidade","d = m/V (água: 1 g/cm³)"],
+  ["Calor sensível","Q = m·c·ΔT"],["Calor latente","Q = m·L"],["Escalas","C/5 = (F − 32)/9 = (K − 273)/5"],
+  ["Ondas","v = λ·f · T = 1/f"],["Lei de Ohm","U = R·i"],["Potência elétrica","P = U·i = R·i² = U²/R"],
+  ["Consumo","E (kWh) = P (kW)·t (h)"],["Resistores em série","Req = R₁ + R₂ + …"],["Resistores em paralelo","1/Req = 1/R₁ + 1/R₂ (dois iguais: R/2)"],
+  ["Rendimento","η = útil ÷ total"],["Velocidade da luz","c = 3 × 10⁸ m/s"]]],
+ ["🧪 Química",[
+  ["Mol","n = m/M · 1 mol = 6 × 10²³ partículas"],["Gás nas CNTP","1 mol = 22,4 L"],["Concentração comum","C = m/V (g/L)"],
+  ["Molaridade","M = n/V (mol/L)"],["Diluição","C₁·V₁ = C₂·V₂"],["Título","τ = m soluto ÷ m solução"],["ppm","mg/kg ou mg/L"],
+  ["pH","pH = −log[H⁺] · pH + pOH = 14"],["Meia-vida","m = m₀ ÷ 2ⁿ (n = nº de meias-vidas)"],["Gases","P·V = n·R·T · P₁V₁/T₁ = P₂V₂/T₂ (T em kelvin)"],
+  ["Entalpia","ΔH = H produtos − H reagentes (ΔH < 0: exotérmica)"]]],
+ ["🧬 Biologia",[
+  ["1ª Lei de Mendel","Aa × Aa → 1 AA : 2 Aa : 1 aa (3:1)"],["Cruzamento-teste","Aa × aa → 1 : 1"],["Duas características","multiplique as probabilidades (AaBb × AaBb → 9:3:3:1)"],
+  ["Sexo do filho","× 1/2"],["Fotossíntese","6 CO₂ + 6 H₂O + luz → C₆H₁₂O₆ + 6 O₂"],["Respiração","C₆H₁₂O₆ + 6 O₂ → 6 CO₂ + 6 H₂O + energia"],
+  ["Energia na cadeia","≈ 10% passa para o nível seguinte"]]]
+];
+
+function formularioPage(){
+  return `<h2>📋 Formulário completo</h2>
+  <div class="card small">Todas as fórmulas em um lugar só. <b>O ENEM NÃO dá formulário</b> (às vezes dá constantes, como π e g), então leia esta página várias vezes. Para aprender a USAR cada fórmula, veja a aba 🧮 Como fazer.</div>
+  ${FORMULARIO.map(([g,l])=>`<details open><summary>${g}</summary><div class="in"><table>${l.map(([n,f])=>`<tr><td><b>${n}</b></td><td class="f" style="background:none">${f}</td></tr>`).join("")}</table></div></details>`).join("")}`;
+}
+
+function comoPage(){
+  let html = `<h2>🧮 Como fazer — passo a passo</h2>
+  <div class="card small">As técnicas que você precisa saber para resolver as questões: como resolver equação, Bhaskara, sistema, frações, conversões, balancear equação química, Nox, Punnett… Cada uma tem <b>passo a passo</b>, <b>exemplos resolvidos</b> e <b>exercícios para treinar</b> (toque em "Ver resolução" depois de tentar).</div>`;
+  let grupo = "";
+  COMO.forEach(c=>{
+    if(c.g!==grupo){ grupo=c.g; html += `<h3>${grupo}</h3>`; }
+    html += `<details><summary>${c.t}</summary><div class="in">
+      <p class="small muted" style="margin-top:0">📌 <b>Onde cai no ENEM:</b> ${c.q}</p>
+      <div class="passos"><b>🛠️ Passo a passo</b><ol>${c.p.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <h3 style="font-size:15px">✅ Exemplos resolvidos</h3>
+      ${c.ex.map(x=>`<div class="card" style="margin-bottom:10px"><b>${x.e}</b><ol style="margin:6px 0 0;padding-left:20px">${x.s.map(s=>`<li>${s}</li>`).join("")}</ol></div>`).join("")}
+      <div class="dica">💡 <b>Macete:</b> ${c.m}</div>
+      <h3 style="font-size:15px">✏️ Agora é sua vez</h3>
+      ${c.tr.map((x,i)=>`<div class="card" style="margin-bottom:8px;padding:12px"><b>${i+1})</b> ${x.e}
+        <details style="margin:8px 0 0;border-radius:10px"><summary style="padding:8px 12px;font-size:14px">Ver resolução</summary>
+        <div class="in"><ol style="margin:0;padding-left:20px">${x.r.map(s=>`<li>${s}</li>`).join("")}</ol></div></details></div>`).join("")}
+    </div></details>`;
+  });
+  return html;
+}
+
 function aulaDe(q){
   if(q.a==="red") return "red";
   if(q.a==="hum") return q.m==="História"?"hist":(q.m==="Geografia"?"geo2":"filo");
@@ -979,7 +1183,7 @@ try { state = JSON.parse(localStorage.getItem("enemRev") || "{}"); } catch(e) { 
 function save(){ try { localStorage.setItem("enemRev", JSON.stringify(state)); } catch(e){} }
 
 const TABS = [
-  ["inicio","🏠 Início"],["mat","📐 Matemática"],["nat","🧪 Natureza"],["hum","🌎 Humanas"],
+  ["inicio","🏠 Início"],["como","🧮 Como fazer"],["form","📋 Fórmulas"],["mat","📐 Matemática"],["nat","🧪 Natureza"],["hum","🌎 Humanas"],
   ["lin","📖 Linguagens"],["red","✍️ Redação"],["sim","🎯 Simulado"],["dicas","💡 Dicas"]
 ];
 let current = "inicio", filtro = "Todas", simList = null;
@@ -1056,9 +1260,11 @@ function inicio(){
   return `<h2>Bora pra prova! 💪</h2>
   <div class="card">
     <p style="margin-top:0">Este material funciona <b>100% offline</b>. Ele junta os <b>temas que mais caíram no ENEM de 2021 a 2025</b>, como um cursinho: <b>${AULAS.length} aulas</b> (teoria, método, exemplo e erros comuns), <b>${Q.length} questões no estilo ENEM</b> resolvidas passo a passo e um <b>curso de redação</b> com redações-modelo comentadas.</p>
-    <p class="small muted" style="margin-bottom:0">Seu progresso fica salvo neste aparelho. Sugestão de roteiro na viagem: 1) Dicas → 2) Curso de Redação → 3) Aulas de cada área → 4) Simulado.</p>
+    <p class="small muted" style="margin-bottom:0">Seu progresso fica salvo neste aparelho. Sugestão de roteiro na viagem: 1) Dicas → 2) Curso de Redação → 3) Formulário + Como fazer → 4) Aulas de cada área → 5) Simulado.</p>
   </div>
   <div class="grid">${cards}
+    <button class="area" onclick="go('como')"><strong>🧮 Como fazer</strong><span class="small muted">Equações, Bhaskara, π, planetas, balanceamento… passo a passo</span></button>
+    <button class="area" onclick="go('form')"><strong>📋 Formulário</strong><span class="small muted">Todas as fórmulas numa tela</span></button>
     <button class="area" onclick="go('red')"><strong>✍️ Curso de Redação</strong><span class="small muted">Passo a passo, modelos nota alta, treinos</span></button>
     <button class="area" onclick="go('sim')"><strong>🎯 Simulado</strong><span class="small muted">10 questões aleatórias</span></button>
   </div>
@@ -1087,6 +1293,8 @@ function render(){
   else if(AREAS[current]) app.innerHTML = areaPage(current);
   else if(current==="red"){ app.innerHTML = redacaoPage(); contar(); }
   else if(current==="sim") app.innerHTML = simulado();
+  else if(current==="como") app.innerHTML = comoPage();
+  else if(current==="form") app.innerHTML = formularioPage();
   else if(current==="dicas") app.innerHTML = `<h2>💡 Dicas para o dia da prova</h2>` + DICAS;
 }
 render();
