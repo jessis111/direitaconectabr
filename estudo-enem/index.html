@@ -508,10 +508,354 @@ const Q = [
  e:"<div class='texto'>\"Ayer fui a la oficina muy temprano, pero estaba cerrada. Tuve que esperar en la calle hasta las nueve.\"</div>De acordo com o texto, a pessoa:",
  o:["Chegou tarde ao escritório.","Encontrou o escritório fechado e esperou na rua.","Foi a uma oficina mecânica consertar o carro.","Esperou dentro do escritório.","Desistiu de esperar."],c:1,
  p:["'oficina' em espanhol = escritório (falso cognato!).","'temprano' = cedo; 'cerrada' = fechada.","'Tuve que esperar en la calle' = teve que esperar na rua."],
- d:"Falsos cognatos famosos: oficina (escritório), exquisito (delicioso), embarazada (grávida), largo (comprido), polvo (pó)."}
+ d:"Falsos cognatos famosos: oficina (escritório), exquisito (delicioso), embarazada (grávida), largo (comprido), polvo (pó)."},
+
+/* ---------- QUESTÕES EXTRAS (aulas) ---------- */
+{a:"mat",m:"Matemática",t:"Estatística (média ponderada)",
+ e:"Em um concurso, a nota final é a média ponderada de três provas: Português (peso 2), Matemática (peso 3) e Redação (peso 5). Um candidato tirou 6, 8 e 5, respectivamente. Qual a nota final?",
+ o:["5,9","6,1","6,33","6,5","7,0"],c:1,
+ p:["Multiplique cada nota pelo seu peso: 6×2 = 12; 8×3 = 24; 5×5 = 25.","Some os produtos: 12 + 24 + 25 = 61.","Some os pesos: 2 + 3 + 5 = 10.","Média = 61 ÷ 10 = 6,1."],
+ d:"6,33 é a média simples (19 ÷ 3). Se a questão fala em 'peso', é ponderada."},
+{a:"mat",m:"Matemática",t:"Probabilidade (dois dados)",
+ e:"Dois dados comuns são lançados ao mesmo tempo. Qual a probabilidade de a soma dos resultados ser 7?",
+ o:["1/12","5/36","1/6","7/36","1/3"],c:2,
+ p:["Total de resultados possíveis: 6 × 6 = 36.","Pares com soma 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) → 6 casos.","P = 6/36 = 1/6."],
+ d:"(1,6) e (6,1) são casos DIFERENTES — os dados são distintos. Liste os casos com calma."},
+{a:"mat",m:"Matemática",t:"Análise combinatória (combinação)",
+ e:"De um grupo de 6 alunos, serão escolhidos 3 para formar uma comissão, sem cargos definidos. Quantas comissões diferentes podem ser formadas?",
+ o:["18","20","120","216","720"],c:1,
+ p:["Na comissão sem cargos, a ordem NÃO importa ({Ana, Bia, Caio} = {Caio, Ana, Bia}) → combinação.","C(6,3) = 6! ÷ (3! · 3!) = (6 × 5 × 4) ÷ (3 × 2 × 1).","= 120 ÷ 6 = 20."],
+ d:"120 seria se houvesse cargos (presidente, vice, secretário) — aí a ordem importa."},
+{a:"mat",m:"Matemática",t:"Razão e proporção (consumo de combustível)",
+ e:"Um carro faz 12 km por litro de gasolina. Para uma viagem de 540 km, com a gasolina a R$ 6,00 o litro, quanto será gasto com combustível?",
+ o:["R$ 225,00","R$ 250,00","R$ 270,00","R$ 300,00","R$ 324,00"],c:2,
+ p:["Litros necessários: 540 ÷ 12 = 45 L.","Custo: 45 × 6 = R$ 270,00."],
+ d:"Monte as etapas: distância → litros → reais. Uma conta por vez."},
+{a:"mat",m:"Matemática",t:"Geometria espacial (volume do paralelepípedo)",
+ e:"Um aquário tem formato de paralelepípedo com medidas internas de 50 cm × 30 cm × 40 cm. Quantos litros de água cabem nele quando cheio?",
+ o:["0,6 L","6 L","60 L","600 L","6 000 L"],c:2,
+ p:["V = 50 × 30 × 40 = 60 000 cm³.","1 L = 1 000 cm³ (1 dm³).","60 000 ÷ 1 000 = 60 L."],
+ d:"Atalho: converta para dm antes (5 × 3 × 4 = 60 dm³ = 60 L)."},
+{a:"nat",m:"Física",t:"Eletricidade (Lei de Ohm e potência)",
+ e:"Um secador de cabelo tem as especificações 1 100 W – 220 V. Qual a corrente elétrica que passa por ele em funcionamento?",
+ o:["0,2 A","2 A","5 A","10 A","44 A"],c:2,
+ p:["Use P = U · i.","1 100 = 220 · i.","i = 1 100 ÷ 220 = 5 A."],
+ d:"44 é a resistência (R = U/i = 220/5 = 44 Ω), não a corrente. Leia a unidade pedida."},
+{a:"nat",m:"Física",t:"Mecânica (2ª Lei de Newton)",
+ e:"Um carro de 1 000 kg sai do repouso e atinge 20 m/s em 10 s, com aceleração constante. Qual a força resultante sobre ele?",
+ o:["200 N","2 000 N","10 000 N","20 000 N","200 000 N"],c:1,
+ p:["Aceleração: a = Δv ÷ Δt = 20 ÷ 10 = 2 m/s².","F = m · a = 1 000 × 2 = 2 000 N."],
+ d:"Primeiro a aceleração, depois a força. Unidades no SI (kg, m/s, s) → resposta em newtons."},
+{a:"nat",m:"Química",t:"Mol (quantidade de matéria)",
+ e:"Quantas moléculas existem em 36 g de água (H₂O)? Dados: H = 1, O = 16; constante de Avogadro = 6 × 10²³.",
+ o:["2","6 × 10²³","1,2 × 10²⁴","3,6 × 10²⁴","1,8 × 10²⁵"],c:2,
+ p:["Massa molar da água: 2 × 1 + 16 = 18 g/mol.","Número de mols: 36 ÷ 18 = 2 mol.","Moléculas: 2 × 6 × 10²³ = 12 × 10²³ = 1,2 × 10²⁴."],
+ d:"'2' é o número de MOLS, não de moléculas. Cuidado com o que a pergunta pede."},
+{a:"nat",m:"Biologia",t:"Genética (grupos sanguíneos)",
+ e:"Um homem com sangue tipo AB tem filhos com uma mulher de sangue tipo O. Quais tipos sanguíneos os filhos podem ter?",
+ o:["Apenas AB","A, B, AB ou O","Apenas A ou B, com 50% de chance cada","Apenas O","A ou O"],c:2,
+ p:["Pai AB → genótipo IᴬIᴮ (pode passar Iᴬ ou Iᴮ).","Mãe O → genótipo ii (só passa i).","Filhos: Iᴬi (tipo A) ou Iᴮi (tipo B) → 1/2 cada.","Nenhum filho pode ser O ou AB."],
+ d:"Iᴬ e Iᴮ são dominantes sobre i, e codominantes entre si."},
+{a:"nat",m:"Biologia",t:"Ecologia (cadeia alimentar)",
+ e:"Em um campo, existe a cadeia: capim → gafanhoto → sapo → cobra. Se as cobras forem caçadas até quase desaparecer, o efeito imediato esperado é:",
+ o:["Diminuição dos sapos e aumento dos gafanhotos.","Aumento dos sapos e diminuição dos gafanhotos.","Aumento do capim e dos gafanhotos.","Nenhuma alteração nas populações.","Diminuição de todas as populações."],c:1,
+ p:["Sem cobras (predador), os sapos aumentam.","Mais sapos comem mais gafanhotos → gafanhotos diminuem.","Com menos gafanhotos, o capim tende a aumentar (efeito em cascata)."],
+ d:"Faça setinhas ↑ e ↓ nível por nível. Os efeitos se alternam ao longo da cadeia."},
+{a:"hum",m:"História",t:"República Velha (Revolta da Vacina)",
+ e:"Em 1904, a população do Rio de Janeiro se revoltou contra a vacinação obrigatória contra a varíola. Além do medo da vacina, a revolta expressou:",
+ o:["Apoio popular à monarquia e ao imperador.","Insatisfação com reformas urbanas autoritárias que expulsaram os pobres do centro da cidade.","Reivindicação pelo fim da escravidão.","Protesto contra o AI-5.","Defesa da industrialização promovida por Vargas."],c:1,
+ p:["Contexto: governo Rodrigues Alves; reforma urbana de Pereira Passos ('bota-abaixo') e campanha sanitária de Oswaldo Cruz.","Cortiços foram demolidos e a população pobre foi empurrada para morros e subúrbios.","A vacinação obrigatória, feita de forma autoritária, foi o estopim de uma insatisfação maior."],
+ d:"O ENEM gosta de revoltas da República Velha: Canudos, Contestado, Vacina, Chibata."},
+{a:"hum",m:"Filosofia",t:"Contratualismo (Locke)",
+ e:"\"Sempre que os legisladores tentam tirar e destruir a propriedade do povo, colocam-se em estado de guerra com ele, que fica assim desobrigado de qualquer obediência.\" A ideia central desse pensador é:",
+ o:["O poder do soberano deve ser absoluto e indivisível.","O povo tem direito de resistir a um governo que viole seus direitos naturais.","O homem nasce bom e a sociedade o corrompe.","A política deve ser separada da moral.","A luta de classes é o motor da história."],c:1,
+ p:["'Propriedade' + 'desobrigado de obediência' → John Locke.","Para Locke, o governo existe para proteger vida, liberdade e propriedade (direitos naturais).","Se o governo os viola, o povo pode resistir (direito de resistência) — base do liberalismo."],
+ d:"A = Hobbes; C = Rousseau; D = Maquiavel; E = Marx."},
+{a:"hum",m:"Sociologia",t:"Weber (tipos de dominação)",
+ e:"Um líder político conquista seguidores fiéis não por causa de leis ou tradições, mas pela crença em suas qualidades extraordinárias e em seu carisma pessoal. Para Max Weber, esse é um exemplo de dominação:",
+ o:["Tradicional","Racional-legal","Carismática","Mecânica","Orgânica"],c:2,
+ p:["Weber definiu três tipos de dominação legítima.","Tradicional: baseada nos costumes (ex.: monarca). Racional-legal: baseada em leis e cargos (ex.: burocracia).","Carismática: baseada na devoção às qualidades pessoais do líder."],
+ d:"Mecânica e orgânica são tipos de SOLIDARIEDADE (Durkheim), não de dominação."},
+{a:"hum",m:"Geografia",t:"Clima urbano (inversão térmica)",
+ e:"Em dias frios de inverno, é comum São Paulo amanhecer coberta por uma camada de poluição. Isso acontece porque:",
+ o:["O ar quente sobe rapidamente, levando os poluentes.","Uma camada de ar quente fica acima de uma camada de ar frio, impedindo a dispersão dos poluentes.","A ilha de calor elimina os poluentes no inverno.","As chuvas de inverno concentram os gases no solo.","Os ventos alísios trazem poluição do litoral."],c:1,
+ p:["Normalmente, o ar perto do solo é mais quente e sobe, levando os poluentes.","No inverno, o solo esfria muito à noite → ar frio (mais denso) fica embaixo e o ar quente fica em cima.","Essa 'tampa' de ar quente impede a circulação vertical → os poluentes ficam presos."],
+ d:"Inversão térmica: fenômeno natural, mas agravado pela poluição urbana."},
+{a:"lin",m:"Português",t:"Funções da linguagem (metalinguagem)",
+ e:"<div class='texto'>\"Escrevo este verso / sem saber se é verso. / Procuro a palavra / que diga o que é escrever.\"</div>A função da linguagem predominante no fragmento é:",
+ o:["Referencial","Fática","Conativa","Metalinguística","Emotiva"],c:3,
+ p:["O poema fala sobre o próprio ato de escrever poemas.","Quando a linguagem se volta para si mesma (o código explicando o código), temos metalinguagem.","Exemplos: poema sobre poesia, filme sobre fazer filmes, verbete de dicionário."],
+ d:"Há marcas de 1ª pessoa, mas o FOCO é o próprio fazer poético → metalinguística."},
+{a:"lin",m:"Português",t:"Interpretação (ironia)",
+ e:"<div class='texto'>\"Que maravilha! Ficamos três horas presos no trânsito e ainda chegamos atrasados à reunião.\"</div>O efeito de sentido do trecho é construído principalmente por meio de:",
+ o:["Hipérbole, pois exagera o tempo no trânsito.","Ironia, pois 'Que maravilha!' expressa o contrário do que o falante sente.","Metáfora, pois compara o trânsito a uma prisão.","Eufemismo, pois suaviza o atraso.","Antítese, pois opõe trânsito e reunião."],c:1,
+ p:["A situação descrita é ruim (trânsito + atraso).","Mas o falante diz 'Que maravilha!'.","Dizer o contrário do que se pensa, para criticar ou fazer humor = ironia."],
+ d:"Ironia é muito cobrada em charges e tirinhas: compare o que é DITO com a SITUAÇÃO."},
+{a:"lin",m:"Inglês",t:"Interpretação (conectivos em inglês)",
+ e:"<div class='texto'>\"Social media can connect people from different countries. However, excessive use may lead to anxiety and isolation.\"</div>The word \"However\" introduces an idea of:",
+ o:["Addition","Contrast","Conclusion","Example","Time"],c:1,
+ p:["1ª frase: aspecto positivo (conecta pessoas).","2ª frase: aspecto negativo (ansiedade e isolamento).","'However' = 'no entanto' → contraste/oposição."],
+ d:"Conectivos em inglês: however/but/although (contraste), moreover/also (adição), therefore/so (conclusão)."},
+
+/* ---------- REDAÇÃO (exercícios) ---------- */
+{a:"red",m:"Redação",t:"Tese",
+ e:"Tema: <b>\"Desafios para combater a desinformação nas redes sociais no Brasil\"</b>. Qual frase funciona melhor como TESE no final da introdução?",
+ o:["\"A internet é a pior invenção da humanidade.\"","\"Esse problema persiste devido à baixa educação midiática da população e à lógica dos algoritmos, que favorecem conteúdos sensacionalistas.\"","\"Eu acho que as fake news são muito ruins para todos.\"","\"Neste texto, vou falar sobre as fake news.\"","\"As redes sociais deveriam ser proibidas no Brasil.\""],c:1,
+ p:["Uma boa tese mostra o seu ponto de vista E anuncia os dois argumentos que serão desenvolvidos.","B cita duas causas (educação midiática e algoritmos) → já organiza os dois parágrafos de desenvolvimento.","A e E são radicais; C usa 1ª pessoa e é vaga; D é metalinguagem ('vou falar sobre')."],
+ d:"Fórmula da tese: 'Isso ocorre devido a [causa 1] e a [causa 2].'"},
+{a:"red",m:"Redação",t:"Proposta de intervenção",
+ e:"Qual das propostas abaixo apresenta os 5 elementos exigidos (agente, ação, meio, finalidade e detalhamento)?",
+ o:["\"É preciso que alguém faça alguma coisa para resolver o problema.\"","\"O governo deve resolver a situação.\"","\"O Ministério da Educação deve incluir a educação midiática nas escolas, por meio de oficinas semanais — conduzidas por jornalistas e professores capacitados —, a fim de formar leitores críticos.\"","\"As pessoas devem se conscientizar sobre o problema.\"","\"As escolas devem fazer palestras.\""],c:2,
+ p:["Agente: Ministério da Educação.","Ação: incluir a educação midiática nas escolas.","Meio: por meio de oficinas semanais.","Detalhamento: conduzidas por jornalistas e professores capacitados.","Finalidade: a fim de formar leitores críticos."],
+ d:"'O governo' é vago — prefira o órgão específico (Ministério, Secretaria, Congresso, ONGs, mídia)."},
+{a:"red",m:"Redação",t:"Repertório produtivo",
+ e:"Tema: <b>\"Desafios para a valorização da herança africana no Brasil\"</b>. Qual uso de repertório é mais PRODUTIVO (ligado ao tema e explicado)?",
+ o:["\"Como dizia Einstein, a imaginação é mais importante que o conhecimento.\"","\"A Lei 10.639/2003 tornou obrigatório o ensino de cultura afro-brasileira; contudo, muitas escolas ainda a aplicam de forma superficial, o que mantém o apagamento dessas contribuições.\"","\"Segundo Aristóteles, o homem é um animal político.\"","\"O Brasil é um país muito grande.\"","\"De acordo com estudos, isso é um problema.\""],c:1,
+ p:["Repertório produtivo = pertinente ao tema + explicado + usado para defender o argumento.","B cita uma lei específica do tema e mostra como ela se relaciona com o problema.","A e C são 'decorativos' (não se ligam ao tema); D e E são genéricos e sem fonte."],
+ d:"Não basta citar: explique a relação com o tema na frase seguinte."},
+{a:"red",m:"Redação",t:"O que zera a redação",
+ e:"Qual das situações abaixo leva à nota ZERO na redação do ENEM?",
+ o:["Usar apenas um repertório.","Fazer uma proposta de intervenção sem detalhamento.","Escrever um texto com até 7 linhas.","Cometer três erros de acentuação.","Escrever a conclusão com 4 linhas."],c:2,
+ p:["Textos com até 7 linhas são considerados 'insuficientes' → zero.","As demais situações só fazem perder pontos em alguma competência.","Também zeram: fuga total ao tema, tipo textual errado, parte desconectada, nome/assinatura, desenhos."],
+ d:"Mire em 25 a 30 linhas. Nunca menos de 20."},
+{a:"red",m:"Redação",t:"Recorte temático",
+ e:"Tema: <b>\"Desafios para o enfrentamento da invisibilidade do trabalho de cuidado realizado pela mulher no Brasil\"</b>. Um candidato escreveu toda a redação sobre violência doméstica. O que acontece?",
+ o:["Nota máxima, pois o assunto é sobre mulheres.","Tangenciou o tema: abordou só o assunto amplo (mulher), sem o recorte (trabalho de cuidado e sua invisibilidade), e perde muitos pontos.","Nota zero por erro de português.","Nada, pois os corretores não avaliam o tema.","Ganha pontos extras por criatividade."],c:1,
+ p:["Todo tema tem um ASSUNTO amplo (mulher) e um RECORTE (trabalho de cuidado não remunerado e invisível).","Falar só do assunto amplo = tangenciamento → nota baixa em C2, C3 e C5.","Sublinhe as palavras-chave do tema e use-as ao longo do texto."],
+ d:"Repita as palavras-chave do tema na introdução, no início de cada desenvolvimento e na conclusão."},
+{a:"red",m:"Redação",t:"Conectivos",
+ e:"Qual conectivo é mais adequado para iniciar o parágrafo de CONCLUSÃO?",
+ o:["Em primeiro lugar,","Além disso,","Por exemplo,","Portanto,","Entretanto,"],c:3,
+ p:["A conclusão retoma o que foi discutido e apresenta a solução.","Conectivos de conclusão: Portanto, Dessa forma, Logo, Diante do exposto.","'Em primeiro lugar' inicia o D1; 'Além disso' inicia o D2; 'Entretanto' indica oposição."],
+ d:"Use conectivos diferentes no início de cada parágrafo — isso pontua na Competência 4."}
 ];
 
-/* ===================== REDAÇÃO ===================== */
+/* ===================== AULAS (estilo cursinho) ===================== */
+const AULAS = [
+/* MATEMÁTICA */
+{id:"porc",a:"mat",titulo:"Porcentagem, aumentos, descontos e juros",
+ teoria:`Porcentagem é uma fração de denominador 100: <span class="f">25% = 25/100 = 0,25</span>. O segredo do ENEM é trabalhar com o <b>fator multiplicativo</b>: aumento de p% → ×(1 + p/100); desconto de p% → ×(1 − p/100). Juros simples crescem sempre sobre o valor inicial; juros compostos crescem "juros sobre juros".`,
+ metodo:["Descubra a BASE: o valor de antes (é sobre ele que se calcula a porcentagem).","Transforme cada aumento/desconto em fator (×1,10, ×0,85…).","Em mudanças sucessivas, MULTIPLIQUE os fatores, nunca some as porcentagens.","Releia a pergunta: ela quer o valor final, o quanto aumentou ou a porcentagem?"],
+ ex:{e:"Um salário de R$ 2 000 teve dois aumentos seguidos de 10%. Qual o salário final?",p:["Fator: 1,10 × 1,10 = 1,21.","2 000 × 1,21 = R$ 2 420 (e não R$ 2 400!).","O aumento total foi de 21%, não de 20%."]},
+ erros:["Somar porcentagens sucessivas.","Calcular a variação sobre o valor novo em vez do antigo.","Confundir pontos percentuais com porcentagem: taxa de 10% para 12% subiu 2 pontos percentuais, mas 20% em relação a ela mesma."]},
+{id:"prop",a:"mat",titulo:"Razão, proporção, regra de três e escala",
+ teoria:`Razão compara duas grandezas (ex.: km por litro, habitantes por km²). Duas grandezas são <b>diretamente proporcionais</b> quando uma aumenta e a outra aumenta na mesma proporção; <b>inversamente</b> quando uma aumenta e a outra diminui (operários × dias, velocidade × tempo). Escala é uma razão: <span class="f">desenho : real</span>.`,
+ metodo:["Organize as grandezas em colunas com as mesmas unidades.","Pergunte: se uma aumenta, a outra aumenta (direta) ou diminui (inversa)?","Direta: multiplique em cruz. Inversa: o produto é constante (a·b = c·d).","Em escala: real = desenho × denominador; depois converta a unidade."],
+ ex:{e:"Uma planta está na escala 1:50. Uma sala mede 8 cm × 6 cm no papel. Qual a área real?",p:["Medidas reais: 8 × 50 = 400 cm = 4 m; 6 × 50 = 300 cm = 3 m.","Área: 4 × 3 = 12 m².","Cuidado: a área NÃO se multiplica por 50, e sim por 50² (calcule sempre pelas medidas)."]},
+ erros:["Usar regra de três direta quando é inversa.","Esquecer de converter cm em m ou km.","Multiplicar a área pela escala linear."]},
+{id:"est",a:"mat",titulo:"Estatística e leitura de gráficos",
+ teoria:`É um dos temas que mais caem. Média = soma ÷ quantidade. Média ponderada = Σ(valor × peso) ÷ Σ(pesos). Mediana = termo do meio com os dados <b>em ordem</b>. Moda = valor mais frequente. Em gráficos, leia o <b>título, os eixos, as unidades e a legenda</b> antes de tudo.`,
+ metodo:["Leia o título e as unidades do gráfico/tabela (mil? milhões? %?).","Para mediana: ORDENE os dados. Quantidade ímpar → o do meio; par → média dos dois do meio.","Para média ponderada: multiplique pelo peso, some, divida pela soma dos pesos.","Confira se a resposta faz sentido (a média sempre fica entre o menor e o maior valor)."],
+ ex:{e:"Gols de um time em 5 jogos: 3, 0, 2, 5, 2. Calcule média, mediana e moda.",p:["Média: (3+0+2+5+2) ÷ 5 = 12 ÷ 5 = 2,4.","Ordenando: 0, 2, 2, 3, 5 → mediana = 2 (o 3º valor).","Moda = 2 (aparece duas vezes)."]},
+ erros:["Calcular a mediana sem ordenar.","Ignorar a unidade do eixo (ex.: 'em milhares').","Usar média simples quando há pesos."]},
+{id:"prob",a:"mat",titulo:"Probabilidade e análise combinatória",
+ teoria:`Probabilidade = casos favoráveis ÷ casos possíveis. "E" → multiplica; "OU" → soma (se não puderem acontecer juntos). Na contagem, use o <b>princípio multiplicativo</b>: multiplique as opções de cada etapa. Se a ordem NÃO importa (grupos, comissões), divida pelas repetições → combinação.`,
+ metodo:["Pergunte: a ordem importa? (senha, fila, cargos = sim; grupo, salada de frutas = não).","Conte etapa por etapa e multiplique.","Se a ordem não importa, use C(n,p) = n!/(p!(n−p)!).","Em probabilidade, verifique se é COM ou SEM reposição."],
+ ex:{e:"Uma lanchonete oferece 3 tipos de pão, 4 recheios e 2 molhos. Quantos lanches diferentes (1 de cada) podem ser montados?",p:["Etapas independentes: pão, recheio, molho.","3 × 4 × 2 = 24 lanches."]},
+ erros:["Usar combinação quando a ordem importa (ou vice-versa).","Esquecer que sem reposição o total diminui.","Contar (1,6) e (6,1) como um só caso nos dados."]},
+{id:"func",a:"mat",titulo:"Funções e sequências",
+ teoria:`Função do 1º grau <span class="f">f(x) = ax + b</span>: <b>b</b> é o valor fixo (bandeirada, taxa) e <b>a</b> é quanto aumenta por unidade. Gráfico: reta. Função do 2º grau <span class="f">f(x) = ax² + bx + c</span>: gráfico é parábola; o ponto de máximo/mínimo é o vértice (x<sub>v</sub> = −b/2a). PA soma uma razão constante; PG multiplica.`,
+ metodo:["Identifique o valor fixo e o valor que varia.","Monte a função com as informações do texto.","Para máximo/mínimo: calcule x do vértice e depois substitua para achar y.","Em sequências, escreva os primeiros termos e descubra o padrão (soma → PA; multiplica → PG)."],
+ ex:{e:"Uma academia cobra R$ 50 de matrícula + R$ 80 por mês. Quanto custa um ano?",p:["f(x) = 50 + 80x.","f(12) = 50 + 960 = R$ 1 010."]},
+ erros:["Responder o x do vértice quando a pergunta quer o valor máximo (y).","Esquecer o valor fixo.","Em PA, usar n em vez de (n − 1)."]},
+{id:"geo",a:"mat",titulo:"Geometria plana e espacial",
+ teoria:`Área mede superfície (m²), volume mede espaço (m³). Prismas e cilindros: <span class="f">V = área da base × altura</span>. Pirâmides e cones: um terço disso. Lembre: <b>1 m³ = 1 000 L</b> e <b>1 dm³ = 1 L</b>. Pitágoras: em triângulo retângulo, hipotenusa² = cateto² + cateto².`,
+ metodo:["Desenhe a figura e anote as medidas.","Coloque TODAS as medidas na mesma unidade.","Escolha a fórmula (área? volume?).","Converta o resultado para a unidade pedida (litros, m², peças…)."],
+ ex:{e:"Uma piscina de 8 m × 4 m × 1,5 m. Quantos litros cabem?",p:["V = 8 × 4 × 1,5 = 48 m³.","48 × 1 000 = 48 000 L."]},
+ erros:["Misturar cm e m na mesma conta.","Confundir raio com diâmetro.","Esquecer de dividir por 3 em cones e pirâmides."]},
+/* NATUREZA */
+{id:"ele",a:"nat",titulo:"Eletricidade no dia a dia",
+ teoria:`Potência (W) indica quanta energia o aparelho gasta por segundo. Consumo na conta de luz: <span class="f">E (kWh) = P (kW) × t (h)</span>. Relações: <span class="f">P = U·i</span> e <span class="f">U = R·i</span>. Em casa, os aparelhos são ligados em <b>paralelo</b> (mesma tensão, funcionam independentes).`,
+ metodo:["Passe a potência para kW (÷ 1 000) e o tempo para horas (÷ 60).","Calcule o consumo E = P × t.","Multiplique pelo preço do kWh se a questão pedir o custo.","Para corrente: i = P/U. Para resistência: R = U/i."],
+ ex:{e:"Uma lâmpada de 10 W fica acesa 6 h por dia durante 30 dias. Qual o consumo?",p:["P = 0,01 kW; t = 6 × 30 = 180 h.","E = 0,01 × 180 = 1,8 kWh."]},
+ erros:["Usar W e minutos direto na fórmula.","Achar que paralelo divide a tensão.","Confundir corrente (A) com resistência (Ω)."]},
+{id:"fis",a:"nat",titulo:"Mecânica, energia, ondas, calor e óptica",
+ teoria:`Velocidade média = distância total ÷ tempo total (com paradas). Força: <span class="f">F = m·a</span>. Energia se conserva: potencial (m·g·h) vira cinética (m·v²/2). Ondas: <span class="f">v = λ·f</span>. Calor: <span class="f">Q = m·c·ΔT</span>. Visão: miopia → lente divergente; hipermetropia → convergente.`,
+ metodo:["Liste os dados com unidades no SI (m, s, kg).","Identifique o fenômeno (movimento? energia? onda? calor?).","Escolha a fórmula e isole o que se pede.","Confira a unidade da resposta."],
+ ex:{e:"Uma moto percorre 60 km em 30 min. Qual a velocidade média em km/h?",p:["30 min = 0,5 h.","v = 60 ÷ 0,5 = 120 km/h."]},
+ erros:["Esquecer o tempo de parada.","Não converter MHz, km/h etc.","Achar que objetos mais pesados caem mais rápido (sem ar, caem igual)."]},
+{id:"qui1",a:"nat",titulo:"Mol, estequiometria e soluções",
+ teoria:`Mol é a "dúzia" da química: <b>1 mol = 6 × 10²³ partículas</b>. Massa molar = soma das massas atômicas (g/mol). Estequiometria usa a proporção dos coeficientes da equação balanceada. Concentração comum: <span class="f">C = m/V</span> (g/L). Diluição: <span class="f">C₁V₁ = C₂V₂</span>.`,
+ metodo:["Confira se a equação está balanceada.","Converta a massa dada em mol (÷ massa molar).","Use a proporção dos coeficientes.","Converta o resultado para o que se pede (massa, volume, moléculas)."],
+ ex:{e:"Quantos gramas de NaOH (40 g/mol) há em 2 L de solução 0,5 mol/L?",p:["n = 0,5 × 2 = 1 mol.","m = 1 × 40 = 40 g."]},
+ erros:["Pular a conversão para mol.","Esquecer de balancear a equação.","Achar que a diluição muda a massa de soluto."]},
+{id:"qui2",a:"nat",titulo:"Química ambiental, pH, misturas, pilhas e radioatividade",
+ teoria:`Química no cotidiano é o forte do ENEM. Chuva ácida (SO₂, NOₓ); efeito estufa (CO₂, CH₄); pH (escala logarítmica: cada 1 unidade = 10×); separação de misturas; pilhas (ânodo oxida, cátodo reduz); meia-vida (cai pela metade a cada período).`,
+ metodo:["Identifique o fenômeno do texto (poluição? ácido/base? pilha? radiação?).","Lembre a regra-chave do assunto (macetes abaixo).","Elimine alternativas que confundem conceitos (ex.: CO₂ como causador da chuva ácida).","Em meia-vida, faça a 'escadinha' dividindo por 2."],
+ ex:{e:"Um solo muito ácido prejudica a plantação. O que o agricultor pode adicionar para corrigi-lo?",p:["Ácido se neutraliza com base.","Usa-se calcário (CaCO₃) — a 'calagem' — que eleva o pH do solo."]},
+ erros:["Achar que pH 2 é 'um pouco' mais ácido que pH 3 (é 10 vezes).","Usar filtração para separar sal da água.","Inverter ânodo e cátodo."]},
+{id:"gen",a:"nat",titulo:"Genética",
+ teoria:`Cada característica é determinada por um par de genes (alelos), um vindo do pai e outro da mãe. Dominante (A) se manifesta mesmo com um alelo; recessivo (a) só em dose dupla (aa). Aa × Aa → 1/4 AA, 1/2 Aa, 1/4 aa. Grupos sanguíneos: Iᴬ e Iᴮ dominam i.`,
+ metodo:["Descubra os genótipos dos pais (pista: pais normais com filho afetado → ambos Aa).","Faça o quadro de Punnett.","Calcule a probabilidade do que se pede.","Se pedir o sexo, multiplique por 1/2. Se o indivíduo já é sabidamente normal, a chance de ser Aa é 2/3."],
+ ex:{e:"Pais normais têm um filho albino. Qual a chance do próximo filho ser normal?",p:["Filho aa → pais obrigatoriamente Aa × Aa.","Normal = AA ou Aa = 3/4."]},
+ erros:["Esquecer de multiplicar por 1/2 quando pede 'menino' ou 'menina'.","Usar 1/2 em vez de 2/3 quando o indivíduo já é normal.","Achar que o resultado de um filho influencia o próximo."]},
+{id:"eco",a:"nat",titulo:"Ecologia, evolução e saúde",
+ teoria:`Cadeia alimentar: a energia diminui a cada nível; poluentes não degradáveis se acumulam no topo. Relações: mutualismo (+/+), parasitismo (+/−), comensalismo (+/0), competição (−/−). Evolução por seleção natural (Darwin): o ambiente seleciona variações que já existem. Vacina previne (ativa); soro trata (passiva).`,
+ metodo:["Identifique os seres e seus papéis (produtor, consumidor, decompositor).","Use setas ↑ ↓ para prever efeitos em cadeia.","Em evolução, desconfie de 'para se adaptar' e 'porque precisava' (lamarckismo).","Em saúde, pergunte: é prevenção (vacina) ou tratamento (soro, remédio)?"],
+ ex:{e:"Por que pernilongos ficaram resistentes a um inseticida usado por anos?",p:["Alguns já eram resistentes por variação genética.","O inseticida matou os sensíveis; os resistentes sobreviveram e se reproduziram.","É seleção natural, não 'adaptação por necessidade'."]},
+ erros:["Achar que a energia aumenta subindo a cadeia.","Explicações lamarckistas em evolução.","Confundir vacina e soro."]},
+/* HUMANAS */
+{id:"hist",a:"hum",titulo:"História: como resolver + Brasil República",
+ teoria:`O ENEM cobra História relacionando passado e presente, com foco em cidadania, trabalho, escravidão e suas heranças, Era Vargas, Ditadura e Redemocratização. Quase sempre há um texto-base: a resposta é <b>a que conecta o texto ao contexto histórico</b>.`,
+ metodo:["Leia o COMANDO primeiro (o que pede: causa? consequência? objetivo?).","No texto, sublinhe data, autor, lugar e palavras-chave.","Situe no tempo: que período é esse? O que acontecia?","Elimine: anacronismos (fatos de outra época), afirmações absolutas ('sempre', 'nunca') e alternativas que contradizem o texto.","Escolha a que RESPONDE ao comando — não apenas a que é 'verdadeira'."],
+ ex:{e:"Um texto de 1943 fala em carteira de trabalho, férias e salário mínimo. Qual o contexto?",p:["1943 → Estado Novo (Era Vargas).","Direitos trabalhistas → CLT.","Contexto: trabalhismo, controle dos sindicatos pelo Estado."]},
+ erros:["Responder pelo que você 'acha' e não pelo texto.","Escolher alternativa verdadeira, mas que não responde à pergunta.","Anacronismo."]},
+{id:"filo",a:"hum",titulo:"Filosofia e Sociologia",
+ teoria:`Aqui o ENEM dá um trecho e pede a ideia do autor. Decore a "palavra-chave" de cada pensador (veja o Resumão): Hobbes = medo/segurança; Locke = propriedade/resistência; Rousseau = bondade natural/vontade geral; Durkheim = fato social; Weber = ação social/dominação; Marx = luta de classes; Frankfurt = indústria cultural.`,
+ metodo:["Encontre a palavra-chave do trecho.","Associe ao autor (mesmo que o nome não apareça).","Elimine alternativas que trazem ideias de OUTROS autores (são os distratores).","Confirme que a alternativa é coerente com o trecho."],
+ ex:{e:"\"O homem nasce livre, e por toda parte encontra-se a ferros.\" Quem é o autor?",p:["Liberdade natural corrompida pela sociedade → Rousseau.","Ideia ligada ao contrato social e à vontade geral."]},
+ erros:["Confundir os contratualistas.","Confundir solidariedade (Durkheim) com dominação (Weber)."]},
+{id:"geo2",a:"hum",titulo:"Geografia",
+ teoria:`Temas campeões: questões ambientais (desmatamento, clima urbano, recursos hídricos), urbanização e segregação, agropecuária e fronteira agrícola, globalização, energia e cartografia. O ENEM valoriza a relação <b>sociedade × natureza</b> e as desigualdades.`,
+ metodo:["Identifique se é tema físico (clima, relevo) ou humano (cidade, economia) — ou os dois.","Procure causa e consequência no texto/gráfico.","Prefira alternativas que mostram relações (ex.: impermeabilização → enchente).","Desconfie de soluções simplistas ou que culpam só a natureza."],
+ ex:{e:"Por que as enchentes são mais graves nas grandes cidades?",p:["Solo impermeabilizado (asfalto) → a água não infiltra.","Rios canalizados e ocupação das várzeas.","Lixo entupindo bueiros → o escoamento falha."]},
+ erros:["Confundir ilha de calor com inversão térmica.","Atribuir problemas urbanos só a 'excesso de chuva'."]},
+/* LINGUAGENS */
+{id:"interp",a:"lin",titulo:"Interpretação de texto, gêneros e figuras",
+ teoria:`Linguagens é a prova de <b>leitura</b>. A resposta está no texto. Pergunte sempre: <b>quem fala, para quem, com que objetivo e em que gênero?</b> Estude funções da linguagem, variação linguística, figuras e conectivos (veja o Resumão).`,
+ metodo:["Leia o comando antes do texto.","Identifique o gênero (charge, notícia, poema, anúncio…) e a finalidade.","Procure no texto a prova da alternativa (sublinhe!).","Elimine alternativas que extrapolam (dizem mais que o texto), reduzem ou contradizem.","Desconfie de alternativas preconceituosas sobre a língua."],
+ ex:{e:"Uma charge mostra um homem dizendo 'Que calor agradável!' no meio de um incêndio florestal. Qual o efeito?",p:["O que é dito ('agradável') contradiz a situação (incêndio).","Isso é ironia, usada para criticar o descaso ambiental."]},
+ erros:["Responder com conhecimento de fora, ignorando o texto.","Escolher alternativas que generalizam ('todos', 'sempre')."]},
+{id:"lingua",a:"lin",titulo:"Inglês e Espanhol",
+ teoria:`São 5 questões de leitura. Não é preciso saber traduzir tudo: busque <b>palavras transparentes</b>, o título, a fonte e a ideia central. Muitas vezes o comando e as alternativas estão em português.`,
+ metodo:["Leia o comando e as alternativas primeiro (sabendo o que procurar).","Leia o título e a fonte do texto.","Marque palavras conhecidas e cognatas.","Atenção aos conectivos (however, but, so) e aos falsos cognatos (no espanhol: oficina, exquisito, embarazada)."],
+ ex:{e:"'Pretend' em inglês significa:",p:["Falso cognato! Não é 'pretender'.","Significa 'fingir'. ('Pretender' = intend.)"]},
+ erros:["Traduzir palavra por palavra.","Cair em falsos cognatos."]}
+];
+
+function aulaDe(q){
+  if(q.a==="red") return "red";
+  if(q.a==="hum") return q.m==="História"?"hist":(q.m==="Geografia"?"geo2":"filo");
+  if(q.a==="lin") return (q.m==="Inglês"||q.m==="Espanhol")?"lingua":"interp";
+  const R=[["Porcentagem","porc"],["Variação percentual","porc"],["Juros","porc"],["Geometria","geo"],["Pitágoras","geo"],
+    ["Escala","prop"],["Regra de três","prop"],["Razão","prop"],["Estatística","est"],["Probabilidade","prob"],["ombinat","prob"],
+    ["Função","func"],["Sequências","func"],["Eletricidade","ele"],["Circuitos","ele"],["Velocidade","fis"],["Mecânica","fis"],
+    ["energia","fis"],["Ondulatória","fis"],["Calorimetria","fis"],["Óptica","fis"],["Soluções","qui1"],["Estequiometria","qui1"],
+    ["Mol","qui1"],["ambiental","qui2"],["pH","qui2"],["Separação","qui2"],["Eletroquímica","qui2"],["Radioatividade","qui2"],
+    ["Genética","gen"]];
+  for(const [s,id] of R) if(q.t.includes(s)) return id;
+  return "eco";
+}
+
+/* ===================== CURSO DE REDAÇÃO ===================== */
+const RED_AULA = `
+<div class="card">
+<h3 style="margin-top:0">🎓 Aula 1 — Passo a passo na hora da prova</h3>
+<table>
+<tr><th>1</th><td><b>Leia o tema e sublinhe as palavras-chave.</b> Separe o ASSUNTO (ex.: envelhecimento) do RECORTE (ex.: "perspectivas", "na sociedade brasileira"). <i>~3 min</i></td></tr>
+<tr><th>2</th><td><b>Leia os textos motivadores</b> para entender o recorte. Não copie trechos deles. <i>~5 min</i></td></tr>
+<tr><th>3</th><td><b>Defina o problema e 2 causas</b> (ou 1 causa + 1 consequência). Elas serão o D1 e o D2. <i>~5 min</i></td></tr>
+<tr><th>4</th><td><b>Escolha os repertórios</b>: um para a introdução e um para cada desenvolvimento (lei, pensador, dado, fato histórico, obra). <i>~5 min</i></td></tr>
+<tr><th>5</th><td><b>Planeje a proposta</b>: uma solução para cada causa, com os 5 elementos. <i>~5 min</i></td></tr>
+<tr><th>6</th><td><b>Escreva o rascunho</b> seguindo a estrutura de 4 parágrafos. <i>~35 min</i></td></tr>
+<tr><th>7</th><td><b>Revise</b>: acentos, concordância, vírgulas, repetição de palavras, conectivos. <i>~7 min</i></td></tr>
+<tr><th>8</th><td><b>Passe a limpo</b> com letra legível, entre 25 e 30 linhas. <i>~15 min</i></td></tr>
+</table>
+<div class="dica">Total: cerca de 1h20. Comece o 1º dia pela redação, enquanto a cabeça está descansada.</div>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0">🧩 Aula 2 — Estrutura "coringa" (preencha os colchetes)</h3>
+<p><b>Introdução</b><br>"[Repertório: lei, autor ou fato] [explique-o em uma frase]. No Brasil, contudo, [reescreva o tema com suas palavras]. Esse cenário ocorre, sobretudo, devido a [causa 1] e a [causa 2]."</p>
+<p><b>Desenvolvimento 1</b><br>"Em primeiro lugar, cabe destacar [causa 1]. Isso porque [explicação: por que isso acontece?]. Segundo [repertório 2], [ideia do repertório]. Dessa forma, [consequência ligada ao tema]."</p>
+<p><b>Desenvolvimento 2</b><br>"Além disso, [causa 2] também agrava o problema. [Explicação]. A exemplo disso, [repertório 3 ou dado]. Assim, [consequência ligada ao tema]."</p>
+<p><b>Conclusão</b><br>"Portanto, é necessário [retomar o problema]. Para isso, [agente 1] deve [ação 1], por meio de [meio], a fim de [finalidade]. Além disso, [agente 2] deve [ação 2] — [detalhamento] —, com o objetivo de [finalidade 2]. Dessa maneira, [retome o repertório da introdução]."</p>
+<div class="dica">Cada desenvolvimento segue o <b>TEA</b>: <b>T</b>ópico (a causa), <b>E</b>xplicação (por quê?) e <b>A</b>rgumento de autoridade (repertório) + fechamento ligado ao tema.</div>
+</div>`;
+
+const MODELOS = [
+{tema:"ENEM 2024 — Desafios para a valorização da herança africana no Brasil",
+ par:[
+ ["Introdução","A Constituição Federal de 1988, em seu artigo 215, determina que o Estado proteja as manifestações das culturas populares, indígenas e afro-brasileiras. Entretanto, na prática, essa garantia não se concretiza plenamente, visto que a herança africana — presente na língua, na culinária, na música e na religiosidade do país — ainda é marginalizada. Esse cenário decorre, sobretudo, da abordagem insuficiente do tema nas escolas e do racismo estrutural que persiste na sociedade.",
+  "Repertório legal (Constituição) ligado ao tema → contraste com a realidade (\"Entretanto\") → tese com as DUAS causas que serão desenvolvidas."],
+ ["Desenvolvimento 1","Em primeiro lugar, a falha do sistema educacional contribui para o apagamento das contribuições africanas. Embora a Lei 10.639/2003 torne obrigatório o ensino de história e cultura afro-brasileira, muitas escolas ainda restringem a presença do negro nos currículos ao período da escravidão, sem destacar sua produção intelectual, artística e tecnológica. Dessa forma, os estudantes crescem sem reconhecer que o samba, a capoeira e palavras como \"caçula\" e \"moleque\" têm origem africana, o que enfraquece o sentimento de pertencimento de mais da metade da população, que se declara preta ou parda.",
+  "Tópico (causa 1) → repertório específico (Lei 10.639) explicado → exemplos concretos → fechamento ligado à valorização da herança africana."],
+ ["Desenvolvimento 2","Além disso, o racismo estrutural, conceito discutido pelo jurista Silvio Almeida, faz com que práticas de matriz africana sejam vistas com preconceito. Prova disso são os frequentes ataques a terreiros de candomblé e umbanda, caracterizados como racismo religioso. Nesse sentido, enquanto elementos de origem europeia são tratados como \"cultura\", heranças africanas ainda são associadas ao atraso ou ao perigo, o que perpetua a desigualdade simbólica herdada de mais de três séculos de escravidão e de uma abolição sem políticas de inclusão.",
+  "Conectivo novo (\"Além disso\") → causa 2 com repertório de autor → exemplo real → aprofundamento histórico (escravidão e abolição)."],
+ ["Conclusão","Portanto, é necessário superar esses desafios. Para isso, o Ministério da Educação, em parceria com as secretarias estaduais, deve garantir a aplicação efetiva da Lei 10.639/2003, por meio da formação continuada de professores e da inclusão de autores e cientistas negros nos materiais didáticos, a fim de que os alunos valorizem a herança africana desde cedo. Ademais, a mídia deve promover campanhas — veiculadas na TV aberta e nas redes sociais — que combatam o racismo religioso e divulguem a riqueza cultural afro-brasileira. Assim, o que prevê a Constituição deixará de ser apenas uma promessa.",
+  "Duas propostas (uma para cada causa). Proposta 1: agente (MEC), ação (garantir aplicação da lei), meio (formação de professores…), finalidade (a fim de…). Proposta 2 com detalhamento entre travessões. Fecha retomando a Constituição da introdução."]
+ ]},
+{tema:"ENEM 2025 — Perspectivas acerca do envelhecimento na sociedade brasileira",
+ par:[
+ ["Introdução","Na obra \"A Velhice\", a filósofa Simone de Beauvoir denuncia que a sociedade costuma tratar os idosos como se deixassem de ser plenamente humanos ao perderem sua função produtiva. No Brasil contemporâneo, essa visão se mostra atual: apesar do envelhecimento acelerado da população, revelado pelo Censo 2022 do IBGE, as perspectivas sobre a velhice ainda são marcadas pela exclusão. Esse quadro é causado pela insuficiência de políticas públicas de cuidado e pelo etarismo presente na cultura do país.",
+  "Repertório filosófico pertinente → dado da realidade brasileira → tese com duas causas (Estado + cultura)."],
+ ["Desenvolvimento 1","Em primeiro lugar, o Estado não tem acompanhado a nova realidade demográfica. Embora o Estatuto da Pessoa Idosa assegure direitos como saúde, transporte e convivência comunitária, faltam geriatras no SUS, instituições públicas de longa permanência e programas de cuidado domiciliar. Como consequência, o cuidado recai sobre as famílias — especialmente sobre as mulheres —, que muitas vezes não têm tempo nem recursos para garanti-lo, o que deixa muitos idosos em situação de abandono.",
+  "Causa 1 (falha do Estado) → repertório legal (Estatuto) em contraste com a realidade → consequência concreta."],
+ ["Desenvolvimento 2","Além disso, o preconceito etário, conhecido como etarismo, reforça a exclusão. Em uma sociedade que valoriza a juventude e a produtividade, como analisa Zygmunt Bauman ao descrever a \"modernidade líquida\", o idoso é visto como ultrapassado — seja no mercado de trabalho, que dificulta sua contratação, seja no ambiente digital, que não é pensado para ele. Isso o torna mais vulnerável a golpes virtuais e ao isolamento, comprometendo sua saúde mental e sua participação social.",
+  "Causa 2 (cultura) → conceito definido (etarismo) → repertório sociológico → exemplos atuais (trabalho, internet, golpes)."],
+ ["Conclusão","Logo, é preciso construir novas perspectivas para o envelhecimento. Para isso, o Ministério da Saúde deve ampliar a rede de cuidado à pessoa idosa, por meio da contratação de geriatras e da criação de centros-dia públicos, a fim de garantir assistência digna e aliviar as famílias. Paralelamente, as escolas e a mídia devem promover ações intergeracionais — como oficinas em que jovens ensinem idosos a usar a internet com segurança —, com o objetivo de combater o etarismo. Dessa forma, a velhice deixará de ser sinônimo de invisibilidade, como criticou Beauvoir.",
+  "Cada proposta resolve uma causa. Todos os 5 elementos presentes; detalhamento entre travessões; retomada de Beauvoir fecha o texto em círculo."]
+ ]}
+];
+
+const TREINOS = [
+{tema:"Desafios para combater a desinformação nas redes sociais no Brasil",
+ c1:"Baixa educação midiática: muitos não sabem checar fontes. Repertório: em 2016, o Dicionário Oxford elegeu \"pós-verdade\" como palavra do ano — emoções pesam mais que fatos.",
+ c2:"Algoritmos que priorizam conteúdo sensacionalista e criam bolhas. Repertório: Bauman (relações e informações líquidas) ou o documentário \"O Dilema das Redes\".",
+ prop:"MEC incluir educação midiática no currículo, por meio de oficinas de checagem de notícias, a fim de formar leitores críticos; plataformas digitais sinalizarem conteúdos falsos, com apoio de agências de checagem."},
+{tema:"Desafios para a promoção da saúde mental dos jovens no Brasil",
+ c1:"Estigma e falta de acesso: poucos serviços públicos especializados. Repertório: a Lei 13.935/2019 prevê psicólogos e assistentes sociais nas escolas públicas, mas é pouco aplicada.",
+ c2:"Pressão por desempenho e uso excessivo de redes sociais. Repertório: Byung-Chul Han, \"Sociedade do Cansaço\" — o excesso de cobrança gera esgotamento.",
+ prop:"Secretarias de Educação contratarem psicólogos para as escolas, conforme a lei, a fim de acolher os estudantes; mídia promover campanhas contra o estigma, com depoimentos de jovens."},
+{tema:"Desafios para o combate à insegurança alimentar no Brasil",
+ c1:"Desigualdade de renda e desemprego. Repertório: Josué de Castro, \"Geografia da Fome\" — a fome é um problema social e político, não natural.",
+ c2:"Desperdício de alimentos ao longo da cadeia. Repertório: o artigo 6º da Constituição inclui a alimentação entre os direitos sociais.",
+ prop:"Governo Federal ampliar programas de transferência de renda e restaurantes populares; prefeituras criarem bancos de alimentos em parceria com supermercados, para reduzir o desperdício."},
+{tema:"Desafios para a permanência dos jovens na escola no Brasil",
+ c1:"Necessidade de trabalhar para ajudar a família. Repertório: o programa Pé-de-Meia (incentivo financeiro à permanência no ensino médio) mostra que a renda influencia a evasão.",
+ c2:"Ensino desconectado da realidade do aluno. Repertório: Paulo Freire — educação que dialoga com a vida do estudante é transformadora.",
+ prop:"MEC ampliar bolsas de permanência; escolas oferecerem projetos ligados ao mundo do trabalho e à comunidade, com participação dos estudantes."},
+{tema:"Impactos das mudanças climáticas sobre as populações vulneráveis no Brasil",
+ c1:"Ocupação de áreas de risco pela população pobre. Repertório: enchentes no Rio Grande do Sul (2024) — os mais pobres foram os mais atingidos (racismo ambiental).",
+ c2:"Falta de prevenção e planejamento urbano. Repertório: Acordo de Paris (2015) e o compromisso de adaptação climática.",
+ prop:"Ministério das Cidades financiar habitação segura e obras de drenagem; Defesa Civil criar sistemas de alerta por SMS e planos de evacuação nas comunidades."},
+{tema:"Desafios para a inclusão das pessoas com deficiência no Brasil",
+ c1:"Barreiras de acessibilidade em espaços e serviços. Repertório: a Lei Brasileira de Inclusão (Lei 13.146/2015) garante acessibilidade, mas é descumprida.",
+ c2:"Capacitismo: preconceito que vê a pessoa com deficiência como incapaz. Repertório: Constituição, art. 5º (igualdade).",
+ prop:"Prefeituras fiscalizarem e adaptarem calçadas, transportes e prédios; empresas e mídia promoverem campanhas e contratações inclusivas, com metas de diversidade."}
+];
+
+const CHECK = ["Minha tese apresenta duas causas/argumentos?","Usei as palavras-chave do tema em todos os parágrafos?","Tenho pelo menos 2 repertórios explicados e ligados ao tema?","Cada parágrafo começa com um conectivo diferente?","A conclusão tem agente, ação, meio, finalidade e detalhamento?","A proposta respeita os direitos humanos?","Não usei 1ª pessoa, gírias nem perguntas?","Tenho entre 25 e 30 linhas?"];
+
+function redacaoPage(){
+  const qs = Q.map((q,i)=>[q,i]).filter(([q])=>q.a==="red");
+  let rascunho=""; try{ rascunho = localStorage.getItem("enemRedacao")||""; }catch(e){}
+  return `<h2>✍️ Curso de Redação</h2>
+  ${RED_AULA}
+  <h3>🏆 Redações-modelo comentadas</h3>
+  ${MODELOS.map(m=>`<details><summary>${m.tema}</summary><div class="in">
+    ${m.par.map(([n,t,c])=>`<p style="margin-bottom:4px"><b>${n}</b></p><p style="margin-top:0">${t}</p><div class="dica" style="margin-bottom:14px">🔍 <b>Por que funciona:</b> ${c}</div>`).join("")}
+  </div></details>`).join("")}
+  <h3>🎯 Treine com outros temas</h3>
+  <p class="small muted">Temas sociais que costumam aparecer em simulados e vestibulares. Tente montar a redação antes de abrir o roteiro.</p>
+  ${TREINOS.map(t=>`<details><summary>${t.tema}</summary><div class="in">
+    <p><b>Causa 1:</b> ${t.c1}</p><p><b>Causa 2:</b> ${t.c2}</p><p><b>Proposta:</b> ${t.prop}</p></div></details>`).join("")}
+  <h3>✏️ Exercícios de redação (${qs.length})</h3>
+  ${qs.map(([q])=>qCard(q)).join("")}
+  <h3>📝 Escreva a sua redação</h3>
+  <div class="card">
+    <p class="small muted" style="margin-top:0">Escolha um tema acima e escreva aqui. O texto fica salvo neste aparelho.</p>
+    <textarea id="txt" oninput="salvaTxt()" style="width:100%;min-height:320px;border:1px solid var(--line);border-radius:10px;padding:12px;font:16px/1.6 inherit;background:var(--bg);color:var(--text)">${rascunho.replace(/</g,"&lt;")}</textarea>
+    <p class="small muted" id="cont"></p>
+    <b>Checklist antes de entregar</b>
+    ${CHECK.map((c,i)=>`<label style="display:flex;gap:8px;margin:6px 0;align-items:flex-start"><input type="checkbox" ${state["ck"+i]?"checked":""} onchange="state['ck${i}']=this.checked;save()"> <span class="small">${c}</span></label>`).join("")}
+  </div>
+  <h3>📚 Material de referência</h3>
+  ${REDACAO}`;
+}
+function salvaTxt(){
+  const v=document.getElementById("txt").value;
+  try{ localStorage.setItem("enemRedacao",v); }catch(e){}
+  contar();
+}
+function contar(){
+  const el=document.getElementById("txt"); if(!el) return;
+  const v=el.value, pal=(v.trim().match(/\S+/g)||[]).length;
+  const linhas=v.split("\n").reduce((s,l)=>s+Math.max(1,Math.ceil(l.length/75)),0);
+  document.getElementById("cont").textContent=`${pal} palavras · cerca de ${v.trim()?linhas:0} linhas na folha oficial (ideal: 25 a 30; a média é de 10 palavras por linha)`;
+}
+
+/* ===================== REDAÇÃO (referência) ===================== */
 const REDACAO = `
 <div class="card">
   <h3 style="margin-top:0">Temas dos últimos 5 anos</h3>
@@ -643,7 +987,7 @@ let current = "inicio", filtro = "Todas", simList = null;
 function nav(){
   document.getElementById("nav").innerHTML = TABS.map(([k,v]) =>
     `<button class="${k===current?'on':''}" onclick="go('${k}')">${v}</button>`).join("");
-  const ks = Object.keys(state).filter(k=>!k.startsWith('r')); const feitas = ks.length, certas = ks.filter(k=>state[k]===true).length;
+  const ks = Object.keys(state).filter(k=>/^\d+$/.test(k)); const feitas = ks.length, certas = ks.filter(k=>state[k]===true).length;
   document.getElementById("score").textContent = `${certas}/${feitas} acertos · ${Q.length} questões`;
 }
 function go(k){ current = k; filtro = "Todas"; if(k==="sim") simList = null; render(); window.scrollTo(0,0); }
@@ -674,21 +1018,30 @@ function reset(i){ delete state["r"+i]; delete state[i]; save(); rerenderQ(i); n
 function rerenderQ(i){ const el=document.getElementById("q"+i); if(el) el.outerHTML = qCard(Q[i]); }
 
 function areaPage(a){
-  const info = AREAS[a], qs = Q.filter(q=>q.a===a);
-  const materias = ["Todas", ...new Set(qs.map(q=>q.m))];
-  const mc = MAIS_COBRADOS[a];
-  const lista = filtro==="Todas" ? qs : qs.filter(q=>q.m===filtro);
+  const info = AREAS[a], mc = MAIS_COBRADOS[a];
+  const aulas = AULAS.filter(x=>x.a===a);
+  const total = Q.filter(q=>q.a===a).length;
   return `<h2>${info.icone} ${info.nome}</h2>
   <div class="card">
     <b>🔥 O que mais caiu (2021–2025)</b>
     <p class="small muted" style="margin:4px 0 8px">Em vermelho: cai em praticamente toda prova.</p>
     <div class="chips">${mc.muito.map(t=>`<span class="chip hot">${t}</span>`).join("")}${mc.freq.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
   </div>
-  <h3>📝 Resumos e fórmulas</h3>
-  ${RESUMOS[a].map(([t,h])=>`<details><summary>${t}</summary><div class="in">${h}</div></details>`).join("")}
-  <h3>✏️ Questões com resolução (${qs.length})</h3>
-  <div class="filter">${materias.map(m=>`<button class="${m===filtro?'on':''}" onclick="setF('${m}')">${m}</button>`).join("")}</div>
-  ${lista.map(qCard).join("")}`;
+  <h3>🎓 Aulas (${aulas.length}) · ${total} questões</h3>
+  <p class="small muted" style="margin-top:0">Cada aula tem: teoria → como resolver → exemplo resolvido → erros comuns → exercícios com passo a passo.</p>
+  ${aulas.map((x,n)=>{
+    const qs = Q.filter(q=>q.a===a && aulaDe(q)===x.id);
+    const feitas = qs.filter(q=>state[Q.indexOf(q)]!==undefined).length;
+    return `<details><summary>Aula ${n+1} — ${x.titulo} <span class="small muted">(${feitas}/${qs.length})</span></summary><div class="in">
+      <p><b>📘 Teoria</b><br>${x.teoria}</p>
+      <div class="passos"><b>🛠️ Como resolver (método)</b><ol>${x.metodo.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <div class="card" style="margin:12px 0"><b>✅ Exemplo resolvido</b><p style="margin:6px 0">${x.ex.e}</p><ol style="margin:0;padding-left:20px">${x.ex.p.map(s=>`<li>${s}</li>`).join("")}</ol></div>
+      <div class="dica" style="background:var(--bad-soft)"><b>⚠️ Erros comuns</b><ul class="clean">${x.erros.map(s=>`<li>${s}</li>`).join("")}</ul></div>
+      <h3>✏️ Exercícios</h3>
+      ${qs.map(qCard).join("")}
+    </div></details>`;}).join("")}
+  <h3>📝 Resumão (fórmulas e conceitos)</h3>
+  ${RESUMOS[a].map(([t,h])=>`<details><summary>${t}</summary><div class="in">${h}</div></details>`).join("")}`;
 }
 function setF(m){ filtro=m; render(); }
 
@@ -702,11 +1055,11 @@ function inicio(){
   }).join("");
   return `<h2>Bora pra prova! 💪</h2>
   <div class="card">
-    <p style="margin-top:0">Este material funciona <b>100% offline</b>. Ele junta os <b>temas que mais caíram no ENEM de 2021 a 2025</b>, com resumos, fórmulas e <b>${Q.length} questões no estilo ENEM</b> resolvidas passo a passo.</p>
-    <p class="small muted" style="margin-bottom:0">Seu progresso fica salvo neste aparelho. Sugestão de roteiro na viagem: 1) Dicas → 2) Redação → 3) Resumos de cada área → 4) Simulado.</p>
+    <p style="margin-top:0">Este material funciona <b>100% offline</b>. Ele junta os <b>temas que mais caíram no ENEM de 2021 a 2025</b>, como um cursinho: <b>${AULAS.length} aulas</b> (teoria, método, exemplo e erros comuns), <b>${Q.length} questões no estilo ENEM</b> resolvidas passo a passo e um <b>curso de redação</b> com redações-modelo comentadas.</p>
+    <p class="small muted" style="margin-bottom:0">Seu progresso fica salvo neste aparelho. Sugestão de roteiro na viagem: 1) Dicas → 2) Curso de Redação → 3) Aulas de cada área → 4) Simulado.</p>
   </div>
   <div class="grid">${cards}
-    <button class="area" onclick="go('red')"><strong>✍️ Redação</strong><span class="small muted">Temas, estrutura, repertórios</span></button>
+    <button class="area" onclick="go('red')"><strong>✍️ Curso de Redação</strong><span class="small muted">Passo a passo, modelos nota alta, treinos</span></button>
     <button class="area" onclick="go('sim')"><strong>🎯 Simulado</strong><span class="small muted">10 questões aleatórias</span></button>
   </div>
   <div class="btnrow" style="margin-top:16px"><button class="btn ghost" onclick="zerar()">Zerar meu progresso</button></div>`;
@@ -732,7 +1085,7 @@ function render(){
   const app = document.getElementById("app");
   if(current==="inicio") app.innerHTML = inicio();
   else if(AREAS[current]) app.innerHTML = areaPage(current);
-  else if(current==="red") app.innerHTML = `<h2>✍️ Redação</h2>` + REDACAO;
+  else if(current==="red"){ app.innerHTML = redacaoPage(); contar(); }
   else if(current==="sim") app.innerHTML = simulado();
   else if(current==="dicas") app.innerHTML = `<h2>💡 Dicas para o dia da prova</h2>` + DICAS;
 }
